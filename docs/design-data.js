@@ -294,6 +294,8 @@ angular.module('assessmentApp')
 '    <<interface>>\n' +
 '    +boolean isProcessed(String requestId)\n' +
 '    +void markProcessed(String requestId)\n' +
+'    +boolean isTransactionProcessed(String transactionId)\n' +
+'    +void markTransactionProcessed(String transactionId)\n' +
 '  }\n' +
 '  class SequenceBuffer {\n' +
 '    -long lastResolvedSequence\n' +
@@ -475,8 +477,8 @@ angular.module('assessmentApp')
     },
     {
       id: 'DD-03',
-      title: 'Idempotency key = requestId (not transactionId)',
-      rationale: 'transactionId identifies the business transaction; requestId/idempotencyKey identifies the physical attempt. Keying the dedup store on requestId lets us detect exact-duplicate retries (REQ-2 vs REQ-2-DUP) while still reasoning about transactionId for ordering/sequencing.',
+      title: 'Idempotency check is dual-key: requestId AND transactionId',
+      rationale: 'Originally keyed only on requestId, relying on the sequence-staleness check (FC-03) to incidentally catch REQ-2-DUP. That is fragile: a duplicate reusing a fresh, never-before-seen sequence number would slip through. Found by cross-checking this design against an independent AI session’s analysis of the same assessment, which argued transactionId is the more direct dedup key for that exact test case. Fixed: IdempotencyStore now also tracks resolved transactionIds, checked immediately after the requestId check.',
       linkedRequirements: ['L2-FR-05', 'L2-FR-06', 'NFR-01']
     },
     {

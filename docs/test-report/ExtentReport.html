@@ -1,0 +1,3294 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title></title>
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/css/spark-style.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@7cc78ce/spark/js/jsontree.js"></script>
+<style type="text/css"></style></head><body class="spa bdd-report standard">
+  <div class="app">
+    <div class="layout">
+<div class="header navbar">
+<div class="vheader">
+<div class="nav-logo">
+<a href="#">
+<div class="logo" style="background-image: url('https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png')"></div>
+</a>
+</div>
+<ul class="nav-left">
+<li class="search-box">
+<a class="search-toggle" href="#">
+<i class="search-icon fa fa-search"></i>
+<i class="search-icon-close fa fa-close"></i>
+</a>
+</li>
+<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
+</ul>
+<ul class="nav-right">
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary"></span></a>
+</li>
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">Nov 11, 2026 10:44:05 PM</span></a>
+</li>
+</ul>
+</div>
+</div><div class="side-nav">
+<div class="side-nav-inner">
+<ul class="side-nav-menu">
+<li class="nav-item dropdown" onclick="toggleView('test-view')">
+<a id="nav-test" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('category-view')">
+<a id="nav-category" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-tag"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+<a id="nav-dashboard" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bar-chart"></i></span>
+</a>
+</li>
+</ul>
+</div>
+</div>      <div class="vcontainer">
+        <div class="main-content">
+<div class="test-wrapper row view test-view">
+  <div class="test-list">
+    <div class="test-list-tools">
+<ul class="tools pull-left">
+<li><a href="#"><span class="font-size-14">Tests</span></a></li>
+</ul>
+<ul class="tools text-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
+<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" status="pass" href="#"><span>Pass</span><span class="status success"></span></a>
+<div class="dropdown-divider"></div>
+<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-tag"></i></a>
+<ul id="tag-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" href="#">@US-07</a><a class="dropdown-item" href="#">@AC-08.1</a><a class="dropdown-item" href="#">@AC-10.1</a><a class="dropdown-item" href="#">@US-02</a><a class="dropdown-item" href="#">@AC-06.2</a><a class="dropdown-item" href="#">@US-05</a><a class="dropdown-item" href="#">@AC-03.1</a><a class="dropdown-item" href="#">@AC-10.2</a><a class="dropdown-item" href="#">@AC-11.1</a><a class="dropdown-item" href="#">@AC-03.4</a><a class="dropdown-item" href="#">@AC-07.1</a><a class="dropdown-item" href="#">@US-01</a><a class="dropdown-item" href="#">@AC-04.3</a><a class="dropdown-item" href="#">@US-06</a><a class="dropdown-item" href="#">@AC-06.1</a><a class="dropdown-item" href="#">@AC-03.3</a><a class="dropdown-item" href="#">@AC-08.2</a><a class="dropdown-item" href="#">@US-11</a><a class="dropdown-item" href="#">@AC-03.2</a><a class="dropdown-item" href="#">@AC-09.2</a><a class="dropdown-item" href="#">@AC-09.1</a><a class="dropdown-item" href="#">@AC-02.3</a><a class="dropdown-item" href="#">@AC-07.2</a><a class="dropdown-item" href="#">@AC-05.3</a><a class="dropdown-item" href="#">@US-08</a><a class="dropdown-item" href="#">@AC-01.1</a><a class="dropdown-item" href="#">@US-10</a><a class="dropdown-item" href="#">@AC-04.2</a><a class="dropdown-item" href="#">@AC-01.2</a><a class="dropdown-item" href="#">@US-09</a><a class="dropdown-item" href="#">@AC-05.1</a><a class="dropdown-item" href="#">@AC-05.2</a><a class="dropdown-item" href="#">@AC-02.2</a><a class="dropdown-item" href="#">@US-04</a><a class="dropdown-item" href="#">@AC-04.1</a><a class="dropdown-item" href="#">@AC-02.1</a><a class="dropdown-item" href="#">@US-03</a><a class="dropdown-item" href="#">@AC-06.3</a>
+</ul>
+</li>
+</ul>
+</div>    <div class="test-list-wrapper scrollable">
+      <ul class="test-list-item">
+        <li class="test-item"  status="pass" test-id="1"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Configurable Transaction Ingestion</p>
+            <p class="text-sm">
+              <span>10:44:06 PM</span> / <span>00:00:00:563</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Configurable Transaction Ingestion</h5>
+<span class='badge badge-success'>11.11.2026 10:44:06 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:563</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-01
+As an operator
+I want the service to accept transaction requests from a configurable, replaceable input source
+So that the same core logic can later be wired to a real queue, file, or API without touching business logic</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="2"><span class="badge log pass-bg mr-2">Pass</span>Requests load through a single input source abstraction</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.an_in_memory_list_of_transaction_requests()">
+                <span>Given an in-memory list of transaction requests</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_service_starts()">
+                <span>When the service starts</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_loads_all_requests_through_a_single_transaction_source_interface()">
+                <span>Then it loads all requests through a single TransactionSource interface</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="6"><span class="badge log pass-bg mr-2">Pass</span>Swapping the input source does not affect business logic</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_input_source_implementation_is_swapped_for_a_file_reader()">
+                <span>Given the input source implementation is swapped for a file reader</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_service_runs()">
+                <span>When the service runs</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.no_change_is_required_in_the_validator_processor_or_state_store_classes()">
+                <span>Then no change is required in the validator, processor, or state-store classes</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="10"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Input Validation</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:114</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Input Validation</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:114</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=10</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-02, NFR-06
+As a system owner
+I want malformed transaction records rejected before processing
+So that bad data cannot corrupt transaction state or crash the batch</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="11"><span class="badge log pass-bg mr-2">Pass</span>Missing mandatory field is rejected</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_missing_a_mandatory_field()">
+                <span>Given a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_ingested()">
+                <span>When it is ingested</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_marked_failed_with_a_validation_reason()">
+                <span>Then it is marked FAILED with a validation reason</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_excluded_from_business_processing()">
+                <span>And it is excluded from business processing</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="16"><span class="badge log pass-bg mr-2">Pass</span>Invalid amount is rejected with a clear reason</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_with_a_negative_amount()">
+                <span>Given a request with a negative amount that violates the field rules, such as TXN-2004 with amount -10</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_validated()">
+                <span>When it is validated</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_rejected_as_failed_with_a_clear_reason()">
+                <span>Then it is rejected as FAILED with a clear reason</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_rest_of_the_batch_still_processes()">
+                <span>And the rest of the batch still processes</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="21"><span class="badge log pass-bg mr-2">Pass</span>One invalid record does not stop the batch</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.one_invalid_record_inside_a_batch_of_n_records()">
+                <span>Given one invalid record inside a batch of N records</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_batch_runs()">
+                <span>When the batch runs</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_remaining_valid_records_are_still_processed_normally()">
+                <span>Then the remaining N-1 valid records are still processed normally</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="25"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Transaction State Lifecycle</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:074</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Transaction State Lifecycle</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:074</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=25</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-03, L2-FR-04
+As a QA / operations reviewer
+I want every transaction to carry a well-defined, enforced status
+So that I can always tell what happened to a given request without reading code</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="26"><span class="badge log pass-bg mr-2">Pass</span>New request starts as RECEIVED</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.a_new_request()">
+                <span>Given a new request</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_constructed_before_entering_the_processing_pipeline()">
+                <span>When it is constructed, before entering the processing pipeline</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.its_initial_status_is_received()">
+                <span>Then its initial status is RECEIVED</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="30"><span class="badge log pass-bg mr-2">Pass</span>Processing transitions status to PROCESSING</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.a_received_request_picked_up_for_work()">
+                <span>Given a RECEIVED request picked up for work</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.processing_starts()">
+                <span>When processing starts</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.status_transitions_to_processing()">
+                <span>Then status transitions to PROCESSING</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="34"><span class="badge log pass-bg mr-2">Pass</span>Status is always one of the defined lifecycle values</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.any_transaction_at_any_point_in_time()">
+                <span>Given any transaction at any point in time</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.its_status_is_inspected()">
+                <span>When its status is inspected</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_exactly_one_of_the_defined_statuses()">
+                <span>Then it is exactly one of RECEIVED, PROCESSING, PENDING_ORDER, RETRY_PENDING, PROCESSED, DUPLICATE, or FAILED</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="38"><span class="badge log pass-bg mr-2">Pass</span>Illegal transitions are rejected</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.an_illegal_transition_is_attempted()">
+                <span>Given an illegal transition is attempted, such as DUPLICATE to PROCESSING</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_attempted()">
+                <span>When it is attempted</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_rejected_and_logged_as_an_invalid_transition()">
+                <span>Then it is rejected and logged as an invalid transition</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="42"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Idempotent Processing and Duplicate Detection</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:046</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Idempotent Processing and Duplicate Detection</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:046</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=42</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-05, L2-FR-06, NFR-01
+As a business owner
+I want each unique transaction processed exactly once regardless of retries or replays
+So that customers are never double-charged or double-credited</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="43"><span class="badge log pass-bg mr-2">Pass</span>Already-processed requestId is marked DUPLICATE</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.a_requestId_already_marked_processed()">
+                <span>Given a requestId already marked PROCESSED</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.the_same_requestId_is_submitted_again()">
+                <span>When the same requestId is submitted again</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.it_is_marked_duplicate()">
+                <span>Then it is marked DUPLICATE</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.no_balance_or_ledger_side_effect_occurs()">
+                <span>And no balance or ledger side effect occurs</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="48"><span class="badge log pass-bg mr-2">Pass</span>A duplicate arriving later in the batch is still detected</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.req2_and_req2_dup_both_referencing_txn_2002()">
+                <span>Given REQ-2 and REQ-2-DUP both referencing TXN-2002, as in section 9.8 rows 1 and 3</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.req2_is_processed_first()">
+                <span>When REQ-2 is processed first</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.req2_dup_is_detected_as_duplicate()">
+                <span>Then REQ-2-DUP is detected as DUPLICATE even though it arrives later in the batch</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="52"><span class="badge log pass-bg mr-2">Pass</span>Repeated submissions yield exactly one effect</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.the_idempotency_store_keyed_by_requestId()">
+                <span>Given the idempotency store keyed by requestId</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.the_same_request_is_submitted_multiple_times()">
+                <span>When the same request is submitted multiple times</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.IdempotencySteps.the_final_ledger_effect_is_identical_to_processing_it_once()">
+                <span>Then the final ledger effect is identical to processing it exactly once</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="56"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Out-of-Order Request Handling (Option A - Sequence-Based)</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:048</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Out-of-Order Request Handling (Option A - Sequence-Based)</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:048</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=56</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-07, NFR-02
+As the system
+I want to process a request only after all of its prior required sequence numbers have arrived
+So that account balances are always computed on a consistent, ordered history</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="57"><span class="badge log pass-bg mr-2">Pass</span>A future sequence is buffered, then released once its predecessor arrives</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.txn2002_arrives_before_txn2001()">
+                <span>Given TXN-2002 with sequence 2 arrives before TXN-2001 with sequence 1 for the same account, as in section 9.8 rows 1 and 2</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_2_is_received()">
+                <span>When sequence 2 is received</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_held_as_pending_order()">
+                <span>Then it is held as PENDING_ORDER</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_not_processed()">
+                <span>And it is not processed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_1_later_arrives_and_is_processed()">
+                <span>When sequence 1 later arrives and is processed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.the_buffered_sequence_2_request_is_automatically_released()">
+                <span>Then the buffered sequence 2 request is automatically released</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_processed_next_in_order()">
+                <span>And it is processed next, in order</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="65"><span class="badge log pass-bg mr-2">Pass</span>A missing sequence is reported, not dropped</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.a_sequence_number_that_never_arrives_within_the_batch()">
+                <span>Given a sequence number that never arrives within the batch</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.end_of_batch_is_reached()">
+                <span>When end-of-batch is reached</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.the_missing_sequence_is_reported_in_the_processing_summary()">
+                <span>Then the missing sequence is reported in the processing summary</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_not_silently_dropped()">
+                <span>And it is not silently dropped</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="70"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Retry-Safe Resilience</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:051</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Retry-Safe Resilience</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:051</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=70</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-08, L2-FR-09, NFR-03
+As an operator
+I want transient failures retried automatically without duplicating effects
+So that temporary downstream issues never cause lost or duplicated transactions</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="71"><span class="badge log pass-bg mr-2">Pass</span>Transient failure moves a transaction to RETRY_PENDING</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.a_transaction_simulated_to_fail_transiently()">
+                <span>Given a transaction simulated to fail transiently, such as TXN-2005 in section 9.8 row 6</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.processing_fails()">
+                <span>When processing fails</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.status_becomes_retry_pending()">
+                <span>Then status becomes RETRY_PENDING</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.retryCount_is_incremented()">
+                <span>And retryCount is incremented</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="76"><span class="badge log pass-bg mr-2">Pass</span>Exhausted retries result in FAILED with no partial effect</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.a_transaction_retried_up_to_max_and_still_failing()">
+                <span>Given a transaction retried up to the configured max retry count and still failing</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.the_last_retry_fails()">
+                <span>When the last retry fails</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.status_becomes_failed_with_a_recorded_reason()">
+                <span>Then status becomes FAILED with a recorded reason</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.no_partial_effect_remains()">
+                <span>And no partial effect remains</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="81"><span class="badge log pass-bg mr-2">Pass</span>Eventual success after retry is recorded exactly once</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.a_transaction_that_succeeds_on_a_later_retry_attempt()">
+                <span>Given a transaction that succeeds on a later retry attempt</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.it_succeeds()">
+                <span>When it succeeds</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.it_is_marked_processed_exactly_once()">
+                <span>Then it is marked PROCESSED exactly once</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.RetrySteps.the_idempotency_store_prevents_any_earlier_partial_attempt()">
+                <span>And the idempotency store prevents any earlier partial attempt from also taking effect</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="86"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Data Consistency</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:033</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Data Consistency</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:033</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=86</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: NFR-04
+As a system owner
+I want transaction processing to be atomic from the caller's point of view
+So that no transaction is ever left half-applied</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="87"><span class="badge log pass-bg mr-2">Pass</span>A failure mid-step never leaves a mixed state</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ConsistencySteps.a_transaction_being_processed()">
+                <span>Given a transaction being processed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ConsistencySteps.a_failure_occurs_mid_step()">
+                <span>When a failure occurs mid-step</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ConsistencySteps.the_visible_state_is_a_defined_terminal_status()">
+                <span>Then the visible state is either fully PROCESSED or fully FAILED or RETRY_PENDING</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ConsistencySteps.it_is_never_a_mix_of_updated_but_unmarked_state()">
+                <span>And it is never a mix of updated-but-unmarked state</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="92"><span class="badge log pass-bg mr-2">Pass</span>Concurrent requests for the same account are serialized</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ConsistencySteps.concurrent_requests_for_the_same_accountId()">
+                <span>Given concurrent requests for the same accountId</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ConsistencySteps.both_are_processed()">
+                <span>When both are processed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ConsistencySteps.updates_are_serialized_per_account_to_avoid_lost_updates()">
+                <span>Then updates are serialized per account to avoid lost updates</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="96"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Observability and Processing Summary</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:028</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Observability and Processing Summary</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:028</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=96</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-11, NFR-05
+As an SDET / operations reviewer
+I want structured logs and a summary report at the end of a run
+So that I can verify outcomes without manually inspecting code</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="97"><span class="badge log pass-bg mr-2">Pass</span>Summary reports counts by status</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ObservabilitySteps.a_batch_run_has_completed()">
+                <span>Given a batch run has completed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ObservabilitySteps.the_summary_is_generated()">
+                <span>When the summary is generated</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ObservabilitySteps.it_reports_counts_by_status()">
+                <span>Then it reports counts by status for RECEIVED, PROCESSED, DUPLICATE, FAILED, RETRY_PENDING, and PENDING_ORDER</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="101"><span class="badge log pass-bg mr-2">Pass</span>Every event is logged without sensitive fields</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ObservabilitySteps.any_transaction_event()">
+                <span>Given any transaction event such as received, duplicate, retried, or failed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ObservabilitySteps.it_occurs()">
+                <span>When it occurs</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ObservabilitySteps.a_structured_log_line_is_emitted()">
+                <span>Then a structured log line is emitted with transactionId, requestId, status, and timestamp</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.ObservabilitySteps.it_contains_no_sensitive_fields()">
+                <span>And it contains no sensitive fields</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="106"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Security and Safe Data Handling</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:072</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Security and Safe Data Handling</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:072</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=106</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: NFR-06
+As a security-conscious engineer
+I want sensitive fields protected and all input validated
+So that the service never leaks data or accepts unsafe input</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="107"><span class="badge log pass-bg mr-2">Pass</span>Logs never contain full account numbers or PII</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.SecuritySteps.any_log_statement_for_a_transaction()">
+                <span>Given any log statement for a transaction</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.SecuritySteps.it_is_emitted()">
+                <span>When it is emitted</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.SecuritySteps.it_never_includes_full_account_numbers_or_pii()">
+                <span>Then it never includes full account numbers or PII beyond a masked or short accountId reference</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="111"><span class="badge log pass-bg mr-2">Pass</span>No hardcoded secrets in configuration</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.SecuritySteps.the_service_configuration()">
+                <span>Given the service configuration</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.SecuritySteps.it_is_reviewed()">
+                <span>When it is reviewed</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.SecuritySteps.no_secrets_or_credentials_are_hardcoded_in_source()">
+                <span>Then no secrets or credentials are hardcoded in source</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.SecuritySteps.all_are_externalized()">
+                <span>And all are externalized</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="116"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Maintainable, Modular Design</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:021</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">Maintainable, Modular Design</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-default'>00:00:00:021</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=116</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-10, NFR-07
+As a future maintainer
+I want business rules separated from input/infrastructure code
+So that the service can evolve, such as swapping the in-memory store for a real database, with minimal risk</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="117"><span class="badge log pass-bg mr-2">Pass</span>Processor has no dependency on input source details</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.the_transaction_processor_business_logic()">
+                <span>Given the TransactionProcessor business logic</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_is_inspected()">
+                <span>When it is inspected</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_has_no_direct_dependency_on_how_input_is_sourced()">
+                <span>Then it has no direct dependency on how input is sourced</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_depends_only_on_a_transaction_source_interface()">
+                <span>And it depends only on a TransactionSource interface</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="122"><span class="badge log pass-bg mr-2">Pass</span>Idempotency store is swappable behind an interface</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.the_idempotency_store()">
+                <span>Given the idempotency store</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_is_inspected()">
+                <span>When it is inspected</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_sits_behind_an_idempotency_store_interface()">
+                <span>Then it sits behind an IdempotencyStore interface</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.MaintainabilitySteps.an_in_memory_map_can_later_be_swapped()">
+                <span>And an in-memory map can later be swapped for Redis or a database without touching business logic</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="pass" test-id="127"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">End-to-End Transaction Batch Processing</p>
+            <p class="text-sm">
+              <span>10:44:07 PM</span> / <span>00:00:00:055</span>
+              <span class="badge pass-bg log float-right">Pass</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-pass">End-to-End Transaction Batch Processing</h5>
+<span class='badge badge-success'>11.11.2026 10:44:07 PM</span>
+<span class='badge badge-danger'>11.11.2026 10:44:08 PM</span>
+<span class='badge badge-default'>00:00:00:055</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=127</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+<div class="m-t-10 m-l-5"> Traces to: L2-FR-12
+This feature is the concrete expression of US-11 (Automated Test Coverage):
+it replays the full section 9.8 sample batch as one ordered, stateful run and
+checks that duplicate detection, out-of-order buffering, validation, and retry
+all cooperate correctly together - not just in isolation.</div>
+</div>
+</div>
+<div class="accordion mt-4">
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="128"><span class="badge log pass-bg mr-2">Pass</span>The full section 9.8 sample batch processes to the documented outcomes</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.the_following_transaction_requests_are_submitted_in_this_exact_order(io.cucumber.datatable.DataTable)">
+                <span>Given the following transaction requests are submitted in this exact order:</span>
+      <div><table class='markup-table table '><tr><td>inputOrder</td><td>transactionId</td><td>requestId</td><td>sequence</td><td>accountId</td><td>type</td><td>amount</td></tr><tr><td>1</td><td>TXN-2002</td><td>REQ-2</td><td>2</td><td>ACC-201</td><td>DEBIT</td><td>40</td></tr><tr><td>2</td><td>TXN-2001</td><td>REQ-1</td><td>1</td><td>ACC-201</td><td>CREDIT</td><td>100</td></tr><tr><td>3</td><td>TXN-2002</td><td>REQ-2-DUP</td><td>2</td><td>ACC-201</td><td>DEBIT</td><td>40</td></tr><tr><td>4</td><td>TXN-2003</td><td>REQ-3</td><td>3</td><td>ACC-201</td><td>CREDIT</td><td>25</td></tr><tr><td>5</td><td>TXN-2004</td><td>REQ-4</td><td>4</td><td>ACC-202</td><td>DEBIT</td><td>-10</td></tr><tr><td>6</td><td>TXN-2005</td><td>REQ-5</td><td>5</td><td>ACC-203</td><td>CREDIT</td><td>500</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.the_batch_finishes_processing_including_any_retries()">
+                <span>When the batch finishes processing, including any retries</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)">
+                <span>Then requestId "REQ-1" has final status "PROCESSED"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)">
+                <span>And requestId "REQ-2" has final status "PROCESSED"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)">
+                <span>And requestId "REQ-2-DUP" has final status "DUPLICATE"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)">
+                <span>And requestId "REQ-3" has final status "PROCESSED"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)">
+                <span>And requestId "REQ-4" has final status "FAILED"</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)">
+                <span>And requestId "REQ-5" has final status "PROCESSED"</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+  <div class="card">
+    <div class="card-header" role="tab">
+      <div class="card-title">
+        <div class="node" id="137"><span class="badge log pass-bg mr-2">Pass</span>The processing summary reconciles with the batch outcome</div>
+      </div>
+    </div>
+        <div class="collapse">
+          <div class="card-body">
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.the_following_transaction_requests_are_submitted_in_this_exact_order(io.cucumber.datatable.DataTable)">
+                <span>Given the following transaction requests are submitted in this exact order:</span>
+      <div><table class='markup-table table '><tr><td>inputOrder</td><td>transactionId</td><td>requestId</td><td>sequence</td><td>accountId</td><td>type</td><td>amount</td></tr><tr><td>1</td><td>TXN-2002</td><td>REQ-2</td><td>2</td><td>ACC-201</td><td>DEBIT</td><td>40</td></tr><tr><td>2</td><td>TXN-2001</td><td>REQ-1</td><td>1</td><td>ACC-201</td><td>CREDIT</td><td>100</td></tr><tr><td>3</td><td>TXN-2002</td><td>REQ-2-DUP</td><td>2</td><td>ACC-201</td><td>DEBIT</td><td>40</td></tr><tr><td>4</td><td>TXN-2003</td><td>REQ-3</td><td>3</td><td>ACC-201</td><td>CREDIT</td><td>25</td></tr><tr><td>5</td><td>TXN-2004</td><td>REQ-4</td><td>4</td><td>ACC-202</td><td>DEBIT</td><td>-10</td></tr><tr><td>6</td><td>TXN-2005</td><td>REQ-5</td><td>5</td><td>ACC-203</td><td>CREDIT</td><td>500</td></tr></table>
+      </div>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.the_batch_finishes_processing_including_any_retries()">
+                <span>When the batch finishes processing, including any retries</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.the_processing_summary_is_generated()">
+                <span>And the processing summary is generated</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.the_summary_counts_exactly(int,int,int)">
+                <span>Then the summary counts exactly 4 PROCESSED, 1 DUPLICATE, and 1 FAILED</span>
+      <div>
+      </div>
+              </div>
+              <div class="step pass-bg" title="com.mphasis.assessment.txservice.steps.EndToEndSteps.no_count_is_missing_or_double_counted()">
+                <span>And no count is missing or double-counted</span>
+      <div>
+      </div>
+              </div>
+          </div>
+        </div>
+  </div>
+</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="test-content scrollable">
+<div class="test-content-tools">
+<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
+</div>
+<div class="test-content-detail"><div class="detail-body"></div></div>
+</div></div>
+<div class="test-wrapper row view category-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Category</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">38</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@US-07</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-07</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='86' id='87'>A failure mid-step never leaves a mixed state</a>
+<div class="">
+<span class="badge badge-default">Data Consistency.A failure mid-step never leaves a mixed state</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='86' id='92'>Concurrent requests for the same account are serialized</a>
+<div class="">
+<span class="badge badge-default">Data Consistency.Concurrent requests for the same account are serialized</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-08.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-08.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='96' id='97'>Summary reports counts by status</a>
+<div class="">
+<span class="badge badge-default">Observability and Processing Summary.Summary reports counts by status</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-10.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-10.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='116' id='117'>Processor has no dependency on input source details</a>
+<div class="">
+<span class="badge badge-default">Maintainable, Modular Design.Processor has no dependency on input source details</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>3</span>
+</span>
+<p class="name">@US-02</p>
+<p class="duration text-sm">3 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-02</h4>
+<span status="pass" class='badge log pass-bg'>3 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='10' id='11'>Missing mandatory field is rejected</a>
+<div class="">
+<span class="badge badge-default">Input Validation.Missing mandatory field is rejected</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='10' id='16'>Invalid amount is rejected with a clear reason</a>
+<div class="">
+<span class="badge badge-default">Input Validation.Invalid amount is rejected with a clear reason</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='10' id='21'>One invalid record does not stop the batch</a>
+<div class="">
+<span class="badge badge-default">Input Validation.One invalid record does not stop the batch</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-06.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-06.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='70' id='76'>Exhausted retries result in FAILED with no partial effect</a>
+<div class="">
+<span class="badge badge-default">Retry-Safe Resilience.Exhausted retries result in FAILED with no partial effect</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@US-05</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-05</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='56' id='57'>A future sequence is buffered, then released once its predecessor arrives</a>
+<div class="">
+<span class="badge badge-default">Out-of-Order Request Handling (Option A - Sequence-Based).A future sequence is buffered, then released once its predecessor arrives</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='56' id='65'>A missing sequence is reported, not dropped</a>
+<div class="">
+<span class="badge badge-default">Out-of-Order Request Handling (Option A - Sequence-Based).A missing sequence is reported, not dropped</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-03.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-03.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='26'>New request starts as RECEIVED</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.New request starts as RECEIVED</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-10.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-10.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='116' id='122'>Idempotency store is swappable behind an interface</a>
+<div class="">
+<span class="badge badge-default">Maintainable, Modular Design.Idempotency store is swappable behind an interface</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@AC-11.1</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-11.1</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='127' id='128'>The full section 9.8 sample batch processes to the documented outcomes</a>
+<div class="">
+<span class="badge badge-default">End-to-End Transaction Batch Processing.The full section 9.8 sample batch processes to the documented outcomes</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:08 PM</td>
+<td>
+<a href="#" class="linked" test-id='127' id='137'>The processing summary reconciles with the batch outcome</a>
+<div class="">
+<span class="badge badge-default">End-to-End Transaction Batch Processing.The processing summary reconciles with the batch outcome</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-03.4</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-03.4</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='38'>Illegal transitions are rejected</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.Illegal transitions are rejected</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-07.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-07.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='86' id='87'>A failure mid-step never leaves a mixed state</a>
+<div class="">
+<span class="badge badge-default">Data Consistency.A failure mid-step never leaves a mixed state</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@US-01</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-01</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:06 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Requests load through a single input source abstraction</a>
+<div class="">
+<span class="badge badge-default">Configurable Transaction Ingestion.Requests load through a single input source abstraction</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='6'>Swapping the input source does not affect business logic</a>
+<div class="">
+<span class="badge badge-default">Configurable Transaction Ingestion.Swapping the input source does not affect business logic</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-04.3</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-04.3</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='52'>Repeated submissions yield exactly one effect</a>
+<div class="">
+<span class="badge badge-default">Idempotent Processing and Duplicate Detection.Repeated submissions yield exactly one effect</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>3</span>
+</span>
+<p class="name">@US-06</p>
+<p class="duration text-sm">3 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-06</h4>
+<span status="pass" class='badge log pass-bg'>3 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='70' id='71'>Transient failure moves a transaction to RETRY_PENDING</a>
+<div class="">
+<span class="badge badge-default">Retry-Safe Resilience.Transient failure moves a transaction to RETRY_PENDING</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='70' id='76'>Exhausted retries result in FAILED with no partial effect</a>
+<div class="">
+<span class="badge badge-default">Retry-Safe Resilience.Exhausted retries result in FAILED with no partial effect</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='70' id='81'>Eventual success after retry is recorded exactly once</a>
+<div class="">
+<span class="badge badge-default">Retry-Safe Resilience.Eventual success after retry is recorded exactly once</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-06.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-06.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='70' id='71'>Transient failure moves a transaction to RETRY_PENDING</a>
+<div class="">
+<span class="badge badge-default">Retry-Safe Resilience.Transient failure moves a transaction to RETRY_PENDING</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-03.3</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-03.3</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='34'>Status is always one of the defined lifecycle values</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.Status is always one of the defined lifecycle values</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-08.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-08.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='96' id='101'>Every event is logged without sensitive fields</a>
+<div class="">
+<span class="badge badge-default">Observability and Processing Summary.Every event is logged without sensitive fields</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@US-11</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-11</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='127' id='128'>The full section 9.8 sample batch processes to the documented outcomes</a>
+<div class="">
+<span class="badge badge-default">End-to-End Transaction Batch Processing.The full section 9.8 sample batch processes to the documented outcomes</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:08 PM</td>
+<td>
+<a href="#" class="linked" test-id='127' id='137'>The processing summary reconciles with the batch outcome</a>
+<div class="">
+<span class="badge badge-default">End-to-End Transaction Batch Processing.The processing summary reconciles with the batch outcome</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-03.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-03.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='30'>Processing transitions status to PROCESSING</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.Processing transitions status to PROCESSING</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-09.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-09.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='106' id='111'>No hardcoded secrets in configuration</a>
+<div class="">
+<span class="badge badge-default">Security and Safe Data Handling.No hardcoded secrets in configuration</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-09.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-09.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='106' id='107'>Logs never contain full account numbers or PII</a>
+<div class="">
+<span class="badge badge-default">Security and Safe Data Handling.Logs never contain full account numbers or PII</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-02.3</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-02.3</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='10' id='21'>One invalid record does not stop the batch</a>
+<div class="">
+<span class="badge badge-default">Input Validation.One invalid record does not stop the batch</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-07.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-07.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='86' id='92'>Concurrent requests for the same account are serialized</a>
+<div class="">
+<span class="badge badge-default">Data Consistency.Concurrent requests for the same account are serialized</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-05.3</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-05.3</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='56' id='65'>A missing sequence is reported, not dropped</a>
+<div class="">
+<span class="badge badge-default">Out-of-Order Request Handling (Option A - Sequence-Based).A missing sequence is reported, not dropped</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@US-08</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-08</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='96' id='97'>Summary reports counts by status</a>
+<div class="">
+<span class="badge badge-default">Observability and Processing Summary.Summary reports counts by status</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='96' id='101'>Every event is logged without sensitive fields</a>
+<div class="">
+<span class="badge badge-default">Observability and Processing Summary.Every event is logged without sensitive fields</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-01.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-01.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:06 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='2'>Requests load through a single input source abstraction</a>
+<div class="">
+<span class="badge badge-default">Configurable Transaction Ingestion.Requests load through a single input source abstraction</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@US-10</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-10</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='116' id='117'>Processor has no dependency on input source details</a>
+<div class="">
+<span class="badge badge-default">Maintainable, Modular Design.Processor has no dependency on input source details</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='116' id='122'>Idempotency store is swappable behind an interface</a>
+<div class="">
+<span class="badge badge-default">Maintainable, Modular Design.Idempotency store is swappable behind an interface</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-04.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-04.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='48'>A duplicate arriving later in the batch is still detected</a>
+<div class="">
+<span class="badge badge-default">Idempotent Processing and Duplicate Detection.A duplicate arriving later in the batch is still detected</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-01.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-01.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='1' id='6'>Swapping the input source does not affect business logic</a>
+<div class="">
+<span class="badge badge-default">Configurable Transaction Ingestion.Swapping the input source does not affect business logic</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>2</span>
+</span>
+<p class="name">@US-09</p>
+<p class="duration text-sm">2 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-09</h4>
+<span status="pass" class='badge log pass-bg'>2 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='106' id='107'>Logs never contain full account numbers or PII</a>
+<div class="">
+<span class="badge badge-default">Security and Safe Data Handling.Logs never contain full account numbers or PII</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='106' id='111'>No hardcoded secrets in configuration</a>
+<div class="">
+<span class="badge badge-default">Security and Safe Data Handling.No hardcoded secrets in configuration</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-05.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-05.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='56' id='57'>A future sequence is buffered, then released once its predecessor arrives</a>
+<div class="">
+<span class="badge badge-default">Out-of-Order Request Handling (Option A - Sequence-Based).A future sequence is buffered, then released once its predecessor arrives</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-05.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-05.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='56' id='57'>A future sequence is buffered, then released once its predecessor arrives</a>
+<div class="">
+<span class="badge badge-default">Out-of-Order Request Handling (Option A - Sequence-Based).A future sequence is buffered, then released once its predecessor arrives</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-02.2</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-02.2</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='10' id='16'>Invalid amount is rejected with a clear reason</a>
+<div class="">
+<span class="badge badge-default">Input Validation.Invalid amount is rejected with a clear reason</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>3</span>
+</span>
+<p class="name">@US-04</p>
+<p class="duration text-sm">3 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-04</h4>
+<span status="pass" class='badge log pass-bg'>3 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='43'>Already-processed requestId is marked DUPLICATE</a>
+<div class="">
+<span class="badge badge-default">Idempotent Processing and Duplicate Detection.Already-processed requestId is marked DUPLICATE</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='48'>A duplicate arriving later in the batch is still detected</a>
+<div class="">
+<span class="badge badge-default">Idempotent Processing and Duplicate Detection.A duplicate arriving later in the batch is still detected</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='52'>Repeated submissions yield exactly one effect</a>
+<div class="">
+<span class="badge badge-default">Idempotent Processing and Duplicate Detection.Repeated submissions yield exactly one effect</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-04.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-04.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='42' id='43'>Already-processed requestId is marked DUPLICATE</a>
+<div class="">
+<span class="badge badge-default">Idempotent Processing and Duplicate Detection.Already-processed requestId is marked DUPLICATE</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-02.1</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-02.1</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='10' id='11'>Missing mandatory field is rejected</a>
+<div class="">
+<span class="badge badge-default">Input Validation.Missing mandatory field is rejected</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>4</span>
+</span>
+<p class="name">@US-03</p>
+<p class="duration text-sm">4 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@US-03</h4>
+<span status="pass" class='badge log pass-bg'>4 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='26'>New request starts as RECEIVED</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.New request starts as RECEIVED</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='30'>Processing transitions status to PROCESSING</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.Processing transitions status to PROCESSING</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='34'>Status is always one of the defined lifecycle values</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.Status is always one of the defined lifecycle values</span>
+</div>
+</td>
+</tr>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='25' id='38'>Illegal transitions are rejected</a>
+<div class="">
+<span class="badge badge-default">Transaction State Lifecycle.Illegal transitions are rejected</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log pass-bg'>1</span>
+</span>
+<p class="name">@AC-06.3</p>
+<p class="duration text-sm">1 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>@AC-06.3</h4>
+<span status="pass" class='badge log pass-bg'>1 passed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="pass">
+<td><span class="badge log pass-bg">Pass</span></td>
+<td>22:44:07 PM</td>
+<td>
+<a href="#" class="linked" test-id='70' id='81'>Eventual success after retry is recorded exactly once</a>
+<div class="">
+<span class="badge badge-default">Retry-Safe Resilience.Eventual success after retry is recorded exactly once</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="container-fluid p-4 view dashboard-view">
+<div class="row">
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Started</p>
+<h3>Nov 11, 2026 10:44:05 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Ended</p>
+<h3>Nov 11, 2026 10:44:08 PM</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-pass">Features Passed</p>
+<h3>11</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-fail">Features Failed</p>
+<h3>0</h3>
+</div></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Features</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='parent-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'>
+<b>11</b> features passed
+</small>
+</div>
+<div>
+<small data-tooltip='0%'><b>0</b> features failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Scenarios</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='child-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>27</b> scenarios passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> scenarios failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Steps</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='grandchild-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='100%'><b>104</b> steps passed</small></div>
+<div>
+<small data-tooltip='0%'><b>0</b> steps failed,
+<b>0</b> skipped, <b data-tooltip='%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><div class="col-md-12">
+<div class="card"><div class="card-header"><p>Timeline</p></div>
+<div class="card-body pt-0"><div>
+<canvas id="timeline" height="120"></canvas>
+</div></div>
+</div>
+</div></div>
+<script>
+var timeline = {
+"Configurable Transaction Ingestion":0.563,"Input Validation":0.114,"Transaction State Lifecycle":0.074,"Idempotent Processing and Duplicate Detection":0.046,"Out-of-Order Request Handling (Option A - Sequence-Based)":0.048,"Retry-Safe Resilience":0.051,"Data Consistency":0.033,"Observability and Processing Summary":0.028,"Security and Safe Data Handling":0.072,"Maintainable, Modular Design":0.021,"End-to-End Transaction Batch Processing":0.055
+};
+</script>
+<div class="row">
+<div class="col-lg-6 col-md-12 category-container">
+<div class="card">
+<div class="card-header"><p>Tags</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Passed</th><th>Failed</th><th>Skipped</th><th>Others</th><th>Passed %</th></tr></thead><tbody>
+<tr>
+<td>@US-07</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-08.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-10.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-02</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-06.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-05</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-03.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-10.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-11.1</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-03.4</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-07.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-01</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-04.3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-06</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-06.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-03.3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-08.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-11</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-03.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-09.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-09.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-02.3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-07.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-05.3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-08</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-01.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-10</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-04.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-01.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-09</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-05.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-05.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-02.2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-04</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-04.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-02.1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@US-03</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>@AC-06.3</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var statusGroup = {
+parentCount: 5,
+passParent: 11,
+failParent: 0,
+warningParent: 0,
+skipParent: 0,
+childCount: 5,
+passChild: 27,
+failChild: 0,
+warningChild: 0,
+skipChild: 0,
+infoChild: 0,
+grandChildCount: 5,
+passGrandChild: 104,
+failGrandChild: 0,
+warningGrandChild: 0,
+skipGrandChild: 0,
+infoGrandChild: 0,
+eventsCount: 5,
+};
+</script>        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/js/spark-script.js"></script>
+<script type="text/javascript"></script></body>
+</html>
