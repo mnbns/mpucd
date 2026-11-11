@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Explicit SLF4J/Logback config (NFR-05 observability), replacing Spring
+  Boot's invisible default. Console carries the human-facing run; the file
+  appender keeps a durable trace per run for anything the console scrolled
+  past. com.mphasis.assessment.txservice is at DEBUG so the engine's
+  per-request lifecycle (buffering, ledger updates, dedup hits) is visible,
+  without raising the noise floor for framework classes.
+-->
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>target/logs/transaction-service.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{48} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.mphasis.assessment.txservice" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

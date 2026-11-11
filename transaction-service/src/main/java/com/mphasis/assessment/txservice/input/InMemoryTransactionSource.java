@@ -3,6 +3,8 @@ package com.mphasis.assessment.txservice.input;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mphasis.assessment.txservice.model.TransactionRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,6 +17,8 @@ import java.util.List;
  * ordering field needed - the file order IS the input order).
  */
 public class InMemoryTransactionSource implements TransactionSource {
+
+    private static final Logger log = LoggerFactory.getLogger(InMemoryTransactionSource.class);
 
     private final String resourcePath;
     private final ObjectMapper objectMapper;
@@ -30,8 +34,11 @@ public class InMemoryTransactionSource implements TransactionSource {
             if (in == null) {
                 throw new IllegalStateException("Sample data resource not found on classpath: " + resourcePath);
             }
-            return objectMapper.readValue(in, new TypeReference<List<TransactionRequest>>() { });
+            List<TransactionRequest> batch = objectMapper.readValue(in, new TypeReference<List<TransactionRequest>>() { });
+            log.info("loaded {} transaction request(s) from {}", batch.size(), resourcePath);
+            return batch;
         } catch (IOException e) {
+            log.error("failed to read transaction batch from {}", resourcePath, e);
             throw new UncheckedIOException("Failed to read " + resourcePath, e);
         }
     }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Plain logback config for `mvn test`. logback-spring.xml (src/main/resources)
+  is only parsed by Spring Boot's logging bootstrap, which never runs here -
+  the Cucumber suite calls the engine classes directly, no SpringApplication.
+  logback-test.xml is picked up by Logback itself (highest-priority file on
+  the classpath), with no Spring context required, so the test run actually
+  gets a log file instead of silently having none.
+-->
+<configuration>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>target/logs/cucumber-tests.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{48} -- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.mphasis.assessment.txservice" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

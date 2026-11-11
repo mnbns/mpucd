@@ -1,6 +1,8 @@
 package com.mphasis.assessment.txservice.store;
 
 import com.mphasis.assessment.txservice.model.TransactionType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.Map;
@@ -18,6 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class AccountLedger {
 
+    private static final Logger log = LoggerFactory.getLogger(AccountLedger.class);
+
     private final Map<String, BigDecimal> balances = new ConcurrentHashMap<>();
     private final Map<String, Object> accountLocks = new ConcurrentHashMap<>();
 
@@ -30,8 +34,22 @@ public class AccountLedger {
                 case DEBIT, REVERSAL -> current.subtract(amount);
             };
             balances.put(accountId, updated);
+            // Gap found comparing cucumber-tests.log against NFR-06 ("do not log sensitive
+            // customer data unnecessarily"): amount/balance are financial data the rest of
+            // this codebase never logs (TransactionProcessor.logEvent doesn't either) -
+            // redacted here too for consistency, even though AC-08.2's own wording only
+            // named accountId.
+            log.debug("ledger update accountId={} type={}", mask(accountId), type);
             return updated;
         }
+    }
+
+    /** US-09 / NFR-06: never log the full account reference. */
+    private static String mask(String accountId) {
+        if (accountId == null || accountId.length() <= 4) {
+            return "***";
+        }
+        return "***" + accountId.substring(accountId.length() - 3);
     }
 
     public BigDecimal getBalance(String accountId) {

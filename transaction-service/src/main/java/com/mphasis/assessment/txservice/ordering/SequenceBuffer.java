@@ -1,6 +1,8 @@
 package com.mphasis.assessment.txservice.ordering;
 
 import com.mphasis.assessment.txservice.model.TransactionRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,6 +25,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SequenceBuffer {
 
+    private static final Logger log = LoggerFactory.getLogger(SequenceBuffer.class);
+
     private volatile long lastResolvedSequence = 0;
     private final Map<Long, TransactionRequest> buffered = new ConcurrentHashMap<>();
 
@@ -37,16 +41,25 @@ public class SequenceBuffer {
 
     public void buffer(TransactionRequest request) {
         buffered.put(request.getSequenceNumber(), request);
+        log.debug("buffered requestId={} at sequence={} (lastResolved={})",
+                request.getRequestId(), request.getSequenceNumber(), lastResolvedSequence);
     }
 
     /** Call once a request reaches ANY terminal outcome (PROCESSED or FAILED) to advance the cursor. */
     public synchronized void markResolved(TransactionRequest request) {
         lastResolvedSequence = Math.max(lastResolvedSequence, request.getSequenceNumber());
+        log.debug("resolved sequence={} (requestId={}); cursor now at {}",
+                request.getSequenceNumber(), request.getRequestId(), lastResolvedSequence);
     }
 
     /** Returns and removes the next buffered request, if its turn has now arrived. */
     public synchronized TransactionRequest pollReady() {
-        return buffered.remove(lastResolvedSequence + 1);
+        TransactionRequest next = buffered.remove(lastResolvedSequence + 1);
+        if (next != null) {
+            log.debug("released buffered requestId={} now that sequence={} is ready",
+                    next.getRequestId(), next.getSequenceNumber());
+        }
+        return next;
     }
 
     /** Requests still parked at the end of a run - their predecessor sequence never arrived (AC-05.3). */

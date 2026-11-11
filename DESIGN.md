@@ -93,11 +93,39 @@ inspecting code.
 - **AC-08.1**: Given a batch run has completed, when the summary is generated, then it reports counts by status.
 - **AC-08.2**: Given any transaction event, when it occurs, then a structured log line is emitted with transactionId, requestId, status, and timestamp — no sensitive fields.
 
+**Audit note (closed by DD-07).** AC-08.2 only ever required "a structured
+log line" and never specified a persisted log file or a machine-readable
+report format, and `RELEASE_NOTES.md`'s Test evidence section correspondingly
+only referenced the ExtentReport HTML — neither `cucumber.json` nor
+log-file persistence was actually specified anywhere in this design before
+now. Found by the user reviewing the HTML report and asking where the
+JSON report and the log file actually were. AC-08.2's wording is unchanged;
+the gap was in tooling/operational expectations around it, not in the AC
+itself — see DD-07.
+
+**Audit note (closed by DD-08, DD-09).** A second audit pass over the
+DD-07 artifacts themselves (`cucumber.json`, `cucumber-tests.log`,
+`transaction-service.log`) found that AC-08.1's counts-by-status summary,
+although correctly asserted in-memory by tests, never actually reached
+either log file (`grep -c SUMMARY` = 0 before the fix — see DD-08), and
+that `cucumber.json` carried zero business-outcome content despite DD-07
+adding it as a "machine-readable report" (0 embeddings across 104 steps —
+see DD-09). Both ACs' wording is unchanged; these were tooling gaps
+between the artifacts and what AC-08.1/AC-08.2 already required, not
+defects in the passing tests themselves.
+
 ### US-09 — Security & Safe Data Handling (Should) — traces to NFR-06
 As a **security-conscious engineer**, I want sensitive fields protected and
 all input validated, so that the service never leaks data or accepts unsafe input.
 - **AC-09.1**: Given any log statement for a transaction, when it is emitted, then it never includes full account numbers or PII beyond a masked/short accountId reference.
 - **AC-09.2**: Given the service configuration, when it is reviewed, then no secrets or credentials are hardcoded in source — all are externalized.
+
+**Audit note (closed by DD-10).** `AccountLedger`'s debug log line logged
+the raw transaction `amount` and resulting `balance` unredacted. AC-09.1
+names only account numbers/PII, so this was not a literal violation of
+the AC as worded, but it was broader than the rest of the codebase's own
+practice (`TransactionProcessor.logEvent` deliberately logs neither), so
+`AccountLedger` was brought in line with it as a judgment call — see DD-10.
 
 ### US-10 — Maintainable, Modular Design (Should) — traces to L2-FR-10, NFR-07
 As a **future maintainer**, I want business rules separated from
@@ -356,6 +384,10 @@ sequenceDiagram
 - **DD-04** — Max retry count = 3, in-memory simulation. Simple, bounded, easy to assert in tests; a real deployment would externalize this and use scheduler/queue redelivery counts.
 - **DD-05** — Production hardening notes (explained, not built): swap in-memory stores for Redis/DB with a unique constraint on `requestId`; swap `TransactionSource` for a real queue (Kafka/SQS) with consumer-group ordering; add per-account locking/optimistic concurrency for NFR-04; add Micrometer metrics/tracing beyond console logs; add payload fingerprinting alongside `requestId` to catch a key reused for a genuinely different transaction; be aware that true concurrent (not just sequential-retry) duplicate submissions need a DB unique constraint, not just an in-memory check-then-set, to avoid a race.
 - **DD-06** — Test strategy: Cucumber BDD, one feature file per User Story, step definitions call the engine directly (no HTTP) — consistent with DD-01.
+- **DD-07** — Test/run observability artifacts: add `target/cucumber-reports/cucumber.json` (machine-readable Cucumber JSON, same plugin list as the ExtentReport HTML) and persisted log files — `target/logs/cucumber-tests.log` via `src/test/resources/logback-test.xml` for `mvn test`, `target/logs/transaction-service.log` via `src/main/resources/logback-spring.xml` for `mvn spring-boot:run`. Originally, AC-08.2's structured log line only went to the console, and `RunCucumberTest`'s plugin list only produced the human-facing ExtentReport HTML; neither a machine-readable report nor a persisted log file existed as a discoverable artifact, even though AC-08.2 itself passed. Found by the user reviewing the ExtentReport HTML and asking where the JSON report and the log file were — a real gap between the design (AC-08.2 only ever said "a structured log line") and operational expectations (a reviewer also wants a persisted, machine-readable run record), not a defect in passing tests. Fixed by adding `json:target/cucumber-reports/cucumber.json` alongside the existing plugins in `RunCucumberTest`, and adding the two Logback config files above. AC-08.2's wording is left as-is; this closes the tooling gap around it rather than retroactively rewriting the AC.
+- **DD-08** — `ProcessingSummary` now logs itself (`log.info(summary.report())` inside `ProcessingSummary.of(...)`), rather than only existing in memory. AC-08.1/L2-FR-11 require the summary to report counts by status, and tests did assert this correctly, but the summary never actually reached either of the DD-07 log files — `grep -c SUMMARY` was 0 in both `cucumber-tests.log` and `transaction-service.log` before this fix. Root cause: `ProcessingSummary.report()` and `TransactionServiceApplication`'s final block both printed via `System.out.println`, bypassing SLF4J entirely, so the Logback config added in DD-07 never saw it. Found by the user comparing the DD-07 artifacts (`cucumber.json`, `cucumber-tests.log`) against this design and the original assessment's own ask for a summary — a second audit pass on the same artifacts DD-07's tooling produced. Fixed at a single change point (`ProcessingSummary.of(...)`) rather than every call site, in `transaction-service/src/main/java/com/mphasis/assessment/txservice/service/ProcessingSummary.java`. Verified: `SUMMARY: ...` now appears in both log files on real `mvn test` and `mvn spring-boot:run` runs; all 27 scenarios still pass.
+- **DD-09** — `Hooks.attachStepSnapshot` now also calls `scenario.attach(html.getBytes(StandardCharsets.UTF_8), "text/html", "Step Snapshot")`, in addition to its existing `ExtentCucumberAdapter.addTestStepLog(html)` call. The `cucumber.json` DD-07 added carried zero business-outcome content — 0 "embeddings" across all 104 steps — because `addTestStepLog` feeds only the Extent HTML report and is adapter-internal, invisible to Cucumber's own JSON formatter. Found the same way as DD-08: the user auditing `cucumber.json` against the design's own claim that it is a "machine-readable report" of outcomes. Fixed in `transaction-service/src/test/java/com/mphasis/assessment/txservice/steps/Hooks.java`; Cucumber's built-in JSON formatter now records the attachment as a base64 "embeddings" entry per step, independent of the Extent adapter. Verified: decoded a real embedding from the generated `cucumber.json` and confirmed it is the actual HTML snapshot (masked accountId, status, etc.) — 82 embeddings total across the run; all 27 scenarios still pass.
+- **DD-10** — `AccountLedger`'s debug log line no longer prints raw transaction `amount` or resulting `balance`; it now logs only `accountId` (masked) and transaction `type`. Previously it logged e.g. `ledger accountId=***201 CREDIT 100 -> balance 100 (was 0)`. This is a judgment call, not a defect against AC-08.2's literal wording: AC-08.2 names only `accountId` as the sensitive field to withhold, and the amount/balance line technically satisfied it. But the original assessment's §6.6 ("do not log sensitive customer data unnecessarily") is broader than AC-08.2's wording, and no other class in the codebase logs amount/balance — `TransactionProcessor.logEvent` deliberately never does. Found during the same artifact audit as DD-08/DD-09. Fixed in `transaction-service/src/main/java/com/mphasis/assessment/txservice/store/AccountLedger.java` for consistency with the rest of the codebase's existing practice, not because AC-08.2 strictly required it. Verified: all 27 scenarios still pass.
 
 ## Traceability Matrix
 
@@ -381,6 +413,67 @@ sequenceDiagram
 | NFR-06 | US-02, US-09 | LLD-01 |
 | NFR-07 | US-10 | LLD-01 |
 
+### Requirement → AC → Test Case Matrix (audited against real `.feature` files)
+
+Rooted down to the actual Cucumber scenario per AC, audited directly against
+every file under `transaction-service/src/test/resources/features/` (not
+reconstructed from memory). One row per AC.
+
+| FR/NFR | US | AC | Behavior | Type | Feature File | Scenario | Status |
+|---|---|---|---|---|---|---|---|
+| L2-FR-01 | US-01 | AC-01.1 | Load requests via `TransactionSource` | Positive | US-01_configurable_ingestion.feature | "Requests load through a single input source abstraction" | Covered |
+| L2-FR-01 | US-01 | AC-01.2 | Swap source implementation -> no business-logic change | Positive | US-01_configurable_ingestion.feature | "Swapping the input source does not affect business logic" | Covered |
+| L2-FR-02, NFR-06 | US-02 | AC-02.1 | Missing mandatory field -> FAILED | Negative | US-02_input_validation.feature | "Missing mandatory field is rejected" | Covered |
+| L2-FR-02, NFR-06 | US-02 | AC-02.2 | Negative amount -> FAILED, clear reason | Negative | US-02_input_validation.feature | "Invalid amount is rejected with a clear reason" | Covered |
+| L2-FR-02 | US-02 | AC-02.3 | 1 invalid record in batch of N -> N-1 still processed | Edge | US-02_input_validation.feature | "One invalid record does not stop the batch" | Covered |
+| L2-FR-03 | US-03 | AC-03.1 | New request -> RECEIVED | Positive | US-03_transaction_state_lifecycle.feature | "New request starts as RECEIVED" | Covered |
+| L2-FR-03 | US-03 | AC-03.2 | RECEIVED -> PROCESSING | Positive | US-03_transaction_state_lifecycle.feature | "Processing transitions status to PROCESSING" | Covered |
+| L2-FR-04 | US-03 | AC-03.3 | Status always in defined enum | Edge (invariant) | US-03_transaction_state_lifecycle.feature | "Status is always one of the defined lifecycle values" | Covered |
+| L2-FR-04 | US-03 | AC-03.4 | Illegal transition (DUPLICATE->PROCESSING) rejected | Negative | US-03_transaction_state_lifecycle.feature | "Illegal transitions are rejected" | Covered |
+| L2-FR-05, NFR-01 | US-04 | AC-04.1 | Already-PROCESSED requestId -> DUPLICATE, no side effect | Negative | US-04_idempotent_processing.feature | "Already-processed requestId is marked DUPLICATE" | Covered |
+| L2-FR-06, NFR-01 | US-04 | AC-04.2 | Late-arriving duplicate (REQ-2-DUP / TXN-2002) detected | Edge | US-04_idempotent_processing.feature | "A duplicate arriving later in the batch is still detected" | Covered |
+| L2-FR-05, NFR-01 | US-04 | AC-04.3 | N resubmits -> exactly-once ledger effect | Edge | US-04_idempotent_processing.feature | "Repeated submissions yield exactly one effect" | Covered |
+| L2-FR-07, NFR-02 | US-05 | AC-05.1 | Future sequence -> PENDING_ORDER, not processed | Edge | US-05_out_of_order_handling.feature | "A future sequence is buffered, then released once its predecessor arrives" (shared scenario, tagged @AC-05.1 @AC-05.2) | Covered |
+| L2-FR-07, NFR-02 | US-05 | AC-05.2 | Predecessor arrives -> buffered seq auto-released in order | Positive | US-05_out_of_order_handling.feature | same scenario as AC-05.1 (combined, not split — see DD-02) | Covered (shared scenario) |
+| L2-FR-07, NFR-02 | US-05 | AC-05.3 | Sequence never arrives -> reported in summary, not dropped | Edge/Negative | US-05_out_of_order_handling.feature | "A missing sequence is reported, not dropped" | Covered |
+| L2-FR-08, NFR-03 | US-06 | AC-06.1 | Transient failure -> RETRY_PENDING, retryCount++ | Negative | US-06_retry_resilience.feature | "Transient failure moves a transaction to RETRY_PENDING" | Covered |
+| L2-FR-09, NFR-03 | US-06 | AC-06.2 | Max retries exhausted -> FAILED, no partial effect | Negative | US-06_retry_resilience.feature | "Exhausted retries result in FAILED with no partial effect" | Covered |
+| L2-FR-09, NFR-03 | US-06 | AC-06.3 | Success on retry K -> PROCESSED exactly once | Edge | US-06_retry_resilience.feature | "Eventual success after retry is recorded exactly once" | Covered |
+| NFR-04 | US-07 | AC-07.1 | Mid-step failure -> never a mixed state | Edge | US-07_data_consistency.feature | "A failure mid-step never leaves a mixed state" | Covered |
+| NFR-04 | US-07 | AC-07.2 | Concurrent same-account requests serialized | Edge | US-07_data_consistency.feature | "Concurrent requests for the same account are serialized" | Covered |
+| L2-FR-11, NFR-05 | US-08 | AC-08.1 | Summary reports counts by status | Positive | US-08_observability_summary.feature | "Summary reports counts by status" | Covered |
+| NFR-05, NFR-06 | US-08 | AC-08.2 | Structured log line, no sensitive fields | Positive | US-08_observability_summary.feature | "Every event is logged without sensitive fields" | Covered |
+| NFR-06 | US-09 | AC-09.1 | No full account numbers/PII in logs | Negative (security) | US-09_security_data_handling.feature | "Logs never contain full account numbers or PII" | Covered |
+| NFR-06 | US-09 | AC-09.2 | No hardcoded secrets/credentials | Positive (security) | US-09_security_data_handling.feature | "No hardcoded secrets in configuration" | Covered |
+| L2-FR-10, NFR-07 | US-10 | AC-10.1 | Processor has no dependency on input source | Positive (design) | US-10_maintainable_design.feature | "Processor has no dependency on input source details" | Covered |
+| L2-FR-10, NFR-07 | US-10 | AC-10.2 | IdempotencyStore behind swappable interface | Positive (design) | US-10_maintainable_design.feature | "Idempotency store is swappable behind an interface" | Covered |
+| L2-FR-12 | US-11 | AC-11.1 | Full section-9.8 batch -> documented final statuses | Positive (integration) | end_to_end_batch.feature | "The full section 9.8 sample batch processes to the documented outcomes" | Covered |
+| L2-FR-12 | US-11 | AC-11.1 | Processing summary reconciles with batch outcome | Positive (integration) | end_to_end_batch.feature | "The processing summary reconciles with the batch outcome" | Covered |
+| L2-FR-12 | US-11 | AC-11.2 | Regression introduced in the idempotency check -> at least one test fails | — | none | **No scenario exists** | **GAP — open, not yet automated** |
+
+**Coverage summary (audited counts):**
+
+- Total ACs defined: **28**. Total Cucumber scenarios (test cases) implemented: **27**.
+- By type: Positive **12**, Negative **7**, Edge **9**. (US-05's AC-05.1/AC-05.2 share a
+  single scenario, tagged with both ACs, by deliberate design choice — the
+  single-cursor model of DD-02 — not an oversight or an unsplit duplicate.)
+- Coverage: **27/28 ACs covered (96.4%)**. The sole gap is **AC-11.2** (see
+  "Known Gaps" below).
+
+| US | ACs | Scenarios | Positive | Negative | Edge | Coverage |
+|---|---|---|---|---|---|---|
+| US-01 | 2 | 2 | 2 | 0 | 0 | 2/2 |
+| US-02 | 3 | 3 | 0 | 2 | 1 | 3/3 |
+| US-03 | 4 | 4 | 2 | 1 | 1 | 4/4 |
+| US-04 | 3 | 3 | 0 | 1 | 2 | 3/3 |
+| US-05 | 3 | 2 (one shared) | 1 | 0 | 2 | 3/3 |
+| US-06 | 3 | 3 | 0 | 2 | 1 | 3/3 |
+| US-07 | 2 | 2 | 0 | 0 | 2 | 2/2 |
+| US-08 | 2 | 2 | 2 | 0 | 0 | 2/2 |
+| US-09 | 2 | 2 | 1 | 1 | 0 | 2/2 |
+| US-10 | 2 | 2 | 2 | 0 | 0 | 2/2 |
+| US-11 | 2 | 2 | 2 | 0 | 0 | 1/2 (AC-11.2 gap) |
+
 ## BDD Test Plan
 
 One Cucumber `.feature` file per User Story (Scenario = Acceptance Criterion), under
@@ -398,7 +491,13 @@ One Cucumber `.feature` file per User Story (Scenario = Acceptance Criterion), u
 | US-08 | `US-08_observability_summary.feature` |
 | US-09 | `US-09_security_data_handling.feature` |
 | US-10 | `US-10_maintainable_design.feature` |
-| US-11 | `end_to_end_batch.feature` (single stateful scenario replaying the full §9.8 batch in order) |
+| US-11 | `end_to_end_batch.feature` (single stateful scenario replaying the full §9.8 batch in order) — AC-11.2 has no scenario; see "Known Gaps" below |
+
+Evidence produced per run (see DD-07): the human-facing
+`docs/test-report/ExtentReport.html`, the machine-readable
+`target/cucumber-reports/cucumber.json`, and persisted log files
+(`target/logs/cucumber-tests.log` for `mvn test`,
+`target/logs/transaction-service.log` for `mvn spring-boot:run`).
 
 ## Known Gaps (Production Hardening, Extended)
 
@@ -435,6 +534,23 @@ and next steps for production hardening."
   `processedTransactionIds` grow forever in memory. Production needs a
   retention window (e.g. ≥ the longest client retry window) and a backing
   store, not an unbounded in-memory set.
+- **AC-11.2 (mutation-style regression test) is not automated — open,
+  named gap.** AC-11.2 asks that a regression introduced in the idempotency
+  check cause at least one test to fail. Surfaced by the traceability audit
+  behind the new "Requirement → AC → Test Case Matrix" above: all other 27
+  ACs trace to a real, currently-passing Cucumber scenario; AC-11.2 traces
+  to none. The reason it's harder than the other 27: every existing
+  scenario is written to pass against the *correct* implementation, but
+  AC-11.2 is really asking us to demonstrate the suite's mutation-catching
+  power — i.e. that a *broken* idempotency check makes some scenario fail —
+  which isn't a normal always-green Cucumber scenario at all; it needs
+  either a mutation-testing tool (e.g. PIT) run as a separate step, or a
+  second, deliberately-broken build variant asserted against, neither of
+  which fits this repo's one-feature-file-per-AC pattern. Reviewed with the
+  user, who chose to leave this as a named, undemonstrated gap for now
+  rather than force-fit an automated test — not fixed, not silently
+  dropped, consistent with how the other items in this section are
+  recorded.
 
 ## AI-Assisted Development Usage
 
