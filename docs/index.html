@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="assessmentApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FDE Assessment — Problem Statement &amp; Design</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="ShellCtrl as shell">
+
+  <nav class="navbar navbar-dark bg-dark sticky-top">
+    <div class="container-fluid">
+      <span class="navbar-brand mb-0 h1">FDE Practical Assessment</span>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-sm" ng-class="shell.tab==='problem' ? 'btn-light' : 'btn-outline-light'" ng-click="shell.tab='problem'">1. Problem Statement</button>
+        <button type="button" class="btn btn-sm" ng-class="shell.tab==='design' ? 'btn-light' : 'btn-outline-light'" ng-click="shell.tab='design'">2. Design &amp; Traceability</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- =========================== TAB 1: PROBLEM STATEMENT =========================== -->
+  <div ng-if="shell.tab==='problem'" ng-controller="MainCtrl as vm">
+    <div class="container-fluid">
+      <div class="row">
+
+        <!-- Sidebar TOC -->
+        <nav class="col-md-3 col-lg-2 d-none d-md-block sidebar py-4">
+          <div class="sticky-top pt-2">
+            <h6 class="text-uppercase text-muted px-3 mb-2">Contents</h6>
+            <ul class="nav flex-column">
+              <li class="nav-item" ng-repeat="section in vm.epic.children" ng-if="section.title">
+                <a class="nav-link" href="#{{ vm.sectionId(section) }}">{{ section.title }}</a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="col-md-9 col-lg-10 py-4">
+
+          <!-- Intro / hiring-process note -->
+          <div class="alert alert-light border intro-note" ng-if="vm.introItems.length">
+            <div ng-repeat="item in vm.introItems" ng-switch="item.type">
+              <p ng-switch-when="para">{{ item.text }}</p>
+              <ul ng-switch-when="list">
+                <li ng-repeat="entry in item.entries">{{ entry }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Epic title -->
+          <header class="mb-4">
+            <h1>{{ vm.epic.title }}</h1>
+          </header>
+
+          <!-- Level 2 sections -->
+          <section class="doc-section card mb-4" ng-repeat="section in vm.epic.children" id="{{ vm.sectionId(section) }}">
+            <div class="card-body">
+              <h2 class="card-title" ng-if="section.title">{{ section.title }}</h2>
+
+              <div ng-if="vm.designLinksBySection[vm.sectionId(section)]" class="design-links mb-2">
+                <small class="text-muted me-2">Design:</small>
+                <button type="button" class="btn btn-sm btn-outline-primary me-1 mb-1"
+                        ng-repeat="link in vm.designLinksBySection[vm.sectionId(section)]"
+                        ng-click="shell.goTo('design', link.usId)">{{ link.usId }} ↗</button>
+              </div>
+
+              <!-- items directly on this section -->
+              <div ng-repeat="item in section.items" ng-switch="item.type" class="mb-2">
+                <p ng-switch-when="para">{{ item.text }}</p>
+                <ul ng-switch-when="list">
+                  <li ng-repeat="entry in item.entries">{{ entry }}</li>
+                </ul>
+                <div ng-switch-when="table" class="table-responsive">
+                  <table class="table table-bordered table-striped table-sm">
+                    <thead class="table-dark">
+                      <tr><th ng-repeat="h in item.header">{{ h }}</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="row in item.rows">
+                        <td ng-repeat="cell in row">{{ cell }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Level 3 subsections -->
+              <div class="subsection ps-3 border-start" ng-repeat="sub in section.children" id="{{ vm.sectionId(sub) }}">
+                <h3>{{ sub.title }}</h3>
+
+                <div ng-if="vm.designLinksBySection[vm.sectionId(sub)]" class="design-links mb-2">
+                  <small class="text-muted me-2">Design:</small>
+                  <button type="button" class="btn btn-sm btn-outline-primary me-1 mb-1"
+                          ng-repeat="link in vm.designLinksBySection[vm.sectionId(sub)]"
+                          ng-click="shell.goTo('design', link.usId)">{{ link.usId }} ↗</button>
+                </div>
+
+                <div ng-repeat="item in sub.items" ng-switch="item.type" class="mb-2">
+                  <p ng-switch-when="para">{{ item.text }}</p>
+                  <ul ng-switch-when="list">
+                    <li ng-repeat="entry in item.entries">{{ entry }}</li>
+                  </ul>
+                  <div ng-switch-when="table" class="table-responsive">
+                    <table class="table table-bordered table-striped table-sm">
+                      <thead class="table-dark">
+                        <tr><th ng-repeat="h in item.header">{{ h }}</th></tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="row in item.rows">
+                          <td ng-repeat="cell in row">{{ cell }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Level 4 sub-subsections -->
+                <div class="subsubsection ps-3 border-start" ng-repeat="leaf in sub.children" id="{{ vm.sectionId(leaf) }}">
+                  <h4>{{ leaf.title }}</h4>
+
+                  <div ng-repeat="item in leaf.items" ng-switch="item.type" class="mb-2">
+                    <p ng-switch-when="para">{{ item.text }}</p>
+                    <ul ng-switch-when="list">
+                      <li ng-repeat="entry in item.entries">{{ entry }}</li>
+                    </ul>
+                    <div ng-switch-when="table" class="table-responsive">
+                      <table class="table table-bordered table-striped table-sm">
+                        <thead class="table-dark">
+                          <tr><th ng-repeat="h in item.header">{{ h }}</th></tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="row in item.rows">
+                            <td ng-repeat="cell in row">{{ cell }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+          <footer class="text-muted small border-top pt-3 mb-5">
+            Source: Word document converted for review. Created {{ vm.meta.created }}, last modified {{ vm.meta.modified }}.
+          </footer>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================== TAB 2: DESIGN & TRACEABILITY =========================== -->
+  <div ng-if="shell.tab==='design'" ng-controller="DesignCtrl as dvm">
+    <div class="container-fluid">
+      <div class="row">
+
+        <!-- Sidebar TOC -->
+        <nav class="col-md-3 col-lg-2 d-none d-md-block sidebar py-4">
+          <div class="sticky-top pt-2">
+            <h6 class="text-uppercase text-muted px-3 mb-2">Design Contents</h6>
+            <ul class="nav flex-column">
+              <li class="nav-item"><a class="nav-link" href="#design-user-stories">User Stories &amp; AC</a></li>
+              <li class="nav-item"><a class="nav-link" href="#design-hld">High-Level Design</a></li>
+              <li class="nav-item"><a class="nav-link" href="#design-lld">Low-Level Design</a></li>
+              <li class="nav-item"><a class="nav-link" href="#design-flows">Flow Charts</a></li>
+              <li class="nav-item"><a class="nav-link" href="#design-sequence">Sequence Diagram</a></li>
+              <li class="nav-item"><a class="nav-link" href="#design-decisions">Design Decisions</a></li>
+              <li class="nav-item"><a class="nav-link" href="#design-bdd">BDD Test Plan</a></li>
+              <li class="nav-item"><a class="nav-link" href="#design-traceability">Traceability Matrix</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Main content -->
+        <main class="col-md-9 col-lg-10 py-4">
+
+          <header class="mb-4" id="design-top">
+            <h1>Design Note — Idempotent Background Transaction Processing Service</h1>
+            <p class="text-muted">
+              Derived from <a href="#" ng-click="shell.goTo('problem','sec-9-4-functional-requirements')">§9.4 Functional Requirements</a>,
+              <a href="#" ng-click="shell.goTo('problem','sec-6-1-idempotency')">§6 NFRs</a> and
+              <a href="#" ng-click="shell.goTo('problem','sec-9-7-l2-acceptance-criteria')">§9.7 Acceptance Criteria</a>.
+              Every User Story below carries its own ID, the requirement ID(s) it traces to (click to jump to the source),
+              and the diagram(s) that model it.
+            </p>
+          </header>
+
+          <!-- User Stories -->
+          <section class="mb-5" id="design-user-stories">
+            <h2>User Stories &amp; Acceptance Criteria</h2>
+            <div class="card mb-3" ng-repeat="us in dvm.userStories" id="{{ us.id }}">
+              <div class="card-body">
+                <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+                  <span class="badge bg-dark">{{ us.id }}</span>
+                  <h3 class="h5 mb-0 flex-grow-1">{{ us.title }}</h3>
+                  <span class="badge" ng-class="us.priority==='Must' ? 'bg-danger' : 'bg-secondary'">{{ us.priority }}</span>
+                </div>
+                <p class="mb-2"><strong>As a</strong> {{ us.asA }}, <strong>I want</strong> {{ us.iWant }}, <strong>so that</strong> {{ us.soThat }}.</p>
+
+                <div class="mb-2">
+                  <small class="text-muted me-2">Traces to:</small>
+                  <button type="button" class="btn btn-sm btn-outline-secondary me-1 mb-1"
+                          ng-repeat="rid in us.linkedRequirements"
+                          ng-click="shell.goTo('problem', dvm.reqById[rid].sectionAnchor)"
+                          title="{{ dvm.reqById[rid].text }}">{{ rid }}</button>
+                </div>
+                <div class="mb-3">
+                  <small class="text-muted me-2">Modeled by:</small>
+                  <button type="button" class="btn btn-sm btn-outline-info me-1 mb-1"
+                          ng-repeat="did in us.linkedDiagrams"
+                          ng-click="shell.goTo('design', did)">{{ did }}</button>
+                </div>
+
+                <table class="table table-sm table-bordered mb-0">
+                  <thead class="table-light">
+                    <tr><th style="width:90px">AC ID</th><th>Given</th><th>When</th><th>Then</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="ac in us.acceptanceCriteria">
+                      <td><span class="badge bg-light text-dark border">{{ ac.id }}</span></td>
+                      <td>{{ ac.given }}</td>
+                      <td>{{ ac.when }}</td>
+                      <td>{{ ac.then }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- HLD -->
+          <section class="card mb-4" id="design-hld">
+            <div class="card-body" id="{{ dvm.hld.id }}">
+              <h2 class="card-title">High-Level Design <span class="badge bg-dark">{{ dvm.hld.id }}</span></h2>
+              <p>{{ dvm.hld.description }}</p>
+              <div class="diagram-box" mermaid-diagram="dvm.hld.mermaid"></div>
+              <div class="mt-2">
+                <small class="text-muted me-2">Requirements covered:</small>
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1 mb-1"
+                        ng-repeat="rid in dvm.hld.linkedRequirements"
+                        ng-click="shell.goTo('problem', dvm.reqById[rid].sectionAnchor)">{{ rid }}</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- LLD -->
+          <section class="card mb-4" id="design-lld">
+            <div class="card-body" id="{{ dvm.lld.id }}">
+              <h2 class="card-title">Low-Level Design <span class="badge bg-dark">{{ dvm.lld.id }}</span></h2>
+              <p>{{ dvm.lld.description }}</p>
+              <div class="diagram-box" mermaid-diagram="dvm.lld.mermaid"></div>
+              <div class="mt-2">
+                <small class="text-muted me-2">Requirements covered:</small>
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1 mb-1"
+                        ng-repeat="rid in dvm.lld.linkedRequirements"
+                        ng-click="shell.goTo('problem', dvm.reqById[rid].sectionAnchor)">{{ rid }}</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Flow charts -->
+          <section class="mb-4" id="design-flows">
+            <h2>Flow Charts</h2>
+            <div class="card mb-3" ng-repeat="fc in dvm.flows">
+              <div class="card-body" id="{{ fc.id }}">
+                <h3 class="h5">{{ fc.title }} <span class="badge bg-dark">{{ fc.id }}</span></h3>
+                <p>{{ fc.description }}</p>
+                <div class="diagram-box" mermaid-diagram="fc.mermaid"></div>
+                <div class="mt-2">
+                  <small class="text-muted me-2">Requirements covered:</small>
+                  <button type="button" class="btn btn-sm btn-outline-secondary me-1 mb-1"
+                          ng-repeat="rid in fc.linkedRequirements"
+                          ng-click="shell.goTo('problem', dvm.reqById[rid].sectionAnchor)">{{ rid }}</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Sequence diagram -->
+          <section class="card mb-4" id="design-sequence">
+            <div class="card-body" id="{{ dvm.sequence.id }}">
+              <h2 class="card-title">Sequence Diagram <span class="badge bg-dark">{{ dvm.sequence.id }}</span></h2>
+              <p>{{ dvm.sequence.description }}</p>
+              <div class="diagram-box" mermaid-diagram="dvm.sequence.mermaid"></div>
+              <div class="mt-2">
+                <small class="text-muted me-2">Requirements covered:</small>
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1 mb-1"
+                        ng-repeat="rid in dvm.sequence.linkedRequirements"
+                        ng-click="shell.goTo('problem', dvm.reqById[rid].sectionAnchor)">{{ rid }}</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Design decisions -->
+          <section class="mb-4" id="design-decisions">
+            <h2>Design Decisions &amp; Trade-offs</h2>
+            <div class="card mb-2" ng-repeat="dd in dvm.decisions">
+              <div class="card-body" id="{{ dd.id }}">
+                <h3 class="h6"><span class="badge bg-secondary me-1">{{ dd.id }}</span>{{ dd.title }}</h3>
+                <p class="mb-2 small">{{ dd.rationale }}</p>
+                <button type="button" class="btn btn-sm btn-outline-secondary me-1 mb-1"
+                        ng-repeat="rid in dd.linkedRequirements"
+                        ng-click="shell.goTo('problem', dvm.reqById[rid].sectionAnchor)">{{ rid }}</button>
+              </div>
+            </div>
+          </section>
+
+          <!-- BDD test plan -->
+          <section class="card mb-4" id="design-bdd">
+            <div class="card-body">
+              <h2 class="card-title">BDD Test Plan</h2>
+              <p class="text-muted small">One Cucumber feature file per User Story (Scenario = Acceptance Criterion), plus an end-to-end batch feature, under <code>transaction-service/src/test/resources/features/</code>.</p>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-sm align-middle">
+                  <thead class="table-dark">
+                    <tr><th>User Story</th><th>Feature File</th><th>Scenarios (ACs)</th><th>Note</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="plan in dvm.bddPlan">
+                      <td>
+                        <button type="button" class="btn btn-sm btn-outline-primary" ng-click="shell.goTo('design', plan.usId)">{{ plan.usId }}</button>
+                      </td>
+                      <td><code>{{ plan.file }}</code></td>
+                      <td>
+                        <span class="badge bg-light text-dark border me-1" ng-repeat="ac in dvm.usById[plan.usId].acceptanceCriteria">{{ ac.id }}</span>
+                      </td>
+                      <td class="small text-muted">{{ plan.note || '—' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Traceability matrix -->
+          <section class="card mb-5" id="design-traceability">
+            <div class="card-body">
+              <h2 class="card-title">Traceability Matrix</h2>
+              <p class="text-muted small">Computed live from the links above — Requirement → User Story → Diagram(s). Every badge is clickable.</p>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped table-sm align-middle">
+                  <thead class="table-dark">
+                    <tr><th>Requirement</th><th>Category</th><th>User Story</th><th>Diagrams</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="row in dvm.traceability">
+                      <td>
+                        <button type="button" class="btn btn-sm btn-outline-dark" title="{{ row.requirement.text }}"
+                                ng-click="shell.goTo('problem', row.requirement.sectionAnchor)">{{ row.requirement.id }}</button>
+                      </td>
+                      <td>{{ row.requirement.category }}</td>
+                      <td>
+                        <span ng-if="!row.userStories.length" class="text-muted small">—</span>
+                        <button type="button" class="btn btn-sm btn-outline-primary me-1 mb-1"
+                                ng-repeat="us in row.userStories"
+                                ng-click="shell.goTo('design', us.id)">{{ us.id }}</button>
+                      </td>
+                      <td>
+                        <span ng-if="!row.diagramIds.length" class="text-muted small">—</span>
+                        <button type="button" class="btn btn-sm btn-outline-info me-1 mb-1"
+                                ng-repeat="did in row.diagramIds"
+                                ng-click="shell.goTo('design', did)">{{ did }}</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/angular@1.8.3/angular.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: false, theme: 'default', securityLevel: 'loose' });
+  </script>
+  <script src="data.js"></script>
+  <script src="design-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

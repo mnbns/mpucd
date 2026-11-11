@@ -1,0 +1,12 @@
+{
+  "name": "fde-assessment-viewer",
+  "version": "1.0.0",
+  "description": "Express static server for the FDE assessment problem statement viewer",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
