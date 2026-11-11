@@ -1,9 +1,12 @@
 package com.mphasis.assessment.txservice.steps;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mphasis.assessment.txservice.model.TransactionRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,10 +19,14 @@ import java.util.List;
  * {@code InMemoryTransactionSource} for the real sample data), so a step's
  * actual request and expected-response values live in one JSON file
  * instead of being hand-typed into both the Gherkin sentence and the step
- * definition's Java code.
+ * definition's Java code. Every load is logged with the real JSON it read,
+ * so the console/log file shows exactly what request body or expected
+ * result a scenario used - directly comparable against the matching AC in
+ * DESIGN.md, not inferred from the engine's internal state.
  */
 final class TestDataLoader {
 
+    private static final Logger log = LoggerFactory.getLogger(TestDataLoader.class);
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     private TestDataLoader() {
@@ -40,13 +47,16 @@ final class TestDataLoader {
     static TransactionRequest loadRequest(String classpathResourcePath) {
         JsonNode root = load(classpathResourcePath);
         JsonNode requestNode = root.has("request") ? root.get("request") : root;
+        logJson("REQUEST BODY", classpathResourcePath, requestNode);
         return MAPPER.convertValue(requestNode, TransactionRequest.class);
     }
 
     /** A fixture whose top level is {"requests": [...]}. */
     static List<TransactionRequest> loadRequests(String classpathResourcePath) {
         JsonNode root = load(classpathResourcePath);
-        return MAPPER.convertValue(root.get("requests"), new TypeReference<List<TransactionRequest>>() { });
+        JsonNode requestsNode = root.get("requests");
+        logJson("REQUEST BODIES", classpathResourcePath, requestsNode);
+        return MAPPER.convertValue(requestsNode, new TypeReference<List<TransactionRequest>>() { });
     }
 
     /** The expected-response sub-object under the given key, e.g. "expectedValidation". */
@@ -55,6 +65,16 @@ final class TestDataLoader {
         if (node == null) {
             throw new IllegalArgumentException("fixture " + classpathResourcePath + " has no \"" + key + "\" section");
         }
+        logJson("EXPECTED (" + key + ")", classpathResourcePath, node);
         return node;
+    }
+
+    private static void logJson(String label, String classpathResourcePath, JsonNode node) {
+        try {
+            log.info("{} [{}]:\n{}", label, classpathResourcePath,
+                    MAPPER.writerWithDefaultPrettyPrinter().writeValueAsString(node));
+        } catch (JsonProcessingException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 }

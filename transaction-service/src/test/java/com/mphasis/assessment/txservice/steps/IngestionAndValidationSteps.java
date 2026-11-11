@@ -85,9 +85,10 @@ public class IngestionAndValidationSteps {
 
     @Then("it is marked FAILED with a validation reason")
     public void it_is_marked_failed_with_a_validation_reason() {
-        JsonNode expected = TestDataLoader.load(currentFixturePath);
-        assertEquals(expected.get("expectedStatus").asText(), context.currentRequest.getStatus().name());
-        if (expected.get("expectedFailureReasonPresent").asBoolean()) {
+        String expectedStatus = TestDataLoader.loadExpected(currentFixturePath, "expectedStatus").asText();
+        boolean expectedReasonPresent = TestDataLoader.loadExpected(currentFixturePath, "expectedFailureReasonPresent").asBoolean();
+        assertEquals(expectedStatus, context.currentRequest.getStatus().name());
+        if (expectedReasonPresent) {
             assertNotNull(context.currentRequest.getFailureReason());
         }
     }
