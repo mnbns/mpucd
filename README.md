@@ -9,7 +9,7 @@ face of duplicates, out-of-order arrival, and transient failures.
   traceability matrix, known gaps, AI-usage notes.
 - **Live, clickable version of the same design** (bidirectional links
   between every requirement and every design artifact): **[live docs
-  site — fill in after GitHub Pages is enabled]**.
+  site](https://mnbns.github.io/mpucd/)**.
 - **Release notes**: [`RELEASE_NOTES.md`](RELEASE_NOTES.md) — defects found
   and fixed, final test results.
 - **Test report**: [`docs/test-report/ExtentReport.html`](docs/test-report/ExtentReport.html)
