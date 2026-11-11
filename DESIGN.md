@@ -460,3 +460,29 @@ a fresh sequence number. Adopted as DD-03's dual-key fix. Its other gap
 analysis (stuck-pending TTL, atomic-claim concurrency, permutation testing,
 key retention) was judged correct but out of scope to fix in the time
 available, and is recorded above instead of silently dropped.
+
+**Agent/skill/RAG layer (meta, not part of the delivered service).** The
+assessment document itself never asks for an agentic architecture — it
+only asks that AI tools be used to build the service and that the
+resulting code be explained and validated (confirmed by re-reading the
+full extracted problem statement for any mention of "agent": none found).
+What's described here formalizes the *build process* itself, on top of
+Claude Code, so later changes stay grounded in this document instead of
+drifting the way earlier design sessions did (e.g. the console-vs-API
+reversal). It is not part of `transaction-service`'s runtime.
+- **RAG** — `scripts/design_lookup.py` does exact-ID retrieval (not
+  embeddings) over `DESIGN.md`/`RELEASE_NOTES.md`, since every requirement,
+  decision, and diagram here already carries a stable ID (`US-xx`,
+  `AC-xx.y`, `L2-FR-xx`, `NFR-xx`, `DD-xx`, `HLD-01`, `LLD-01`, `FC-0x`,
+  `SEQ-01`). Grep-by-structure is more reliable than semantic search for a
+  document this size and this structured.
+- **Agents** (`.claude/agents/`) — `design-architect` (owns `DESIGN.md`
+  only), `feature-builder` (implements one User Story's code + Cucumber
+  tests, grounded via the lookup script), `test-verifier` (read-only,
+  cross-checks the traceability matrix against real `mvn test` output in
+  both directions), `release-manager` (compiles `RELEASE_NOTES.md`/README
+  evidence and handles the branch/tag flow).
+- **Skills** (`.claude/skills/`) — `/iterate-feature <US-id>`,
+  `/update-design`, `/trace-check`, `/release`, each sequencing the agents
+  above for one step of the Design → Setup → 9 iterations → Release
+  workflow already used to build this repo.

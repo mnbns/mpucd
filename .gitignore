@@ -3,3 +3,6 @@ node_modules/
 package-lock.json
 *.class
 .DS_Store
+.claude/
+.github/
+Installations/
