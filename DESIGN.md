@@ -200,6 +200,8 @@ classDiagram
     <<interface>>
     +boolean isProcessed(String requestId)
     +void markProcessed(String requestId)
+    +boolean isTransactionProcessed(String transactionId)
+    +void markTransactionProcessed(String transactionId)
   }
   class SequenceBuffer {
     -long lastResolvedSequence
@@ -350,7 +352,7 @@ sequenceDiagram
 
 - **DD-01** — Stack: Java 17 + Spring Boot, `CommandLineRunner` (no web layer, no DB). Ground rules (§7) explicitly allow Java; no production DB or complex UI is mandated. A console-style batch run keeps the build boring and testable.
 - **DD-02** — Out-of-order strategy: Option A, sequence-based buffering, **one cursor for the whole batch, not per account**. The §9.8 data is ordered by sequence. The cursor is batch-wide, not per `accountId` as first drafted: with a per-account cursor, `ACC-203`'s one and only transaction (sequence 5, no sequence 1-4 ever exists for that account) could never become "ready" and would never reach the retry logic — contradicting §9.8's own expected outcome for that row. Running the engine against the real data surfaced this; a single cursor, advanced on every resolved sequence number including validation failures (so one permanently failed record never blocks everything after it), reproduces all six §9.8 expected outcomes exactly. Option C (eventTime/version, "latest wins") remains the noted production-scale alternative.
-- **DD-03** — Idempotency key = `requestId` (not `transactionId`). `transactionId` identifies the business transaction; `requestId`/idempotencyKey identifies the physical attempt.
+- **DD-03** — Idempotency check is **dual-key**: `requestId` (catches a literal retry of the exact same physical attempt) **and** `transactionId` (catches a different `requestId` for the same business transaction — e.g. `REQ-2` vs `REQ-2-DUP`, both referencing `TXN-2002`). The original design checked only `requestId`, relying on the sequence-staleness check (FC-03) to incidentally catch `REQ-2-DUP`. That's fragile: a duplicate reusing a *fresh, never-before-seen* sequence number would have slipped through undetected. Caught during cross-checking this design against an independent AI's analysis of the same assessment, which argued correctly that `transactionId` is the more direct, defensible dedup key for that exact test case. Fixed by adding `isTransactionProcessed`/`markTransactionProcessed` to `IdempotencyStore`, checked immediately after the `requestId` check.
 - **DD-04** — Max retry count = 3, in-memory simulation. Simple, bounded, easy to assert in tests; a real deployment would externalize this and use scheduler/queue redelivery counts.
 - **DD-05** — Production hardening notes (explained, not built): swap in-memory stores for Redis/DB with a unique constraint on `requestId`; swap `TransactionSource` for a real queue (Kafka/SQS) with consumer-group ordering; add per-account locking/optimistic concurrency for NFR-04; add Micrometer metrics/tracing beyond console logs; add payload fingerprinting alongside `requestId` to catch a key reused for a genuinely different transaction; be aware that true concurrent (not just sequential-retry) duplicate submissions need a DB unique constraint, not just an in-memory check-then-set, to avoid a race.
 - **DD-06** — Test strategy: Cucumber BDD, one feature file per User Story, step definitions call the engine directly (no HTTP) — consistent with DD-01.
@@ -398,6 +400,42 @@ One Cucumber `.feature` file per User Story (Scenario = Acceptance Criterion), u
 | US-10 | `US-10_maintainable_design.feature` |
 | US-11 | `end_to_end_batch.feature` (single stateful scenario replaying the full §9.8 batch in order) |
 
+## Known Gaps (Production Hardening, Extended)
+
+Surfaced by cross-checking this design against an independent AI session's
+analysis of the same assessment (see "AI-Assisted Development Usage" below).
+Not fixed — named explicitly, per §9.7's "candidate can identify trade-offs
+and next steps for production hardening."
+
+- **Ordering-scope ambiguity (validates DD-02).** The spec never states
+  whether `sequenceNumber` is scoped per-account or global. We discovered
+  this empirically (DD-02): a per-account cursor stranded `ACC-203`'s only
+  transaction. The independent cross-check flagged the identical ambiguity
+  from reading the spec alone, arriving at the same unresolved question from
+  a different direction. We chose global and defended it against the real
+  data; a production system should pin this contract explicitly and test it
+  with cross-account interleaving.
+- **Stuck-pending TTL is undefined.** A sequence gap that never fills (AC-05.3)
+  leaves a request in `PENDING_ORDER` forever, with no timeout or alert. The
+  processing summary surfaces it as a count, but nothing pages anyone.
+- **Concurrent-duplicate testing is narrower than it sounds.** US-07's
+  concurrency test proves the *ledger* serializes per-account updates
+  correctly; it does not prove the *idempotency check itself* is race-free
+  under two truly simultaneous first-attempts for the same key (a
+  check-then-set, not an atomic claim). Safe today only because the engine
+  is single-threaded; a real concurrent system needs an atomic
+  claim (e.g. `INSERT ... ON CONFLICT`) at the store layer, not a
+  check-then-set in application code.
+- **Permutation/invariant testing would be a stronger oracle than fixed
+  expected-values.** Our tests assert specific outcomes for the given §9.8
+  order. A stronger test would shuffle the batch and assert the *final
+  ledger state* is invariant regardless of arrival order — property-based,
+  not example-based.
+- **Idempotency key retention has no TTL.** Both `processedRequestIds` and
+  `processedTransactionIds` grow forever in memory. Production needs a
+  retention window (e.g. ≥ the longest client retry window) and a backing
+  store, not an unbounded in-memory set.
+
 ## AI-Assisted Development Usage
 
 Built with Claude Code, iteratively: User Stories/ACs were written first,
@@ -410,3 +448,15 @@ which confirmed this was the differentiating, harder half of the assessment.
 Every piece of generated code was run and verified against the real §9.8
 data rather than trusted by inspection — doing so surfaced 4 real defects
 (see `RELEASE_NOTES.md`), including a genuine design correction (DD-02).
+
+A second, independent AI session's own analysis of this same assessment was
+also deliberately cross-checked against this design (not used to generate
+code, used as a second opinion). It agreed on the domain, the three failure
+modes, and Option A ordering. It disagreed on the dedup key — arguing
+`transactionId`, where this design had used `requestId` alone — and was
+right: `requestId`-only dedup relied on an incidental side effect (sequence
+staleness) to catch `REQ-2-DUP`, which would have missed a duplicate reusing
+a fresh sequence number. Adopted as DD-03's dual-key fix. Its other gap
+analysis (stuck-pending TTL, atomic-claim concurrency, permutation testing,
+key retention) was judged correct but out of scope to fix in the time
+available, and is recorded above instead of silently dropped.
