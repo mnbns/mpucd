@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -19,18 +20,19 @@ public class OrderingSteps {
     private final ScenarioContext context;
     private TransactionRequest seq2Request;
     private TransactionRequest seq1Request;
+    private TransactionRequest seq3Request;
 
     public OrderingSteps(ScenarioContext context) {
         this.context = context;
     }
 
-    @Given("TXN-2002 with sequence 2 arrives before TXN-2001 with sequence 1 for the same account, as in section 9.8 rows 1 and 2, loaded from {string}")
-    public void txn2002_arrives_before_txn2001(String fixturePath) {
+    @Given("a request with sequence 2 arrives before the request with sequence 1 for the same account, as in section 9.8 rows 1 and 2, loaded from {string}")
+    public void seq2_arrives_before_seq1(String fixturePath) {
         for (TransactionRequest request : TestDataLoader.loadRequests(fixturePath)) {
             context.remember(request);
         }
-        seq2Request = context.requestsByRequestId.get("REQ-2");
-        seq1Request = context.requestsByRequestId.get("REQ-1");
+        seq2Request = context.requestsByRequestId.get("6820394");
+        seq1Request = context.requestsByRequestId.get("4193857");
     }
 
     @When("sequence 2 is received")
@@ -87,5 +89,38 @@ public class OrderingSteps {
                 .filter(r -> r.getStatus() == TransactionStatus.PENDING_ORDER)
                 .count();
         assertEquals(1, pendingCount);
+    }
+
+    // --- cascade release: two sequences buffered (not just one) before their predecessor arrives,
+    // proving releaseNowReady()'s poll loop chains more than one hop. ---
+
+    @Given("sequence 2 and sequence 3 for the same account, loaded from {string}")
+    public void sequence_2_and_sequence_3_for_the_same_account(String fixturePath) {
+        List<TransactionRequest> requests = TestDataLoader.loadRequests(fixturePath);
+        for (TransactionRequest request : requests) {
+            context.remember(request);
+        }
+        seq1Request = context.requestsByRequestId.get("2093847");
+        seq2Request = context.requestsByRequestId.get("4758291");
+        seq3Request = context.requestsByRequestId.get("6381047");
+    }
+
+    @When("sequence 3 is received")
+    public void sequence_3_is_received() {
+        context.submit(seq3Request);
+    }
+
+    @Then("both are held as PENDING_ORDER")
+    public void both_are_held_as_pending_order() {
+        assertEquals(TransactionStatus.PENDING_ORDER, seq3Request.getStatus());
+        assertEquals(TransactionStatus.PENDING_ORDER, seq2Request.getStatus());
+    }
+
+    @Then("both buffered sequences are released and processed in order")
+    public void both_buffered_sequences_are_released_and_processed_in_order() {
+        assertEquals(TransactionStatus.PROCESSED, seq1Request.getStatus());
+        assertEquals(TransactionStatus.PROCESSED, seq2Request.getStatus());
+        assertEquals(TransactionStatus.PROCESSED, seq3Request.getStatus());
+        assertTrue(context.sequenceBuffer.stillBuffered().isEmpty());
     }
 }

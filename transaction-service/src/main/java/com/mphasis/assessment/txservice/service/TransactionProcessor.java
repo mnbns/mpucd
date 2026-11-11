@@ -7,8 +7,11 @@ import com.mphasis.assessment.txservice.retry.RetryPolicy;
 import com.mphasis.assessment.txservice.retry.TransientProcessingException;
 import com.mphasis.assessment.txservice.store.AccountLedger;
 import com.mphasis.assessment.txservice.store.IdempotencyStore;
+import com.mphasis.assessment.txservice.util.AccountIdMasking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
 
 /**
  * Orchestrates one request through: validate (US-02) -> duplicate check
@@ -37,6 +40,7 @@ public class TransactionProcessor {
     }
 
     public void process(TransactionRequest request) {
+        Objects.requireNonNull(request, "request must not be null");
         ValidationResult validation = validator.validate(request);
         if (!validation.isValid()) {
             setStatus(request, TransactionStatus.FAILED);
@@ -128,14 +132,6 @@ public class TransactionProcessor {
     private void logEvent(TransactionRequest request, String note) {
         log.info("{} transactionId={} requestId={} accountId={} seq={} -> {} ({})",
                 request.getStatus(), request.getTransactionId(), request.getRequestId(),
-                mask(request.getAccountId()), request.getSequenceNumber(), request.getStatus(), note);
-    }
-
-    /** US-09 / NFR-06: never print the full account reference, only enough to spot it in a log stream. */
-    private String mask(String accountId) {
-        if (accountId == null || accountId.length() <= 4) {
-            return "***";
-        }
-        return "***" + accountId.substring(accountId.length() - 3);
+                AccountIdMasking.mask(request.getAccountId()), request.getSequenceNumber(), request.getStatus(), note);
     }
 }

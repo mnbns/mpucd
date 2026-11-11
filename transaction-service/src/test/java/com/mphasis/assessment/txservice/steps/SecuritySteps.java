@@ -18,13 +18,16 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** US-09: Security and Safe Data Handling. */
 public class SecuritySteps {
 
     private static final Pattern HARDCODED_SECRET =
             Pattern.compile("(?i)(password|secret|apikey|api_key|access[_-]?token)\\s*=\\s*\"[^\"]+\"");
+
+    /** A secret-looking key bound to a literal value rather than an externalized placeholder (${...}). */
+    private static final Pattern NON_EXTERNALIZED_SECRET =
+            Pattern.compile("(?i)(password|secret|api[_-]?key|access[_-]?token)\\s*[:=]\\s*(?!\\$\\{)\\S+");
 
     private final ScenarioContext context;
     private ListAppender<ILoggingEvent> appender;
@@ -77,9 +80,21 @@ public class SecuritySteps {
     }
 
     @Then("all are externalized")
-    public void all_are_externalized() {
-        // No secrets exist for this service (no DB, no external API, no auth) - nothing to externalize yet;
-        // the absence is itself the evidence, confirmed by the source scan above.
-        assertTrue(true);
+    public void all_are_externalized() throws IOException {
+        // Scans every resource file (logback-spring.xml today; any future
+        // application.yml/.properties) for a secret-looking key bound to a literal
+        // value rather than a ${...} placeholder, so adding a real config file with a
+        // hardcoded credential later would actually fail this step.
+        Path resources = Path.of("src", "main", "resources");
+        if (!Files.isDirectory(resources)) {
+            return;
+        }
+        try (Stream<Path> files = Files.walk(resources)) {
+            for (Path file : files.filter(Files::isRegularFile).toList()) {
+                String content = Files.readString(file);
+                assertFalse(NON_EXTERNALIZED_SECRET.matcher(content).find(),
+                        "possible non-externalized secret in " + file);
+            }
+        }
     }
 }

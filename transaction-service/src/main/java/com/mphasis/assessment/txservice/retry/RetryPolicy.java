@@ -8,6 +8,9 @@ public class RetryPolicy {
     private final int maxRetries;
 
     public RetryPolicy(int maxRetries) {
+        if (maxRetries < 0) {
+            throw new IllegalArgumentException("maxRetries must be >= 0, got: " + maxRetries);
+        }
         this.maxRetries = maxRetries;
     }
 

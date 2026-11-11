@@ -67,7 +67,16 @@ public class LifecycleSteps {
 
     @Then("it is exactly one of RECEIVED, PROCESSING, PENDING_ORDER, RETRY_PENDING, PROCESSED, DUPLICATE, or FAILED")
     public void it_is_exactly_one_of_the_defined_statuses() {
-        assertTrue(EnumSet.allOf(TransactionStatus.class).contains(context.currentRequest.getStatus()));
+        // Membership alone (EnumSet.allOf(...).contains(status)) can never fail: any
+        // TransactionStatus value is necessarily a member of its own type. The real
+        // invariant worth guarding is that the enum itself still has exactly these seven
+        // values - this fails if one is ever added, removed, or renamed.
+        EnumSet<TransactionStatus> definedLifecycleValues = EnumSet.of(
+                TransactionStatus.RECEIVED, TransactionStatus.PROCESSING, TransactionStatus.PENDING_ORDER,
+                TransactionStatus.RETRY_PENDING, TransactionStatus.PROCESSED, TransactionStatus.DUPLICATE,
+                TransactionStatus.FAILED);
+        assertEquals(definedLifecycleValues, EnumSet.allOf(TransactionStatus.class));
+        assertTrue(definedLifecycleValues.contains(context.currentRequest.getStatus()));
     }
 
     @Given("an illegal transition is attempted, such as DUPLICATE to PROCESSING")

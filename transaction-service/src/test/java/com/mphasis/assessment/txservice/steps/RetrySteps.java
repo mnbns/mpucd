@@ -22,12 +22,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RetrySteps {
 
     private final ScenarioContext context;
+    /** Set per-scenario so the generic "it is marked PROCESSED exactly once" Then step below can check either case. */
+    private String accountIdUnderTest;
+    private BigDecimal expectedBalance;
 
     public RetrySteps(ScenarioContext context) {
         this.context = context;
     }
 
-    @Given("a transaction simulated to fail transiently, such as TXN-2005 in section 9.8 row 6, loaded from {string}")
+    @Given("a transaction simulated to fail transiently, as in section 9.8 row 6, loaded from {string}")
     public void a_transaction_simulated_to_fail_transiently(String fixturePath) {
         // The fixture's own "note" explains why its sequenceNumber (1) deliberately differs
         // from the real batch's (5): this isolated scenario's fresh, empty SequenceBuffer
@@ -76,6 +79,18 @@ public class RetrySteps {
     @Given("a transaction that succeeds on a later retry attempt")
     public void a_transaction_that_succeeds_on_a_later_retry_attempt() {
         context.buildRequest("TXN-EVENTUAL", "REQ-EVENTUAL", "ACC-EVENTUAL", TransactionType.CREDIT, new BigDecimal("60"), 1, 2);
+        accountIdUnderTest = "ACC-EVENTUAL";
+        expectedBalance = new BigDecimal("60");
+    }
+
+    @Given("a transaction that succeeds only on the final allowed retry attempt")
+    public void a_transaction_that_succeeds_only_on_the_final_allowed_retry_attempt() {
+        // maxRetries=3 (DD-04): simulatedFailures=3 fails attempts 1-3 (retryCount reaches 3,
+        // the same count as the exhaustion case) and only succeeds on attempt 4 - the exact
+        // boundary where RetryPolicy.shouldRetry's `<` would become `<=` in an off-by-one regression.
+        context.buildRequest("TXN-BOUNDARY", "REQ-BOUNDARY", "ACC-BOUNDARY", TransactionType.CREDIT, new BigDecimal("45"), 1, 3);
+        accountIdUnderTest = "ACC-BOUNDARY";
+        expectedBalance = new BigDecimal("45");
     }
 
     @When("it succeeds")
@@ -86,7 +101,12 @@ public class RetrySteps {
     @Then("it is marked PROCESSED exactly once")
     public void it_is_marked_processed_exactly_once() {
         assertEquals(TransactionStatus.PROCESSED, context.currentRequest.getStatus());
-        assertEquals(new BigDecimal("60"), context.ledger.getBalance("ACC-EVENTUAL"));
+        assertEquals(expectedBalance, context.ledger.getBalance(accountIdUnderTest));
+    }
+
+    @Then("retryCount stopped at the configured maximum")
+    public void retryCount_stopped_at_the_configured_maximum() {
+        assertEquals(3, context.currentRequest.getRetryCount());
     }
 
     @Then("the idempotency store prevents any earlier partial attempt from also taking effect")

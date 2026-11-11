@@ -1,31 +1,49 @@
 {
   "requests": [
     {
-      "transactionId": "TXN-2001",
-      "requestId": "REQ-1",
-      "accountId": "ACC-201",
+      "transactionId": "7b2e9f4c1a8d6053",
+      "requestId": "4193857",
+      "accountId": "6714829350",
       "transactionType": "CREDIT",
-      "amount": 100,
+      "amount": 100.75,
       "currency": "USD",
       "sequenceNumber": 1
     },
     {
-      "transactionId": "TXN-2002",
-      "requestId": "REQ-2",
-      "accountId": "ACC-201",
+      "transactionId": "94d1b7f3e6a2c850",
+      "requestId": "6820394",
+      "accountId": "6714829350",
       "transactionType": "DEBIT",
-      "amount": 40,
+      "amount": 40.25,
       "currency": "USD",
       "sequenceNumber": 2
     },
     {
-      "transactionId": "TXN-2002",
-      "requestId": "REQ-2-DUP",
-      "accountId": "ACC-201",
+      "transactionId": "94d1b7f3e6a2c850",
+      "requestId": "9304857",
+      "accountId": "6714829350",
       "transactionType": "DEBIT",
-      "amount": 40,
+      "amount": 40.25,
       "currency": "USD",
       "sequenceNumber": 2
+    },
+    {
+      "transactionId": "c84f27e9b1a6d350",
+      "requestId": "3157924",
+      "accountId": "5917264083",
+      "transactionType": "CREDIT",
+      "amount": 75.60,
+      "currency": "USD",
+      "sequenceNumber": 3
+    },
+    {
+      "transactionId": "c84f27e9b1a6d350",
+      "requestId": "8642079",
+      "accountId": "5917264083",
+      "transactionType": "CREDIT",
+      "amount": 75.60,
+      "currency": "USD",
+      "sequenceNumber": 3
     }
   ]
 }

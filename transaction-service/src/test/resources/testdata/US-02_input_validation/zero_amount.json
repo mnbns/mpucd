@@ -1,0 +1,15 @@
+{
+  "request": {
+    "transactionId": "b816f3a92c5d0e74",
+    "requestId": "8452017",
+    "accountId": "9261748035",
+    "transactionType": "CREDIT",
+    "amount": 0.0,
+    "currency": "USD",
+    "sequenceNumber": 6
+  },
+  "expectedValidation": {
+    "valid": false,
+    "reasonPresent": true
+  }
+}

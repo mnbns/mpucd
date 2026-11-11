@@ -130,6 +130,12 @@ public class IngestionAndValidationSteps {
         assertEquals(TransactionStatus.PROCESSED, valid.getStatus());
     }
 
+    @Given("a request with a non-positive sequence number that violates the field rules, loaded from {string}")
+    public void a_request_with_a_non_positive_sequence_number(String fixturePath) {
+        currentFixturePath = fixturePath;
+        context.remember(TestDataLoader.loadRequest(fixturePath));
+    }
+
     @Given("one invalid record inside a batch of N records, loaded from {string}")
     public void one_invalid_record_inside_a_batch_of_n_records(String fixturePath) {
         currentFixturePath = fixturePath;

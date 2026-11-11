@@ -1,0 +1,13 @@
+{
+  "request": {
+    "transactionId": "7c2d9e4f1a8b3c60",
+    "requestId": "",
+    "accountId": "2951683407",
+    "transactionType": "CREDIT",
+    "amount": 22.40,
+    "currency": "USD",
+    "sequenceNumber": 1
+  },
+  "expectedStatus": "FAILED",
+  "expectedFailureReasonPresent": true
+}

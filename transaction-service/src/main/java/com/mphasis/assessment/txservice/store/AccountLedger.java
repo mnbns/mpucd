@@ -1,6 +1,7 @@
 package com.mphasis.assessment.txservice.store;
 
 import com.mphasis.assessment.txservice.model.TransactionType;
+import com.mphasis.assessment.txservice.util.AccountIdMasking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,22 @@ public class AccountLedger {
     private final Map<String, BigDecimal> balances = new ConcurrentHashMap<>();
     private final Map<String, Object> accountLocks = new ConcurrentHashMap<>();
 
+    /**
+     * @throws InvalidLedgerOperationException if accountId/type/amount is missing or amount
+     *         isn't positive - the pipeline must validate and dedupe before ever reaching here,
+     *         so this is a defensive guard against an upstream bug, not a business outcome.
+     */
     public BigDecimal apply(String accountId, TransactionType type, BigDecimal amount) {
+        if (accountId == null || accountId.isBlank()) {
+            throw InvalidLedgerOperationException.missingAccountId();
+        }
+        if (type == null) {
+            throw InvalidLedgerOperationException.missingTransactionType(accountId);
+        }
+        if (amount == null || amount.signum() <= 0) {
+            throw InvalidLedgerOperationException.invalidAmount(accountId, amount);
+        }
+
         Object lock = accountLocks.computeIfAbsent(accountId, id -> new Object());
         synchronized (lock) {
             BigDecimal current = balances.getOrDefault(accountId, BigDecimal.ZERO);
@@ -39,17 +55,9 @@ public class AccountLedger {
             // this codebase never logs (TransactionProcessor.logEvent doesn't either) -
             // redacted here too for consistency, even though AC-08.2's own wording only
             // named accountId.
-            log.debug("ledger update accountId={} type={}", mask(accountId), type);
+            log.debug("ledger update accountId={} type={}", AccountIdMasking.mask(accountId), type);
             return updated;
         }
-    }
-
-    /** US-09 / NFR-06: never log the full account reference. */
-    private static String mask(String accountId) {
-        if (accountId == null || accountId.length() <= 4) {
-            return "***";
-        }
-        return "***" + accountId.substring(accountId.length() - 3);
     }
 
     public BigDecimal getBalance(String accountId) {

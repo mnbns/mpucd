@@ -1,10 +1,10 @@
 {
   "request": {
-    "transactionId": "TXN-MISSING",
-    "requestId": "REQ-MISSING",
+    "transactionId": "a3f891c67d2e4b05",
+    "requestId": "4821093",
     "accountId": "",
     "transactionType": "CREDIT",
-    "amount": 10,
+    "amount": 10.25,
     "currency": "USD",
     "sequenceNumber": 1
   },

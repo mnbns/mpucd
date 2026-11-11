@@ -8,7 +8,7 @@ Feature: Retry-Safe Resilience
 
   @AC-06.1
   Scenario: Transient failure moves a transaction to RETRY_PENDING
-    Given a transaction simulated to fail transiently, such as TXN-2005 in section 9.8 row 6, loaded from "testdata/US-06_retry_resilience/txn2005_section_9_8_row6.json"
+    Given a transaction simulated to fail transiently, as in section 9.8 row 6, loaded from "testdata/US-06_retry_resilience/txn2005_section_9_8_row6.json"
     When processing fails
     Then status becomes RETRY_PENDING
     And retryCount is incremented
@@ -26,3 +26,10 @@ Feature: Retry-Safe Resilience
     When it succeeds
     Then it is marked PROCESSED exactly once
     And the idempotency store prevents any earlier partial attempt from also taking effect
+
+  @AC-06.3
+  Scenario: Eventual success exactly on the last allowed retry attempt
+    Given a transaction that succeeds only on the final allowed retry attempt
+    When it succeeds
+    Then it is marked PROCESSED exactly once
+    And retryCount stopped at the configured maximum

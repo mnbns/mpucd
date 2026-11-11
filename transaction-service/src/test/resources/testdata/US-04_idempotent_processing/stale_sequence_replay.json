@@ -1,0 +1,8 @@
+{
+  "requests": [
+    { "transactionId": "3a7f1c9e4b8d0265", "requestId": "1750283", "accountId": "2890376145", "transactionType": "CREDIT", "amount": 100.50, "currency": "USD", "sequenceNumber": 1 },
+    { "transactionId": "f1c8a3e7b9d04526", "requestId": "3461928", "accountId": "2890376145", "transactionType": "CREDIT", "amount": 50.30, "currency": "USD", "sequenceNumber": 2 },
+    { "transactionId": "6d4b9f2a1e8c3075", "requestId": "5820671", "accountId": "2890376145", "transactionType": "CREDIT", "amount": 25.15, "currency": "USD", "sequenceNumber": 3 },
+    { "transactionId": "a9e3c7f1b4d82056", "requestId": "9047235", "accountId": "2890376145", "transactionType": "CREDIT", "amount": 999.99, "currency": "USD", "sequenceNumber": 2 }
+  ]
+}
