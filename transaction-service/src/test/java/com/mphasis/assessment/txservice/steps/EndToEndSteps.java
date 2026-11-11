@@ -2,16 +2,11 @@ package com.mphasis.assessment.txservice.steps;
 
 import com.mphasis.assessment.txservice.model.TransactionRequest;
 import com.mphasis.assessment.txservice.model.TransactionStatus;
-import com.mphasis.assessment.txservice.model.TransactionType;
 import com.mphasis.assessment.txservice.service.ProcessingSummary;
-import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
-import java.math.BigDecimal;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,13 +19,18 @@ public class EndToEndSteps {
         this.context = context;
     }
 
-    @Given("the following transaction requests are submitted in this exact order:")
-    public void the_following_transaction_requests_are_submitted_in_this_exact_order(DataTable table) {
-        for (Map<String, String> row : table.asMaps(String.class, String.class)) {
-            TransactionRequest request = context.buildRequest(
-                    row.get("transactionId"), row.get("requestId"), row.get("accountId"),
-                    TransactionType.valueOf(row.get("type")), new BigDecimal(row.get("amount")),
-                    Long.parseLong(row.get("sequence")));
+    /**
+     * Loads the real {@code sample-transactions.json} (the same file US-01's
+     * InMemoryTransactionSource reads) instead of a hand-typed Gherkin table,
+     * so this scenario can't silently drift from the actual §9.8 batch - a
+     * table previously duplicated it by hand in two scenarios and dropped
+     * TXN-2005's simulatedFailures=1 in the process (see DEFECT note in
+     * branch-notes for this change).
+     */
+    @Given("the full section 9.8 sample batch is submitted in its documented input order")
+    public void the_full_section_9_8_sample_batch_is_submitted() {
+        for (TransactionRequest request : TestDataLoader.loadRequestArray("sample-transactions.json")) {
+            context.remember(request);
             context.batch.add(request);
         }
     }

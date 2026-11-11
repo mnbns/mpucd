@@ -59,6 +59,13 @@ final class TestDataLoader {
         return MAPPER.convertValue(requestsNode, new TypeReference<List<TransactionRequest>>() { });
     }
 
+    /** A resource whose top level is itself a bare array of requests - e.g. the real sample-transactions.json. */
+    static List<TransactionRequest> loadRequestArray(String classpathResourcePath) {
+        JsonNode root = load(classpathResourcePath);
+        logJson("REQUEST BODIES", classpathResourcePath, root);
+        return MAPPER.convertValue(root, new TypeReference<List<TransactionRequest>>() { });
+    }
+
     /** The expected-response sub-object under the given key, e.g. "expectedValidation". */
     static JsonNode loadExpected(String classpathResourcePath, String key) {
         JsonNode node = load(classpathResourcePath).get(key);

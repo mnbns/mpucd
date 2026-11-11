@@ -24,10 +24,13 @@ public class OrderingSteps {
         this.context = context;
     }
 
-    @Given("TXN-2002 with sequence 2 arrives before TXN-2001 with sequence 1 for the same account, as in section 9.8 rows 1 and 2")
-    public void txn2002_arrives_before_txn2001() {
-        seq2Request = context.buildRequest("TXN-2002", "REQ-2", "ACC-201", TransactionType.DEBIT, new BigDecimal("40"), 2);
-        seq1Request = context.buildRequest("TXN-2001", "REQ-1", "ACC-201", TransactionType.CREDIT, new BigDecimal("100"), 1);
+    @Given("TXN-2002 with sequence 2 arrives before TXN-2001 with sequence 1 for the same account, as in section 9.8 rows 1 and 2, loaded from {string}")
+    public void txn2002_arrives_before_txn2001(String fixturePath) {
+        for (TransactionRequest request : TestDataLoader.loadRequests(fixturePath)) {
+            context.remember(request);
+        }
+        seq2Request = context.requestsByRequestId.get("REQ-2");
+        seq1Request = context.requestsByRequestId.get("REQ-1");
     }
 
     @When("sequence 2 is received")

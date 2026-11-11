@@ -15,7 +15,7 @@ Feature: Idempotent Processing and Duplicate Detection
 
   @AC-04.2
   Scenario: A duplicate arriving later in the batch is still detected
-    Given REQ-2 and REQ-2-DUP both referencing TXN-2002, as in section 9.8 rows 1 and 3
+    Given REQ-2 and REQ-2-DUP both referencing TXN-2002, as in section 9.8 rows 1 and 3, loaded from "testdata/US-04_idempotent_processing/req2_dup_section_9_8.json"
     When REQ-2 is processed first
     Then REQ-2-DUP is detected as DUPLICATE even though it arrives later in the batch
 

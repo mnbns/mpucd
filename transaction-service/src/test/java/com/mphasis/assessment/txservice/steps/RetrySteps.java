@@ -27,11 +27,12 @@ public class RetrySteps {
         this.context = context;
     }
 
-    @Given("a transaction simulated to fail transiently, such as TXN-2005 in section 9.8 row 6")
-    public void a_transaction_simulated_to_fail_transiently() {
-        // sequence=1 here (not the real batch's 5) so this isolated scenario's fresh,
-        // empty SequenceBuffer treats it as immediately ready instead of buffering it.
-        context.buildRequest("TXN-2005", "REQ-5", "ACC-203", TransactionType.CREDIT, new BigDecimal("500"), 1, 1);
+    @Given("a transaction simulated to fail transiently, such as TXN-2005 in section 9.8 row 6, loaded from {string}")
+    public void a_transaction_simulated_to_fail_transiently(String fixturePath) {
+        // The fixture's own "note" explains why its sequenceNumber (1) deliberately differs
+        // from the real batch's (5): this isolated scenario's fresh, empty SequenceBuffer
+        // would otherwise buffer it instead of treating it as immediately ready.
+        context.remember(TestDataLoader.loadRequest(fixturePath));
     }
 
     @When("processing fails")

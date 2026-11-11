@@ -1,0 +1,22 @@
+{
+  "requests": [
+    {
+      "transactionId": "TXN-2002",
+      "requestId": "REQ-2",
+      "accountId": "ACC-201",
+      "transactionType": "DEBIT",
+      "amount": 40,
+      "currency": "USD",
+      "sequenceNumber": 2
+    },
+    {
+      "transactionId": "TXN-2001",
+      "requestId": "REQ-1",
+      "accountId": "ACC-201",
+      "transactionType": "CREDIT",
+      "amount": 100,
+      "currency": "USD",
+      "sequenceNumber": 1
+    }
+  ]
+}

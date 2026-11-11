@@ -8,7 +8,7 @@ Feature: Out-of-Order Request Handling (Option A - Sequence-Based)
 
   @AC-05.1 @AC-05.2
   Scenario: A future sequence is buffered, then released once its predecessor arrives
-    Given TXN-2002 with sequence 2 arrives before TXN-2001 with sequence 1 for the same account, as in section 9.8 rows 1 and 2
+    Given TXN-2002 with sequence 2 arrives before TXN-2001 with sequence 1 for the same account, as in section 9.8 rows 1 and 2, loaded from "testdata/US-05_out_of_order_handling/txn2002_before_txn2001_section_9_8.json"
     When sequence 2 is received
     Then it is held as PENDING_ORDER
     And it is not processed

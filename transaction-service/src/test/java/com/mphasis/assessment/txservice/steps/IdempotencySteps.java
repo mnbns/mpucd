@@ -45,11 +45,11 @@ public class IdempotencySteps {
         assertEquals(balanceAfterFirstSubmission, context.ledger.getBalance("ACC-DUP"));
     }
 
-    @Given("REQ-2 and REQ-2-DUP both referencing TXN-2002, as in section 9.8 rows 1 and 3")
-    public void req2_and_req2_dup_both_referencing_txn_2002() {
-        context.buildRequest("TXN-2001", "REQ-1", "ACC-201", TransactionType.CREDIT, new BigDecimal("100"), 1);
-        context.buildRequest("TXN-2002", "REQ-2", "ACC-201", TransactionType.DEBIT, new BigDecimal("40"), 2);
-        context.buildRequest("TXN-2002", "REQ-2-DUP", "ACC-201", TransactionType.DEBIT, new BigDecimal("40"), 2);
+    @Given("REQ-2 and REQ-2-DUP both referencing TXN-2002, as in section 9.8 rows 1 and 3, loaded from {string}")
+    public void req2_and_req2_dup_both_referencing_txn_2002(String fixturePath) {
+        for (TransactionRequest request : TestDataLoader.loadRequests(fixturePath)) {
+            context.remember(request);
+        }
     }
 
     @When("REQ-2 is processed first")

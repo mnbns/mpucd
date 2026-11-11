@@ -1,0 +1,13 @@
+{
+  "note": "Same transactionId/requestId/accountId/amount/simulatedFailures as section 9.8 row 6 (TXN-2005), but sequenceNumber=1 here, not the real batch's 5 - this isolated scenario's fresh, empty SequenceBuffer would otherwise buffer it waiting for sequences 1-4 instead of treating it as immediately ready.",
+  "request": {
+    "transactionId": "TXN-2005",
+    "requestId": "REQ-5",
+    "accountId": "ACC-203",
+    "transactionType": "CREDIT",
+    "amount": 500,
+    "currency": "USD",
+    "sequenceNumber": 1,
+    "simulatedFailures": 1
+  }
+}
