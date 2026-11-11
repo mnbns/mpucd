@@ -1,0 +1,13 @@
+{
+  "request": {
+    "transactionId": "TXN-MISSING",
+    "requestId": "REQ-MISSING",
+    "accountId": "",
+    "transactionType": "CREDIT",
+    "amount": 10,
+    "currency": "USD",
+    "sequenceNumber": 1
+  },
+  "expectedStatus": "FAILED",
+  "expectedFailureReasonPresent": true
+}

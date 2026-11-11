@@ -1,0 +1,35 @@
+{
+  "requests": [
+    {
+      "transactionId": "TXN-A",
+      "requestId": "REQ-A",
+      "accountId": "ACC-A",
+      "transactionType": "CREDIT",
+      "amount": 10,
+      "currency": "USD",
+      "sequenceNumber": 1
+    },
+    {
+      "transactionId": "TXN-B",
+      "requestId": "REQ-B",
+      "accountId": "ACC-B",
+      "transactionType": "CREDIT",
+      "amount": 20,
+      "currency": "USD",
+      "sequenceNumber": 2
+    },
+    {
+      "transactionId": "TXN-BAD",
+      "requestId": "REQ-BAD",
+      "accountId": "ACC-BAD",
+      "transactionType": "DEBIT",
+      "amount": -5,
+      "currency": "USD",
+      "sequenceNumber": 3
+    }
+  ],
+  "expectedCounts": {
+    "PROCESSED": 2,
+    "FAILED": 1
+  }
+}

@@ -54,7 +54,7 @@
       <version>${cucumber.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- Shares one TestContext instance across step-def classes within a scenario. -->
+    <!-- Shares one ScenarioContext instance across step-def classes within a scenario. -->
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-picocontainer</artifactId>

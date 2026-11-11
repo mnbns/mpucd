@@ -1,77 +1,39 @@
 package com.mphasis.assessment.txservice.steps;
 
-import com.mphasis.assessment.txservice.model.TransactionRequest;
-import com.mphasis.assessment.txservice.model.TransactionType;
-import com.mphasis.assessment.txservice.ordering.SequenceBuffer;
-import com.mphasis.assessment.txservice.retry.RetryPolicy;
-import com.mphasis.assessment.txservice.service.ProcessingSummary;
-import com.mphasis.assessment.txservice.service.TransactionProcessor;
-import com.mphasis.assessment.txservice.service.ValidationResult;
-import com.mphasis.assessment.txservice.service.Validator;
-import com.mphasis.assessment.txservice.store.AccountLedger;
-import com.mphasis.assessment.txservice.store.IdempotencyStore;
-import com.mphasis.assessment.txservice.store.InMemoryIdempotencyStore;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * One fresh instance per Cucumber scenario (created by PicoContainer), shared
- * across every step-def class so a scenario can span several "themed" step
- * files without losing state.
+ * One instance for the entire Cucumber run (the whole JVM/suite) - the top
+ * of the Test -> Feature -> Scenario -> Step hierarchy. Cucumber has no
+ * native "whole run" scope beyond {@code @BeforeAll}/{@code @AfterAll}, and
+ * PicoContainer rebuilds its object graph every scenario, so this can't be
+ * a constructor-injected, per-scenario object like {@link ScenarioContext} -
+ * it's a plain singleton that any scenario, from any feature, reaches
+ * through {@link #instance()}.
  */
-public class TestContext {
+public final class TestContext {
 
-    public final Validator validator = new Validator();
-    public final IdempotencyStore idempotencyStore = new InMemoryIdempotencyStore();
-    public final SequenceBuffer sequenceBuffer = new SequenceBuffer();
-    public final RetryPolicy retryPolicy = new RetryPolicy(3);
-    public final AccountLedger ledger = new AccountLedger();
-    public final TransactionProcessor processor =
-            new TransactionProcessor(validator, idempotencyStore, sequenceBuffer, retryPolicy, ledger);
+    private static final TestContext INSTANCE = new TestContext();
 
-    /** Every request built or submitted in this scenario, keyed by requestId, in submission order. */
-    public final Map<String, TransactionRequest> requestsByRequestId = new LinkedHashMap<>();
-    public final List<TransactionRequest> batch = new ArrayList<>();
+    private final Map<String, FeatureContext> featuresByUri = new ConcurrentHashMap<>();
 
-    public TransactionRequest currentRequest;
-    public ValidationResult lastValidationResult;
-    public ProcessingSummary lastSummary;
-
-    private int counter = 0;
-
-    public TransactionRequest buildValidRequest() {
-        counter++;
-        return remember(new TransactionRequest(
-                "TXN-CTX-" + counter, "REQ-CTX-" + counter, "ACC-CTX-" + counter,
-                TransactionType.CREDIT, new BigDecimal("10"), "USD", 1));
+    private TestContext() {
     }
 
-    public TransactionRequest buildRequest(String transactionId, String requestId, String accountId,
-                                            TransactionType type, BigDecimal amount, long sequenceNumber) {
-        return remember(new TransactionRequest(transactionId, requestId, accountId, type, amount, "USD", sequenceNumber));
+    public static TestContext instance() {
+        return INSTANCE;
     }
 
-    public TransactionRequest buildRequest(String transactionId, String requestId, String accountId,
-                                            TransactionType type, BigDecimal amount, long sequenceNumber,
-                                            int simulatedFailures) {
-        TransactionRequest request = new TransactionRequest(transactionId, requestId, accountId,
-                type, amount, "USD", sequenceNumber, simulatedFailures);
-        return remember(request);
-    }
-
-    private TransactionRequest remember(TransactionRequest request) {
-        requestsByRequestId.put(request.getRequestId(), request);
-        currentRequest = request;
-        return request;
-    }
-
-    public void submit(TransactionRequest request) {
-        remember(request);
-        batch.add(request);
-        processor.process(request);
+    /**
+     * One {@link FeatureContext} per feature file, created the first time a
+     * scenario from it runs and reused by every later scenario in that same
+     * feature. {@code uri} is the feature file's own identity (from
+     * Cucumber's {@code Scenario#getUri()}) - there is no separate
+     * "feature started" hook to create this from, so {@code Hooks}
+     * synthesizes the boundary here instead.
+     */
+    public FeatureContext featureFor(String uri, String name) {
+        return featuresByUri.computeIfAbsent(uri, u -> new FeatureContext(u, name));
     }
 }

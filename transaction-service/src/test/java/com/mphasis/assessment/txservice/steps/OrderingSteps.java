@@ -16,11 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /** US-05: Out-of-Order Request Handling (Option A). */
 public class OrderingSteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
     private TransactionRequest seq2Request;
     private TransactionRequest seq1Request;
 
-    public OrderingSteps(TestContext context) {
+    public OrderingSteps(ScenarioContext context) {
         this.context = context;
     }
 

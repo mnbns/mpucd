@@ -14,10 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /** US-04: Idempotent Processing and Duplicate Detection. */
 public class IdempotencySteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
     private BigDecimal balanceAfterFirstSubmission;
 
-    public IdempotencySteps(TestContext context) {
+    public IdempotencySteps(ScenarioContext context) {
         this.context = context;
     }
 

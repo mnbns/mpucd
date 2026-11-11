@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /** US-07: Data Consistency. */
 public class ConsistencySteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
     private Thread first;
     private Thread second;
 
-    public ConsistencySteps(TestContext context) {
+    public ConsistencySteps(ScenarioContext context) {
         this.context = context;
     }
 

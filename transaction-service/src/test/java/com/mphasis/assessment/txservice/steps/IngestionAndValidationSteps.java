@@ -1,5 +1,6 @@
 package com.mphasis.assessment.txservice.steps;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mphasis.assessment.txservice.input.InMemoryTransactionSource;
 import com.mphasis.assessment.txservice.input.TransactionSource;
@@ -21,11 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /** US-01: Configurable Transaction Ingestion / US-02: Input Validation. */
 public class IngestionAndValidationSteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
     private TransactionSource source;
     private List<TransactionRequest> loadedBatch;
 
-    public IngestionAndValidationSteps(TestContext context) {
+    /** Set by a US-02 Given step; read back by its own Then step(s) to assert against the same fixture's expected-* fields. */
+    private String currentFixturePath;
+
+    public IngestionAndValidationSteps(ScenarioContext context) {
         this.context = context;
     }
 
@@ -68,9 +72,10 @@ public class IngestionAndValidationSteps {
 
     // --- US-02 ---
 
-    @Given("a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type")
-    public void a_request_missing_a_mandatory_field() {
-        context.buildRequest("TXN-MISSING", "REQ-MISSING", "", TransactionType.CREDIT, new BigDecimal("10"), 1);
+    @Given("a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type, loaded from {string}")
+    public void a_request_missing_a_mandatory_field(String fixturePath) {
+        currentFixturePath = fixturePath;
+        context.remember(TestDataLoader.loadRequest(fixturePath));
     }
 
     @When("it is ingested")
@@ -80,8 +85,11 @@ public class IngestionAndValidationSteps {
 
     @Then("it is marked FAILED with a validation reason")
     public void it_is_marked_failed_with_a_validation_reason() {
-        assertEquals(TransactionStatus.FAILED, context.currentRequest.getStatus());
-        assertNotNull(context.currentRequest.getFailureReason());
+        JsonNode expected = TestDataLoader.load(currentFixturePath);
+        assertEquals(expected.get("expectedStatus").asText(), context.currentRequest.getStatus().name());
+        if (expected.get("expectedFailureReasonPresent").asBoolean()) {
+            assertNotNull(context.currentRequest.getFailureReason());
+        }
     }
 
     @Then("it is excluded from business processing")
@@ -90,9 +98,10 @@ public class IngestionAndValidationSteps {
         assertEquals(BigDecimal.ZERO, context.ledger.getBalance(context.currentRequest.getAccountId()));
     }
 
-    @Given("a request with a negative amount that violates the field rules, such as TXN-2004 with amount -10")
-    public void a_request_with_a_negative_amount() {
-        context.buildRequest("TXN-2004", "REQ-4", "ACC-202", TransactionType.DEBIT, new BigDecimal("-10"), 4);
+    @Given("a request with a negative amount that violates the field rules, loaded from {string}")
+    public void a_request_with_a_negative_amount(String fixturePath) {
+        currentFixturePath = fixturePath;
+        context.remember(TestDataLoader.loadRequest(fixturePath));
     }
 
     @When("it is validated")
@@ -102,8 +111,11 @@ public class IngestionAndValidationSteps {
 
     @Then("it is rejected as FAILED with a clear reason")
     public void it_is_rejected_as_failed_with_a_clear_reason() {
-        assertFalse(context.lastValidationResult.isValid());
-        assertNotNull(context.lastValidationResult.getReason());
+        JsonNode expected = TestDataLoader.loadExpected(currentFixturePath, "expectedValidation");
+        assertEquals(expected.get("valid").asBoolean(), context.lastValidationResult.isValid());
+        if (expected.get("reasonPresent").asBoolean()) {
+            assertNotNull(context.lastValidationResult.getReason());
+        }
     }
 
     @Then("the rest of the batch still processes")
@@ -117,13 +129,15 @@ public class IngestionAndValidationSteps {
         assertEquals(TransactionStatus.PROCESSED, valid.getStatus());
     }
 
-    @Given("one invalid record inside a batch of N records")
-    public void one_invalid_record_inside_a_batch_of_n_records() {
-        // Distinct sequence numbers: the engine's ordering cursor is shared across the
-        // whole batch (DD-02), so unrelated transactions can't reuse the same slot.
-        context.buildRequest("TXN-A", "REQ-A", "ACC-A", TransactionType.CREDIT, new BigDecimal("10"), 1);
-        context.buildRequest("TXN-B", "REQ-B", "ACC-B", TransactionType.CREDIT, new BigDecimal("20"), 2);
-        context.buildRequest("TXN-BAD", "REQ-BAD", "ACC-BAD", TransactionType.DEBIT, new BigDecimal("-5"), 3);
+    @Given("one invalid record inside a batch of N records, loaded from {string}")
+    public void one_invalid_record_inside_a_batch_of_n_records(String fixturePath) {
+        currentFixturePath = fixturePath;
+        // Each fixture request keeps its own distinct sequence number: the engine's ordering
+        // cursor is shared across the whole batch (DD-02), so unrelated transactions can't
+        // reuse the same slot.
+        for (TransactionRequest request : TestDataLoader.loadRequests(fixturePath)) {
+            context.remember(request);
+        }
     }
 
     @When("the batch runs")
@@ -136,9 +150,10 @@ public class IngestionAndValidationSteps {
 
     @Then("the remaining N-1 valid records are still processed normally")
     public void the_remaining_valid_records_are_still_processed_normally() {
+        JsonNode expectedCounts = TestDataLoader.loadExpected(currentFixturePath, "expectedCounts");
         long processed = context.batch.stream().filter(r -> r.getStatus() == TransactionStatus.PROCESSED).count();
         long failed = context.batch.stream().filter(r -> r.getStatus() == TransactionStatus.FAILED).count();
-        assertEquals(2, processed);
-        assertEquals(1, failed);
+        assertEquals(expectedCounts.get("PROCESSED").asLong(), processed);
+        assertEquals(expectedCounts.get("FAILED").asLong(), failed);
     }
 }

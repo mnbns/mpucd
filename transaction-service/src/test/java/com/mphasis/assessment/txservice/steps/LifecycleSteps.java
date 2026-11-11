@@ -16,10 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /** US-03: Transaction State Lifecycle. */
 public class LifecycleSteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
     private TransactionRequest receivedRequest;
 
-    public LifecycleSteps(TestContext context) {
+    public LifecycleSteps(ScenarioContext context) {
         this.context = context;
     }
 

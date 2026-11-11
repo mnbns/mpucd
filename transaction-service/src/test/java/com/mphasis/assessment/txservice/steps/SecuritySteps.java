@@ -26,10 +26,10 @@ public class SecuritySteps {
     private static final Pattern HARDCODED_SECRET =
             Pattern.compile("(?i)(password|secret|apikey|api_key|access[_-]?token)\\s*=\\s*\"[^\"]+\"");
 
-    private final TestContext context;
+    private final ScenarioContext context;
     private ListAppender<ILoggingEvent> appender;
 
-    public SecuritySteps(TestContext context) {
+    public SecuritySteps(ScenarioContext context) {
         this.context = context;
     }
 

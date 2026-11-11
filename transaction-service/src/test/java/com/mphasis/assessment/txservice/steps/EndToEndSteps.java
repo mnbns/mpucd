@@ -18,9 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /** end_to_end_batch.feature: replays the full §9.8 sample batch as one stateful run. */
 public class EndToEndSteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
 
-    public EndToEndSteps(TestContext context) {
+    public EndToEndSteps(ScenarioContext context) {
         this.context = context;
     }
 

@@ -20,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /** US-08: Observability and Processing Summary. */
 public class ObservabilitySteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
     private ListAppender<ILoggingEvent> appender;
 
-    public ObservabilitySteps(TestContext context) {
+    public ObservabilitySteps(ScenarioContext context) {
         this.context = context;
     }
 

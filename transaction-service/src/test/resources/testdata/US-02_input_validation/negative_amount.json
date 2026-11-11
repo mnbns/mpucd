@@ -1,0 +1,15 @@
+{
+  "request": {
+    "transactionId": "TXN-2004",
+    "requestId": "REQ-4",
+    "accountId": "ACC-202",
+    "transactionType": "DEBIT",
+    "amount": -10,
+    "currency": "USD",
+    "sequenceNumber": 4
+  },
+  "expectedValidation": {
+    "valid": false,
+    "reasonPresent": true
+  }
+}

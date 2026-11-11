@@ -21,9 +21,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class RetrySteps {
 
-    private final TestContext context;
+    private final ScenarioContext context;
 
-    public RetrySteps(TestContext context) {
+    public RetrySteps(ScenarioContext context) {
         this.context = context;
     }
 
