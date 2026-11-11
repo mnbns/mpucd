@@ -83,3 +83,7 @@ This repo's commit history is organized to show the actual build process,
 not just the finished result: `design` → `feature/00-basic-setup` → nine
 feature branches (one per User Story, US-02 through US-10) → `release/1.0`
 → merged to `main` as `v1.0`. Run `git log --oneline --graph --all` to see it.
+
+## License
+
+[GNU GPLv3](LICENSE)
