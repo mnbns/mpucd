@@ -36,10 +36,9 @@ maps every User Story/AC to its implementing class and scenario.
   individually.
 - Design note with HLD, LLD, 4 flow charts, 1 sequence diagram, 12 design
   decisions, traceability matrix — also rendered live in `docs/`.
-- This release notes file, a demo script (`DEMO_SCRIPT.md`) for a recorded
-  walkthrough, and a `deliverables/` folder with before/after traceability
-  matrices, execution instructions with sample I/O, and raw unit-test
-  evidence.
+- This release notes file and a `deliverables/` folder with before/after
+  traceability matrices, execution instructions with sample I/O, and raw
+  unit-test evidence.
 
 ## % Complete
 

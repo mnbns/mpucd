@@ -249,7 +249,6 @@ docs/                            Design review app (Problem Statement + Design t
 DESIGN.md                        Design note (source of truth, also rendered live in docs/)
 DELIVERABLES.md                  What's delivered, and what each git branch means
 RELEASE_NOTES.md                 Defects found & fixed, final test results
-DEMO_SCRIPT.md                   Narration + command sequence for a recorded walkthrough
 ```
 
 ## 8. Git branches
