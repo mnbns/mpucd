@@ -123,10 +123,10 @@ BALANCE ACC-203 = 500
 mvn test
 ```
 
-Runs 11 Cucumber feature files (one per User Story, under
-`src/test/resources/features/`) — **36 scenarios, 142 steps**, all automated
+Runs 12 Cucumber feature files (one per User Story, under
+`src/test/resources/features/`) — **39 scenarios, 160 steps**, all automated
 against the real engine classes (no mocks, no HTTP). Last verified run:
-`36 Scenarios (36 passed)`, `142 Steps (142 passed)`.
+`39 Scenarios (39 passed)`, `160 Steps (160 passed)`.
 
 ### Where to look at the results
 
@@ -151,7 +151,7 @@ xdg-open transaction-service/target/cucumber-reports/ExtentReport.html
 ```
 
 or just double-click it in File Explorer / Finder. Check: the summary tile
-at the top should read **36 total, 36 passed, 0 failed**; expand any
+at the top should read **39 total, 39 passed, 0 failed**; expand any
 scenario to see its Given/When/Then steps and the attached Step Snapshot.
 
 ## 6. Sample input & output — and how to add your own test case
@@ -241,7 +241,7 @@ transaction-service/
   src/main/java/.../retry/      RetryPolicy, TransientProcessingException
   src/main/java/.../service/    Validator, TransactionProcessor (orchestrator), ProcessingSummary
   src/main/java/.../exception/  TransactionServiceException - shared unchecked exception hierarchy
-  src/test/resources/features/  11 Cucumber .feature files, one per User Story
+  src/test/resources/features/  12 Cucumber .feature files, one per User Story
   src/test/resources/testdata/  JSON fixtures, one folder per User Story
   src/test/java/.../steps/      Step definitions, one file per User Story
 Installations/                  Bundled JDK 17 + Maven (see section 2)

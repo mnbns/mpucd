@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Traceability Matrix — transaction-service (FINAL)</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --panel: #171a23;
+    --border: #262b38;
+    --text: #e4e7ee;
+    --muted: #8b93a7;
+    --accent: #6ea8fe;
+    --pass: #2fbf71;
+    --pass-bg: #103a26;
+    --stub: #f0a93d;
+    --stub-bg: #3a2b0f;
+    --fail: #ef5a6f;
+    --fail-bg: #3a1620;
+    --gap: #c75fe0;
+    --gap-bg: #2e1a38;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    padding: 32px 40px 60px;
+  }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); margin: 0 0 28px; font-size: 0.95rem; }
+  .summary {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    min-width: 120px;
+  }
+  .stat .num { font-size: 1.7rem; font-weight: 700; display: block; }
+  .stat .label { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .stat.pass .num { color: var(--pass); }
+  .stat.stub .num { color: var(--stub); }
+  .stat.fail .num { color: var(--fail); }
+  .stat.gap .num { color: var(--gap); }
+
+  .gap-banner {
+    background: var(--gap-bg);
+    border: 1px solid var(--gap);
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin-bottom: 28px;
+    font-size: 0.92rem;
+  }
+  .gap-banner b { color: var(--gap); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.88rem;
+  }
+  th, td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  th {
+    background: #1d212c;
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:last-child td { border-bottom: none; }
+  tr.us-row td {
+    background: #1a1e28;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: 14px;
+  }
+  .ac-id { font-family: 'SF Mono', Consolas, monospace; white-space: nowrap; }
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .pill.pass { background: var(--pass-bg); color: var(--pass); }
+  .pill.stub { background: var(--stub-bg); color: var(--stub); }
+  .pill.fail { background: var(--fail-bg); color: var(--fail); }
+  .pill.gap { background: var(--gap-bg); color: var(--gap); }
+  .feature { color: var(--muted); font-size: 0.82rem; font-family: 'SF Mono', Consolas, monospace; }
+  .notes { color: var(--muted); font-size: 0.82rem; }
+  footer { margin-top: 28px; color: var(--muted); font-size: 0.8rem; }
+</style>
+</head>
+<body>
+
+<h1>Traceability Matrix — transaction-service (FINAL)</h1>
+<p class="subtitle">C:\Bhavani\Applications\FINAL &middot; generated from DESIGN.md + real <code>mvn clean test</code> run &middot; 28 Acceptance Criteria across 11 User Stories</p>
+
+<div class="summary">
+  <div class="stat pass"><span class="num">5</span><span class="label">Passing</span></div>
+  <div class="stat stub"><span class="num">21</span><span class="label">Red — stub blocked</span></div>
+  <div class="stat fail"><span class="num">1</span><span class="label">Red — real defect</span></div>
+  <div class="stat gap"><span class="num">1</span><span class="label">Gap — no scenario</span></div>
+</div>
+
+<div class="gap-banner">
+  <b>Open gap — tracked manually:</b> AC-11.2 has no scenario tagged against it in any feature file. Left open intentionally; not auto-remediated.
+</div>
+
+<table>
+<thead>
+<tr><th style="width:90px">AC</th><th>Description</th><th style="width:220px">Feature File</th><th style="width:140px">Status</th><th>Notes</th></tr>
+</thead>
+<tbody>
+
+<tr class="us-row"><td colspan="5">US-01 — Configurable Transaction Ingestion</td></tr>
+<tr><td class="ac-id">AC-01.1</td><td>Loads all requests through a single TransactionSource interface on service start.</td><td class="feature">US-01_configurable_ingestion.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">UnsupportedOperationException — InMemoryTransactionSource not yet implemented.</td></tr>
+<tr><td class="ac-id">AC-01.2</td><td>Swapping the input source implementation requires no change downstream.</td><td class="feature">US-01_configurable_ingestion.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Same stub dependency as AC-01.1.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-02 — Input Validation</td></tr>
+<tr><td class="ac-id">AC-02.1</td><td>Request missing a mandatory field is marked FAILED with a validation reason.</td><td class="feature">US-02_input_validation.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Validator stub throws.</td></tr>
+<tr><td class="ac-id">AC-02.2</td><td>Negative amount rejected as FAILED without halting the batch.</td><td class="feature">US-02_input_validation.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Validator stub throws.</td></tr>
+<tr><td class="ac-id">AC-02.3</td><td>One invalid record in a batch of N does not block the remaining N-1.</td><td class="feature">US-02_input_validation.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Validator stub throws.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-03 — Transaction State Lifecycle</td></tr>
+<tr><td class="ac-id">AC-03.1</td><td>New request's initial status is RECEIVED.</td><td class="feature">US-03_transaction_state_lifecycle.feature</td><td><span class="pill pass">Pass</span></td><td class="notes">Pure POJO check — no stub involved.</td></tr>
+<tr><td class="ac-id">AC-03.2</td><td>RECEIVED request transitions to PROCESSING when picked up.</td><td class="feature">US-03_transaction_state_lifecycle.feature</td><td><span class="pill pass">Pass</span></td><td class="notes">Pure POJO check — no stub involved.</td></tr>
+<tr><td class="ac-id">AC-03.3</td><td>Status is always exactly one of the 7 defined states.</td><td class="feature">US-03_transaction_state_lifecycle.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Depends on TransactionProcessor stub.</td></tr>
+<tr><td class="ac-id">AC-03.4</td><td>Illegal transition (e.g. DUPLICATE → PROCESSING) is rejected and logged.</td><td class="feature">US-03_transaction_state_lifecycle.feature</td><td><span class="pill fail">Red · real defect</span></td><td class="notes">Genuine assertion failure: expected DUPLICATE, was PROCESSING. Not stub noise — needs real fix once engine lands.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-04 — Idempotent Processing &amp; Duplicate Detection</td></tr>
+<tr><td class="ac-id">AC-04.1</td><td>Already-PROCESSED requestId resubmitted is marked DUPLICATE, no side effect.</td><td class="feature">US-04_idempotent_processing.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">InMemoryIdempotencyStore stub throws.</td></tr>
+<tr><td class="ac-id">AC-04.2</td><td>REQ-2-DUP detected as DUPLICATE even arriving later than REQ-2.</td><td class="feature">US-04_idempotent_processing.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Same stub dependency.</td></tr>
+<tr><td class="ac-id">AC-04.3</td><td>Same request submitted N times has the same final ledger effect as once.</td><td class="feature">US-04_idempotent_processing.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Same stub dependency.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-05 — Out-of-Order Request Handling</td></tr>
+<tr><td class="ac-id">AC-05.1</td><td>Out-of-order arrival (seq=2 before seq=1) is held as PENDING_ORDER.</td><td class="feature">US-05_out_of_order_handling.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">SequenceBuffer stub throws (shares one scenario/tag with AC-05.2).</td></tr>
+<tr><td class="ac-id">AC-05.2</td><td>Buffered request is released and processed once its predecessor completes.</td><td class="feature">US-05_out_of_order_handling.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Dual-tagged with AC-05.1 on the same scenario.</td></tr>
+<tr><td class="ac-id">AC-05.3</td><td>A sequence number that never arrives is reported in the processing summary.</td><td class="feature">US-05_out_of_order_handling.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">SequenceBuffer / ProcessingSummary stub throws.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-06 — Retry-Safe Resilience</td></tr>
+<tr><td class="ac-id">AC-06.1</td><td>Transient failure sets status to RETRY_PENDING, increments retryCount.</td><td class="feature">US-06_retry_resilience.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">RetryPolicy stub throws.</td></tr>
+<tr><td class="ac-id">AC-06.2</td><td>Exhausted retries → FAILED with recorded reason, no partial effect.</td><td class="feature">US-06_retry_resilience.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Same stub dependency.</td></tr>
+<tr><td class="ac-id">AC-06.3</td><td>Success on retry attempt K marked PROCESSED exactly once.</td><td class="feature">US-06_retry_resilience.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Same stub dependency.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-07 — Data Consistency</td></tr>
+<tr><td class="ac-id">AC-07.1</td><td>Mid-step failure never leaves a mixed partial state.</td><td class="feature">US-07_data_consistency.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">TransactionProcessor stub throws.</td></tr>
+<tr><td class="ac-id">AC-07.2</td><td>Concurrent requests for the same account are serialized to avoid lost updates.</td><td class="feature">US-07_data_consistency.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">AccountLedger stub throws.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-08 — Observability &amp; Processing Summary</td></tr>
+<tr><td class="ac-id">AC-08.1</td><td>Completed batch run reports counts by status.</td><td class="feature">US-08_observability_summary.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">ProcessingSummary stub throws.</td></tr>
+<tr><td class="ac-id">AC-08.2</td><td>Structured log line emitted per event with no sensitive fields.</td><td class="feature">US-08_observability_summary.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Depends on TransactionProcessor stub.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-09 — Security &amp; Safe Data Handling</td></tr>
+<tr><td class="ac-id">AC-09.1</td><td>Log statements never include full account numbers or unmasked PII.</td><td class="feature">US-09_security_data_handling.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Depends on TransactionProcessor stub.</td></tr>
+<tr><td class="ac-id">AC-09.2</td><td>No secrets or credentials hardcoded in source; all externalized.</td><td class="feature">US-09_security_data_handling.feature</td><td><span class="pill pass">Pass</span></td><td class="notes">Static regex scan of src/main/java — stub-independent.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-10 — Maintainable, Modular Design</td></tr>
+<tr><td class="ac-id">AC-10.1</td><td>TransactionProcessor has no direct dependency on input sourcing.</td><td class="feature">US-10_maintainable_design.feature</td><td><span class="pill pass">Pass</span></td><td class="notes">Reflection on field/package shape — stub-independent.</td></tr>
+<tr><td class="ac-id">AC-10.2</td><td>Idempotency store sits behind an IdempotencyStore interface.</td><td class="feature">US-10_maintainable_design.feature</td><td><span class="pill pass">Pass</span></td><td class="notes">Reflection check — stub-independent.</td></tr>
+
+<tr class="us-row"><td colspan="5">US-11 — Automated Test Coverage</td></tr>
+<tr><td class="ac-id">AC-11.1</td><td>Full §9.8 batch replayed in order has at least one passing scenario per case (duplicate, out-of-order, invalid, retry).</td><td class="feature">end_to_end_batch.feature</td><td><span class="pill stub">Red · stub</span></td><td class="notes">Both end-to-end scenarios throw via engine stubs.</td></tr>
+<tr><td class="ac-id">AC-11.2</td><td>A regression introduced in the idempotency check causes at least one test to fail.</td><td class="feature">—</td><td><span class="pill gap">Gap</span></td><td class="notes"><b style="color:var(--gap)">No scenario tagged @AC-11.2 anywhere.</b> Meta-property of the suite itself — kept open for manual coverage, not auto-remediated.</td></tr>
+
+</tbody>
+</table>
+
+<footer>
+  Real <code>mvn clean test</code> result: 27 scenarios run &middot; 5 pass &middot; 1 real assertion failure (AC-03.4) &middot; 21 UnsupportedOperationException from stubbed engine classes. 0 orphan scenario tags, 0 orphan testdata fixtures.
+</footer>
+
+</body>
+</html>

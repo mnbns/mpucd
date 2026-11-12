@@ -1,0 +1,17 @@
+Compared both artifacts against DESIGN.md (AC-08.1/08.2, NFR-05/06, DD-07) and the original assessment's §6.5/6.6. Found three real gaps — ranked by how concrete the evidence is:
+
+Gap 1 (confirmed, most important): the processing summary never reaches any persisted or machine-readable artifact.
+AC-08.1/L2-FR-11 require "it reports counts by status." It does — but only as an in-memory string, asserted directly in test code, and shown richly in the Extent HTML via the Hooks I added. I checked both log files produced today:
+
+cucumber-tests.log (test run): grep -c SUMMARY → 0
+transaction-service.log (just ran mvn spring-boot:run to verify): grep -c SUMMARY → 0, grep -c BALANCE → 0
+Root cause: ProcessingSummary.report() and the final System.out.println block in TransactionServiceApplication both bypass SLF4J entirely. A reviewer who only has the log file or cucumber.json — not the HTML — has no way to see final counts. That's a real contradiction of NFR-05's "operational visibility... structured logs, or processing report."
+
+Gap 2 (confirmed): cucumber.json is not a machine-readable version of the HTML report — it's a different, narrower artifact.
+Parsed it directly: 27 scenarios, 104 steps, 0 failures, tags intact (@US-xx/@AC-xx.y) — but 0 embeddings. Cucumber's own JSON schema only carries pass/fail/timing/tags; the rich HTML tables from Hooks (masked account IDs, status, retry counts) live only in Extent's internal model via addTestStepLog, which cucumber.json has no slot for. If the expectation was "JSON version of what I saw in the HTML," adding the json: plugin doesn't get you there — that would need a custom writer.
+
+Gap 3 (judgment call, not a violation of what's written): AccountLedger logs raw amount/balance unmasked.
+AC-08.2 only scopes "sensitive" to accountId (which is masked correctly — verified 0 unmasked ACC- hits). But the original assessment's §6.6 says "do not log sensitive customer data unnecessarily" more broadly. Balance/amount is arguably sensitive financial data that AC-08.2's narrower wording let through. This is a gap between the original NFR and DESIGN.md's own AC, not between code and DESIGN.md.
+
+Want me to fix Gap 1 now (one log.info(summary.report()) call covers both run paths), and send all three to design-architect to record as Known Gaps / a new DD, the same way DD-07 was handled?
+
