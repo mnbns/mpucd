@@ -3,7 +3,7 @@ node_modules/
 package-lock.json
 *.class
 .DS_Store
-.claude/
+.claude/scheduled_tasks.lock
 .github/
 Installations/
 scripts/
