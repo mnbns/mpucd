@@ -19,6 +19,7 @@ angular.module('assessmentApp')
     { id: 'L2-FR-10', category: 'FR', text: 'Separate business processing logic from input handling where practical.', sectionAnchor: 'sec-9-4-functional-requirements' },
     { id: 'L2-FR-11', category: 'FR', text: 'Produce a processing summary with counts by status.', sectionAnchor: 'sec-9-4-functional-requirements' },
     { id: 'L2-FR-12', category: 'FR', text: 'Include tests for duplicate, out-of-order, invalid, and retry scenarios.', sectionAnchor: 'sec-9-4-functional-requirements' },
+    { id: 'L2-FR-13', category: 'FR', text: 'Decouple transaction processing from ingestion via a dedicated background worker component.', sectionAnchor: 'sec-9-4-functional-requirements' },
 
     { id: 'NFR-01', category: 'NFR', text: 'Idempotency — duplicate requests must not cause duplicate effects.', sectionAnchor: 'sec-6-1-idempotency' },
     { id: 'NFR-02', category: 'NFR', text: 'Ordering — tolerate requests arriving in any order.', sectionAnchor: 'sec-6-2-ordering' },
@@ -194,6 +195,21 @@ angular.module('assessmentApp')
         { id: 'AC-11.1', given: 'the §9.8 suggested test data set replayed in order by end_to_end_batch.feature', when: 'the full Cucumber suite runs', then: 'there is at least one passing scenario per case: duplicate, out-of-order, invalid/validation failure, and retry-to-success / retry-exhaustion.' },
         { id: 'AC-11.2', given: 'a regression introduced in the idempotency check', when: 'tests run', then: 'at least one test fails — idempotency has direct, not incidental, coverage.' }
       ]
+    },
+    {
+      id: 'US-12',
+      title: 'Decoupled Background Processing Worker',
+      priority: 'Must',
+      asA: 'operator',
+      iWant: 'ingestion and processing to run as separate producer/consumer roles rather than one inline call stack',
+      soThat: 'the service has a real background-processing component, not just a loop that happens to call the processor synchronously',
+      linkedRequirements: ['L2-FR-13'],
+      linkedDiagrams: ['HLD-01', 'LLD-01'],
+      acceptanceCriteria: [
+        { id: 'AC-12.1', given: 'an ingested request', when: 'it is handed off by the ingestion loop', then: 'it is placed on a queue and consumed by a background worker component — not processed inline by the ingestion loop.' },
+        { id: 'AC-12.2', given: 'requests queued for the background worker', when: 'the ingesting thread finishes enqueuing them', then: 'the ingesting thread is not blocked per-request by processing, and the final processing summary is only produced after the worker signals it has drained and processed every enqueued request — no race between "ingestion done" and "processing done".' },
+        { id: 'AC-12.3', given: 'multiple queued requests for potentially different accounts', when: 'the background worker drains the queue', then: 'it processes them as a single sequential consumer, preserving arrival order — required because DD-02’s out-of-order/sequence-buffering logic relies on one global cursor advanced in strict arrival order; concurrent/parallel workers would race on that cursor and on the idempotency check-then-set (already a named Known Gap), so this is a deliberate single-consumer-thread design, not an oversight.' }
+      ]
     }
   ],
 
@@ -213,6 +229,8 @@ angular.module('assessmentApp')
 '  classDef bad fill:#fff0f0,stroke:#c92a2a,color:#4a0a0a;\n' +
 '\n' +
 '  SRC["TransactionSource<br/>(list / file / queue adapter)<br/>L2-FR-01"]:::comp\n' +
+'  QUEUE["Ingestion Queue<br/>(BlockingQueue)<br/>L2-FR-13"]:::store\n' +
+'  WORKER["Background Worker<br/>(single consumer thread)<br/>L2-FR-13"]:::comp\n' +
 '  VAL["Validator<br/>L2-FR-02"]:::comp\n' +
 '  IDEMP["Idempotency Store<br/>NFR-01"]:::store\n' +
 '  SEQBUF["Sequence Buffer<br/>NFR-02 (Option A)"]:::comp\n' +
@@ -228,7 +246,9 @@ angular.module('assessmentApp')
 '  F_PROCESSED["PROCESSED"]:::terminal\n' +
 '  F_FAILED2["FAILED (retries exhausted)"]:::bad\n' +
 '\n' +
-'  SRC --> VAL\n' +
+'  SRC --> QUEUE\n' +
+'  QUEUE --> WORKER\n' +
+'  WORKER --> VAL\n' +
 '  VAL -- valid --> IDEMP\n' +
 '  VAL -- invalid --> F_FAILED\n' +
 '  IDEMP -- duplicate --> F_DUP\n' +
@@ -246,7 +266,7 @@ angular.module('assessmentApp')
 '  F_PROCESSED --> LOGS\n' +
 '  F_FAILED2 --> LOGS\n' +
 '  LOGS --> SUMMARY\n',
-      linkedRequirements: ['L2-FR-01', 'L2-FR-02', 'L2-FR-03', 'L2-FR-05', 'L2-FR-08', 'L2-FR-09', 'L2-FR-11', 'NFR-01', 'NFR-02']
+      linkedRequirements: ['L2-FR-01', 'L2-FR-02', 'L2-FR-03', 'L2-FR-05', 'L2-FR-08', 'L2-FR-09', 'L2-FR-11', 'L2-FR-13', 'NFR-01', 'NFR-02']
     },
 
     lld: {
@@ -287,6 +307,14 @@ angular.module('assessmentApp')
 '    <<interface>>\n' +
 '    +List~TransactionRequest~ fetchBatch()\n' +
 '  }\n' +
+'  class BackgroundWorker {\n' +
+'    -BlockingQueue~TransactionRequest~ queue\n' +
+'    -ExecutorService executor\n' +
+'    -TransactionProcessor processor\n' +
+'    +void submit(TransactionRequest)\n' +
+'    +void start()\n' +
+'    +void awaitDrained()\n' +
+'  }\n' +
 '  class Validator {\n' +
 '    +ValidationResult validate(TransactionRequest)\n' +
 '  }\n' +
@@ -319,6 +347,8 @@ angular.module('assessmentApp')
 '  }\n' +
 '\n' +
 '  TransactionSource ..> TransactionRequest\n' +
+'  BackgroundWorker ..> TransactionRequest\n' +
+'  BackgroundWorker --> TransactionProcessor\n' +
 '  Validator ..> TransactionRequest\n' +
 '  TransactionProcessor --> IdempotencyStore\n' +
 '  TransactionProcessor --> SequenceBuffer\n' +
@@ -327,7 +357,7 @@ angular.module('assessmentApp')
 '  TransactionProcessor ..> TransactionRequest\n' +
 '  TransactionRequest --> TransactionStatus\n' +
 '  TransactionRequest --> TransactionType\n',
-      linkedRequirements: ['L2-FR-01', 'L2-FR-03', 'L2-FR-04', 'L2-FR-10', 'NFR-01', 'NFR-02', 'NFR-07']
+      linkedRequirements: ['L2-FR-01', 'L2-FR-03', 'L2-FR-04', 'L2-FR-10', 'L2-FR-13', 'NFR-01', 'NFR-02', 'NFR-07']
     },
 
     flows: [
@@ -471,8 +501,8 @@ angular.module('assessmentApp')
     },
     {
       id: 'DD-02',
-      title: 'Out-of-order strategy: Option A, sequence-based buffering - one cursor for the whole batch, not per account',
-      rationale: 'The §9.8 test data is ordered by sequence (TXN-2002 seq=2 arrives before TXN-2001 seq=1), so Option A fits directly. The cursor is batch-wide, not per accountId as first drafted: with a per-account cursor, ACC-203’s one and only transaction (sequence 5, no sequence 1-4 ever exists for that account) could never become "ready" and would never reach the retry logic - contradicting §9.8’s own expected outcome for that row. Running the engine against the real §9.8 data surfaced this; a single cursor, advanced on every resolved sequence number including validation failures (so one permanently failed record never blocks everything after it), reproduces all six §9.8 expected outcomes exactly. Option C (eventTime/version, "latest wins") remains the noted production-scale alternative for a real event-sourced ledger.',
+      title: 'Out-of-order strategy: Option A (sequence-based buffering), chosen over Option B (state-transition) and Option C (latest-wins) - one cursor for the whole batch, not per account',
+      rationale: 'Section 9.5 of the problem statement offers three options and asks the candidate to justify the choice. Rejected Option C ("latest wins" by eventTime/version): that is a replace-on-newer policy, correct for an entity with one current value where a stale update should be discarded, not for this domain, where every CREDIT/DEBIT/REVERSAL is its own side effect that must be applied exactly once - "ignoring" an older transaction because a newer one arrived first would drop a real movement of money. The §9.8 data also carries no eventTime/version field at all, only sequenceNumber. Rejected Option B (state-transition model): it fits one entity’s own lifecycle (e.g. ORDER_CREATED -> SHIPPED -> DELIVERED); US-05 needs cross-transaction ordering for the same account, which a transition table can’t express without also attaching a sequence/position - collapsing back into Option A anyway. (US-03/TransactionStatus is already a genuine state-transition model, but it answers "what happened to this request", not "whose turn is it".) Chose Option A because sequenceNumber is a field the §9.8 data already carries, with documented expected behavior keyed on it, giving a deterministic, testable final state (AC-05.1-05.3) - and because it composes for free with the dual-key idempotency design (DD-03): "sequence at or before the resolved cursor" doubles as a third duplicate-detection signal (AC-04.4). Within Option A, the cursor is batch-wide, not per accountId as first drafted: with a per-account cursor, ACC-203’s one and only transaction (sequence 5, no sequence 1-4 ever exists for that account) could never become "ready" and would never reach the retry logic - contradicting §9.8’s own expected outcome for that row. Running the engine against the real §9.8 data surfaced this; a single cursor, advanced on every resolved sequence number including validation failures (so one permanently failed record never blocks everything after it), reproduces all six §9.8 expected outcomes exactly.',
       linkedRequirements: ['L2-FR-07', 'NFR-02']
     },
     {
@@ -498,6 +528,12 @@ angular.module('assessmentApp')
       title: 'Test strategy: Cucumber BDD, one feature file per User Story, step definitions call the engine directly (no HTTP)',
       rationale: 'L2-FR-12 asks for tests covering duplicate, out-of-order, invalid, and retry scenarios without mandating a shape. Structuring one .feature file per User Story, with one Scenario per Acceptance Criterion (same Given/When/Then text as the AC table above), keeps the spec and the test in lock-step and gives a non-engineer reviewer something readable. Step definitions call TransactionProcessor and friends as plain Java objects — consistent with DD-01 (console/in-memory, no web layer). A final end_to_end_batch.feature replays the whole §9.8 set as one ordered, stateful scenario, which is what actually demonstrates US-11 (coverage is shown by the suite existing and passing, not by a scenario about scenarios).',
       linkedRequirements: ['L2-FR-12']
+    },
+    {
+      id: 'DD-12',
+      title: 'Background processing component: in-process BlockingQueue of TransactionRequest + single-consumer ExecutorService — the "background worker" for L2-FR-13/US-12, not a worker pool and not a real broker',
+      rationale: 'A BlockingQueue<TransactionRequest> is fed by the ingestion loop (the producer) and drained by a single dedicated consumer thread (a 1-thread ExecutorService) that calls TransactionProcessor.process(request) — this pairing is the "background worker" named in L2-FR-13/US-12. Before this, TransactionServiceApplication’s CommandLineRunner looped synchronously over the ingested batch and called processor.process(request) inline — ingestion and processing shared the same thread and call stack, with no architectural separation between them at all, even though the assessment checklist names "Background processing component" as a distinct item from "Transaction request ingestion." The chosen shape is single-threaded, not a worker pool, because DD-02’s out-of-order/sequence-buffering logic depends on exactly one global cursor (SequenceBuffer.lastResolvedSequence) advanced in strict arrival order; a pool of concurrent consumers would race on that cursor and on the idempotency check-then-set (already a named Known Gap), silently breaking both NFR-01 and NFR-02. A worker pool with per-account partitioning of the queue is the named scaling path once the idempotency store also moves to an atomic claim — not attempted here (see Known Gaps). This also doesn’t require a real broker (Kafka/SQS) or Spring @Async: an in-process BlockingQueue + ExecutorService is the right-sized analogue for a console/batch assessment app — same producer/consumer mechanism, proportionally smaller infrastructure. The ingesting thread enqueues and returns immediately (AC-12.1/AC-12.2); the final ProcessingSummary is only produced after the worker signals (via a drain/await signal, e.g. a poison-pill sentinel or a countdown latch) that every enqueued request has been processed, closing the race between "ingestion done" and "processing done" that an inline loop never had to worry about but a real producer/consumer split introduces.',
+      linkedRequirements: ['L2-FR-13']
     }
   ],
 
@@ -517,6 +553,7 @@ angular.module('assessmentApp')
     { usId: 'US-08', file: 'US-08_observability_summary.feature' },
     { usId: 'US-09', file: 'US-09_security_data_handling.feature' },
     { usId: 'US-10', file: 'US-10_maintainable_design.feature' },
-    { usId: 'US-11', file: 'end_to_end_batch.feature', note: 'Single stateful scenario replaying the full §9.8 batch in order — the concrete expression of "automated test coverage", not a per-AC mapping.' }
+    { usId: 'US-11', file: 'end_to_end_batch.feature', note: 'Single stateful scenario replaying the full §9.8 batch in order — the concrete expression of "automated test coverage", not a per-AC mapping.' },
+    { usId: 'US-12', file: 'US-12_background_worker.feature', note: 'AC-12.1/12.2/12.3 all covered.' }
   ]
 });

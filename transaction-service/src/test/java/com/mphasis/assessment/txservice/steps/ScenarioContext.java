@@ -11,6 +11,7 @@ import com.mphasis.assessment.txservice.service.Validator;
 import com.mphasis.assessment.txservice.store.AccountLedger;
 import com.mphasis.assessment.txservice.store.IdempotencyStore;
 import com.mphasis.assessment.txservice.store.InMemoryIdempotencyStore;
+import com.mphasis.assessment.txservice.worker.BackgroundWorker;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -43,6 +44,8 @@ public class ScenarioContext {
     public final AccountLedger ledger = new AccountLedger();
     public final TransactionProcessor processor =
             new TransactionProcessor(validator, idempotencyStore, sequenceBuffer, retryPolicy, ledger);
+    /** US-12: the background worker, wired around this same scenario's processor. */
+    public final BackgroundWorker worker = new BackgroundWorker(processor);
 
     /** Every request built or submitted in this scenario, keyed by requestId, in submission order. */
     public final Map<String, TransactionRequest> requestsByRequestId = new LinkedHashMap<>();

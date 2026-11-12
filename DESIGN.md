@@ -23,6 +23,7 @@ below (with bidirectional links back to the source requirement text) is in
 | L2-FR-10 | FR | Separate business processing logic from input handling where practical |
 | L2-FR-11 | FR | Produce a processing summary with counts by status |
 | L2-FR-12 | FR | Include tests for duplicate, out-of-order, invalid, and retry scenarios |
+| L2-FR-13 | FR | Decouple transaction processing from ingestion via a dedicated background worker component |
 | NFR-01 | NFR | Idempotency — duplicate requests must not cause duplicate effects |
 | NFR-02 | NFR | Ordering — tolerate requests arriving in any order |
 | NFR-03 | NFR | Resilience — handle transient failures with safe retries |
@@ -142,6 +143,15 @@ regressions are caught immediately and the spec and the test stay in lock-step.
 - **AC-11.1**: Given the §9.8 data set replayed in order, when the full Cucumber suite runs, then there is at least one passing scenario per case: duplicate, out-of-order, invalid, retry-to-success/exhaustion.
 - **AC-11.2**: Given a regression introduced in the idempotency check, when tests run, then at least one test fails.
 
+### US-12 — Decoupled Background Processing Worker (Must) — traces to L2-FR-13
+As an **operator**, I want ingestion and processing to run as separate
+producer/consumer roles rather than one inline call stack, so that the
+service has a real background-processing component, not just a loop that
+happens to call the processor synchronously.
+- **AC-12.1**: Ingested requests are handed to a background worker component via a queue, not processed inline by the ingestion loop.
+- **AC-12.2**: The ingesting thread is not blocked per-request by processing; the final processing summary is only produced after the worker signals it has drained and processed every enqueued request (no race between "ingestion done" and "processing done").
+- **AC-12.3**: The worker processes requests as a single sequential consumer, preserving arrival order — required because DD-02's out-of-order/sequence-buffering logic relies on one global cursor advanced in strict arrival order; concurrent/parallel workers would race on that cursor and on the idempotency check-then-set (already a named Known Gap), so this is a deliberate single-consumer-thread design, not an oversight.
+
 ## High-Level Design (HLD-01)
 
 ```mermaid
@@ -152,6 +162,8 @@ flowchart LR
   classDef bad fill:#fff0f0,stroke:#c92a2a,color:#4a0a0a;
 
   SRC["TransactionSource<br/>(list / file / queue adapter)<br/>L2-FR-01"]:::comp
+  QUEUE["Ingestion Queue<br/>(BlockingQueue)<br/>L2-FR-13"]:::store
+  WORKER["Background Worker<br/>(single consumer thread)<br/>L2-FR-13"]:::comp
   VAL["Validator<br/>L2-FR-02"]:::comp
   IDEMP["Idempotency Store<br/>NFR-01"]:::store
   SEQBUF["Sequence Buffer<br/>NFR-02 (Option A)"]:::comp
@@ -167,7 +179,9 @@ flowchart LR
   F_PROCESSED["PROCESSED"]:::terminal
   F_FAILED2["FAILED (retries exhausted)"]:::bad
 
-  SRC --> VAL
+  SRC --> QUEUE
+  QUEUE --> WORKER
+  WORKER --> VAL
   VAL -- valid --> IDEMP
   VAL -- invalid --> F_FAILED
   IDEMP -- duplicate --> F_DUP
@@ -223,6 +237,14 @@ classDiagram
     <<interface>>
     +List~TransactionRequest~ fetchBatch()
   }
+  class BackgroundWorker {
+    -BlockingQueue~TransactionRequest~ queue
+    -ExecutorService executor
+    -TransactionProcessor processor
+    +void submit(TransactionRequest)
+    +void start()
+    +void awaitDrained()
+  }
   class Validator {
     +ValidationResult validate(TransactionRequest)
   }
@@ -255,6 +277,8 @@ classDiagram
   }
 
   TransactionSource ..> TransactionRequest
+  BackgroundWorker ..> TransactionRequest
+  BackgroundWorker --> TransactionProcessor
   Validator ..> TransactionRequest
   TransactionProcessor --> IdempotencyStore
   TransactionProcessor --> SequenceBuffer
@@ -381,7 +405,11 @@ sequenceDiagram
 ## Design Decisions
 
 - **DD-01** — Stack: Java 17 + Spring Boot, `CommandLineRunner` (no web layer, no DB). Ground rules (§7) explicitly allow Java; no production DB or complex UI is mandated. A console-style batch run keeps the build boring and testable.
-- **DD-02** — Out-of-order strategy: Option A, sequence-based buffering, **one cursor for the whole batch, not per account**. The §9.8 data is ordered by sequence. The cursor is batch-wide, not per `accountId` as first drafted: with a per-account cursor, `ACC-203`'s one and only transaction (sequence 5, no sequence 1-4 ever exists for that account) could never become "ready" and would never reach the retry logic — contradicting §9.8's own expected outcome for that row. Running the engine against the real data surfaced this; a single cursor, advanced on every resolved sequence number including validation failures (so one permanently failed record never blocks everything after it), reproduces all six §9.8 expected outcomes exactly. Option C (eventTime/version, "latest wins") remains the noted production-scale alternative.
+- **DD-02** — Out-of-order strategy: **Option A (sequence-based buffering)**, chosen over Option B (state-transition-model) and Option C (eventTime/version, "latest wins") — §9.5 of the problem statement offers all three and explicitly asks the candidate to justify the choice, not just implement one.
+  - *Rejected Option C.* Option C is a replace-on-newer-wins policy: correct for a domain where an entity has one current value and a stale update should be discarded (e.g. "latest known address"), not for this domain — every `CREDIT`/`DEBIT`/`REVERSAL` is its own side effect that must be applied exactly once, not a competing write to one mutable field. Silently "ignoring" an older transaction because a newer one arrived first would drop a real movement of money, which is the opposite of what idempotency is meant to protect. The §9.8 sample data also carries no `eventTime`/`version` field at all, only `sequenceNumber` — Option C would need data the spec and the sample batch never provide.
+  - *Rejected Option B.* Option B models ordering as a state-transition table per transaction (valid vs. invalid/premature transitions) — a good fit when a single entity moves through its own lifecycle (e.g. `ORDER_CREATED → SHIPPED → DELIVERED`) and "order" is derived from which transition is legal next. US-05's actual requirement is cross-transaction ordering for the *same account* (seq=1 must resolve before seq=2 can affect that account's balance); a transition table has no native way to express "wait for a different transaction's slot" without also attaching a sequence/position concept — at which point it collapses back into Option A anyway. (This design already has a genuine state-transition model — US-03 / `TransactionStatus` — but that answers a different question, "what happened to this one request", which would be blurred with "whose turn is it" if the two were conflated.)
+  - *Chose Option A.* `sequenceNumber` is a field the §9.8 sample data already carries, with documented expected behavior keyed on it (seq=2 held pending until seq=1 arrives, then released) — the test data was built assuming exactly this mechanism. It is deterministic and auditable: a fixed arrival order produces a fixed, testable final state (AC-05.1–AC-05.3), matching the assessment's example-based acceptance-criteria style, where Option C's deliberately-lossy "latest wins" is harder to pin to one expected outcome. It also composes for free with the dual-key idempotency design (DD-03): "sequence at or before the resolved cursor" doubles as a third duplicate-detection signal (AC-04.4), with no extra mechanism needed.
+  - *Within Option A — one cursor for the whole batch, not per account.* The cursor is batch-wide, not per `accountId` as first drafted: with a per-account cursor, `ACC-203`'s one and only transaction (sequence 5, no sequence 1-4 ever exists for that account) could never become "ready" and would never reach the retry logic — contradicting §9.8's own expected outcome for that row. Running the engine against the real data surfaced this; a single cursor, advanced on every resolved sequence number including validation failures (so one permanently failed record never blocks everything after it), reproduces all six §9.8 expected outcomes exactly.
 - **DD-03** — Idempotency check is **dual-key**: `requestId` (catches a literal retry of the exact same physical attempt) **and** `transactionId` (catches a different `requestId` for the same business transaction — e.g. two distinct requestIds both referencing the same underlying transactionId). The original design checked only `requestId`, relying on the sequence-staleness check (FC-03) to incidentally catch that second requestId. That's fragile: a duplicate reusing a *fresh, never-before-seen* sequence number would have slipped through undetected. Caught during cross-checking this design against an independent AI's analysis of the same assessment, which argued correctly that `transactionId` is the more direct, defensible dedup key for that exact test case. Fixed by adding `isTransactionProcessed`/`markTransactionProcessed` to `IdempotencyStore`, checked immediately after the `requestId` check.
 - **DD-04** — Max retry count = 3, in-memory simulation. Simple, bounded, easy to assert in tests; a real deployment would externalize this and use scheduler/queue redelivery counts.
 - **DD-05** — Production hardening notes (explained, not built): swap in-memory stores for Redis/DB with a unique constraint on `requestId`; swap `TransactionSource` for a real queue (Kafka/SQS) with consumer-group ordering; add per-account locking/optimistic concurrency for NFR-04; add Micrometer metrics/tracing beyond console logs; add payload fingerprinting alongside `requestId` to catch a key reused for a genuinely different transaction; be aware that true concurrent (not just sequential-retry) duplicate submissions need a DB unique constraint, not just an in-memory check-then-set, to avoid a race.
@@ -391,6 +419,8 @@ sequenceDiagram
 - **DD-09** — `Hooks.attachStepSnapshot` now also calls `scenario.attach(html.getBytes(StandardCharsets.UTF_8), "text/html", "Step Snapshot")`, in addition to its existing `ExtentCucumberAdapter.addTestStepLog(html)` call. The `cucumber.json` DD-07 added carried zero business-outcome content — 0 "embeddings" across all 104 steps — because `addTestStepLog` feeds only the Extent HTML report and is adapter-internal, invisible to Cucumber's own JSON formatter. Found the same way as DD-08: the user auditing `cucumber.json` against the design's own claim that it is a "machine-readable report" of outcomes. Fixed in `transaction-service/src/test/java/com/mphasis/assessment/txservice/steps/Hooks.java`; Cucumber's built-in JSON formatter now records the attachment as a base64 "embeddings" entry per step, independent of the Extent adapter. Verified: decoded a real embedding from the generated `cucumber.json` and confirmed it is the actual HTML snapshot (masked accountId, status, etc.) — 82 embeddings total across the run; all 27 scenarios still pass.
 - **DD-10** — `AccountLedger`'s debug log line no longer prints raw transaction `amount` or resulting `balance`; it now logs only `accountId` (masked) and transaction `type`. Previously it logged e.g. `ledger accountId=***201 CREDIT 100 -> balance 100 (was 0)`. This is a judgment call, not a defect against AC-08.2's literal wording: AC-08.2 names only `accountId` as the sensitive field to withhold, and the amount/balance line technically satisfied it. But the original assessment's §6.6 ("do not log sensitive customer data unnecessarily") is broader than AC-08.2's wording, and no other class in the codebase logs amount/balance — `TransactionProcessor.logEvent` deliberately never does. Found during the same artifact audit as DD-08/DD-09. Fixed in `transaction-service/src/main/java/com/mphasis/assessment/txservice/store/AccountLedger.java` for consistency with the rest of the codebase's existing practice, not because AC-08.2 strictly required it. Verified: all 27 scenarios still pass.
 - **DD-11** — Manual code-level test-coverage gap review (beyond AC-tag matching). Every previous coverage audit in this design checked that each AC had *a* scenario tagged against it; this follow-up instead read the actual engine code (`Validator`, `SequenceBuffer`, `IdempotencyStore`/`TransactionProcessor`, `RetryPolicy`, `AccountLedger`) line by line against every AC's branches and found 9 real gaps. Six were fixed directly in the test suite: (1) added **AC-02.4** (non-positive `sequenceNumber` rejected — a `Validator` branch with zero prior coverage), (2) widened **AC-02.1** from one Scenario to a Scenario Outline with 5 Examples, one per previously-untested mandatory-field branch (accountId, transactionId, requestId, currency, transactionType), (3) widened **AC-02.2** from one Scenario to a Scenario Outline with 2 Examples (negative amount, plus the zero-amount boundary case), (4) added **AC-04.4** (sequence-staleness dedup — a third, distinct duplicate-detection path in `SequenceBuffer.isAlreadyResolved()`/`TransactionProcessor`, independent of the requestId/transactionId checks behind AC-04.1/AC-04.3 and AC-04.2, that had zero scenarios reaching it before this), (5) reinforced **AC-05.1/AC-05.2** with a second "cascade-release" scenario proving the buffered-release loop chains 2+ hops deep, not just the one hop the original scenario exercised, (6) reinforced **AC-06.3** with a second scenario pinning the exact max-retry-boundary success case (succeeds on the 4th attempt, same retry count as the exhaustion path, but PROCESSED instead of FAILED). Two more were test-implementation defects with no AC-wording change: **AC-03.3**'s assertion (`EnumSet.allOf(TransactionStatus.class).contains(status)`) was vacuous and could never fail, replaced with a real "exactly these 7 statuses" invariant; **AC-09.2**'s "all are externalized" step was a bare `assertTrue(true)`, replaced with a real scan of `src/main/resources/**` for secret-looking keys bound to literal values. The remaining 2 gaps were reviewed with the user and explicitly left open rather than fixed: **`TransactionType.REVERSAL`'s DEBIT-identical semantics** and **the absence of an overdraft/insufficient-funds rule** — both recorded as new bullets in "Known Gaps" below, not silently dropped. Verified-by note: every fix above was traced by hand against the real `Validator`/`SequenceBuffer`/`RetryPolicy`/`IdempotencyStore` logic and the new/widened feature files; this has **not** yet been confirmed by an actual `mvn test` run — the user will run it and report back.
+
+- **DD-12** — Background processing component: a `BlockingQueue<TransactionRequest>` fed by the ingestion loop (the producer) and drained by a single dedicated consumer thread (a 1-thread `ExecutorService`) that calls `TransactionProcessor.process(request)` — this pairing *is* the "background worker" named in L2-FR-13/US-12. Before this, `TransactionServiceApplication`'s `CommandLineRunner` looped synchronously over the ingested batch and called `processor.process(request)` inline — ingestion and processing shared the same thread and call stack, with no architectural separation between them at all, even though the assessment checklist names "Background processing component" as a distinct item from "Transaction request ingestion." Chosen shape is single-threaded, not a worker pool, because DD-02's out-of-order/sequence-buffering logic depends on exactly one global cursor (`SequenceBuffer.lastResolvedSequence`) advanced in strict arrival order; a pool of concurrent consumers would race on that cursor and on the idempotency check-then-set (already named as a Known Gap below), silently breaking both NFR-01 and NFR-02. A worker pool with per-account partitioning of the queue is the named scaling path once the idempotency store also moves to an atomic claim — see the two new Known Gaps bullets below — not attempted here. This also doesn't require a real broker (Kafka/SQS) or Spring `@Async`: an in-process `BlockingQueue` + `ExecutorService` is the right-sized analogue for a console/batch assessment app — same producer/consumer mechanism, proportionally smaller infrastructure. The ingesting thread enqueues and returns immediately (AC-12.1/AC-12.2); the final `ProcessingSummary` is only produced after the worker signals (via a drain/await signal, e.g. a poison-pill sentinel or a countdown latch) that every enqueued request has been processed, closing the race between "ingestion done" and "processing done" that an inline loop never had to worry about but a real producer/consumer split introduces.
 
 ## Traceability Matrix
 
@@ -408,6 +438,7 @@ sequenceDiagram
 | L2-FR-10 | US-10 | LLD-01 |
 | L2-FR-11 | US-08 | HLD-01, FC-01 |
 | L2-FR-12 | US-11 | FC-01, FC-02, FC-03, FC-04 |
+| L2-FR-13 | US-12 | HLD-01, LLD-01 |
 | NFR-01 | US-04 | HLD-01, FC-02, SEQ-01, LLD-01 |
 | NFR-02 | US-05 | HLD-01, FC-03, SEQ-01, LLD-01 |
 | NFR-03 | US-06 | HLD-01, FC-04, SEQ-01, LLD-01 |
@@ -454,24 +485,43 @@ reconstructed from memory). One row per AC.
 | L2-FR-10, NFR-07 | US-10 | AC-10.2 | IdempotencyStore behind swappable interface | Positive (design) | US-10_maintainable_design.feature | "Idempotency store is swappable behind an interface" | Covered |
 | L2-FR-12 | US-11 | AC-11.1 | Full section-9.8 batch -> documented final statuses | Positive (integration) | end_to_end_batch.feature | "The full section 9.8 sample batch processes to the documented outcomes" | Covered |
 | L2-FR-12 | US-11 | AC-11.1 | Processing summary reconciles with batch outcome | Positive (integration) | end_to_end_batch.feature | "The processing summary reconciles with the batch outcome" | Covered |
-| L2-FR-12 | US-11 | AC-11.2 | Regression introduced in the idempotency check -> at least one test fails | — | none | **No scenario exists** | **GAP — open, not yet automated** |
+| L2-FR-12 | US-11 | AC-11.2 | Regression introduced in the idempotency check -> at least one test fails | — | none | **No scenario exists** | **Out of literal L2-FR-12 scope (self-imposed stretch goal) — not automated** |
+| L2-FR-13 | US-12 | AC-12.1 | Ingested requests handed to background worker via a queue, not processed inline | Positive | US-12_background_worker.feature | "A submitted request is queued, not processed inline by the ingestion loop" | Covered |
+| L2-FR-13 | US-12 | AC-12.2 | Ingesting thread not blocked per-request; summary only after worker drains all enqueued requests | Edge | US-12_background_worker.feature | "The ingesting thread is not blocked, and the summary is only trustworthy once the worker drains" | Covered |
+| L2-FR-13 | US-12 | AC-12.3 | Worker is a single sequential consumer preserving arrival order | Edge | US-12_background_worker.feature | "The worker drains strictly in arrival order through a single consumer" | Covered |
 
 **Coverage summary (audited counts):**
 
-- Total ACs defined: **30** (was 28; +AC-02.4, +AC-04.4). Total Gherkin
-  Scenario/Scenario Outline *definitions*: **31** (re-counted directly
-  against every `.feature` file with `grep -c "^\s*Scenario" *.feature`,
-  not reconstructed from memory). Total *executed* scenario instances once
-  Examples are expanded: **36** (US-02's two widened Scenario Outlines —
-  AC-02.1 at 5 Examples, AC-02.2 at 2 Examples — expand to 9 executed
-  instances alone).
-- By type (counted per AC, not per executed instance): Positive **12**,
-  Negative **8**, Edge **10**. (US-05's AC-05.1/AC-05.2 share a single
-  scenario definition, tagged with both ACs, by deliberate design choice —
-  the single-cursor model of DD-02 — not an oversight or an unsplit
-  duplicate; a second, cascade-release scenario now also covers both.)
-- Coverage: **29/30 ACs covered (96.7%)**. The sole remaining gap is still
-  **AC-11.2** (see "Known Gaps" below).
+- Total ACs defined: **33** (+AC-12.1, +AC-12.2, +AC-12.3 for the new US-12
+  background worker). Total Gherkin Scenario/Scenario Outline *definitions*:
+  **34** (re-counted directly against every `.feature` file with
+  `grep -c "^\s*Scenario" *.feature`, not reconstructed from memory — 31
+  pre-US-12, +3 for `US-12_background_worker.feature`, which now exists and
+  is tagged `@AC-12.1`/`@AC-12.2`/`@AC-12.3`). Total *executed* scenario
+  instances once Examples are expanded: **39** (confirmed by a real
+  `mvn test` run: "39 Scenarios (39 passed), 160 Steps (160 passed)" —
+  US-02's two widened Scenario Outlines — AC-02.1 at 5 Examples, AC-02.2 at
+  2 Examples — expand to 9 executed instances alone).
+- By type (counted per AC, not per executed instance): Positive **13**
+  (+1 for AC-12.1), Negative **8**, Edge **12** (+2 for AC-12.2/AC-12.3).
+  (US-05's AC-05.1/AC-05.2 share a single scenario definition, tagged with
+  both ACs, by deliberate design choice — the single-cursor model of
+  DD-02 — not an oversight or an unsplit duplicate; a second,
+  cascade-release scenario now also covers both.)
+- Coverage: **32/33 ACs covered (97.0%)**. `US-12_background_worker.feature`
+  was added and its 3 scenarios verified passing (`mvn test
+  -Dcucumber.filter.tags="@US-12"` → 3 Scenarios, 18 Steps, all passed),
+  closing what an earlier pass of this matrix had open as a pending gap —
+  AC-12.1/12.2/12.3 are genuinely **Covered**, not aspirational. The sole
+  remaining item is **AC-11.2** (see "Known Gaps" below), a self-imposed
+  stretch criterion this design added *on top of* L2-FR-12's literal
+  wording ("include tests for duplicate, out-of-order, invalid, and retry
+  scenarios") — it is not part of that literal text. Measured against the
+  literal L2-FR-12 requirement, coverage is **13/13 literal L2-level FRs
+  fully covered**, including L2-FR-12 itself (duplicate via US-04,
+  out-of-order via US-05, invalid via US-02, retry via US-06, all
+  reinforced by the consolidated AC-11.1 end-to-end batch scenario) and
+  L2-FR-13 (background worker, via US-12 — all passing).
 
 | US | ACs | Scenarios | Positive | Negative | Edge | Coverage |
 |---|---|---|---|---|---|---|
@@ -485,7 +535,8 @@ reconstructed from memory). One row per AC.
 | US-08 | 2 | 2 | 2 | 0 | 0 | 2/2 |
 | US-09 | 2 | 2 | 1 | 1 | 0 | 2/2 |
 | US-10 | 2 | 2 | 2 | 0 | 0 | 2/2 |
-| US-11 | 2 | 2 | 2 | 0 | 0 | 1/2 (AC-11.2 gap) |
+| US-11 | 2 | 2 | 2 | 0 | 0 | 1/2 ACs automated; **L2-FR-12 literal scope: 2/2 (100%)** — AC-11.2 is a self-imposed stretch AC beyond L2-FR-12, still not automated |
+| US-12 | 3 | 3 | 1 | 0 | 2 | 3/3 |
 
 ## BDD Test Plan
 
@@ -504,7 +555,8 @@ One Cucumber `.feature` file per User Story (Scenario = Acceptance Criterion), u
 | US-08 | `US-08_observability_summary.feature` |
 | US-09 | `US-09_security_data_handling.feature` |
 | US-10 | `US-10_maintainable_design.feature` |
-| US-11 | `end_to_end_batch.feature` (single stateful scenario replaying the full §9.8 batch in order) — AC-11.2 has no scenario; see "Known Gaps" below |
+| US-11 | `end_to_end_batch.feature` (single stateful scenario replaying the full §9.8 batch in order) — fully covers L2-FR-12's literal scope via AC-11.1; AC-11.2 (a self-imposed stretch AC beyond L2-FR-12) has no scenario; see "Known Gaps" below |
+| US-12 | `US-12_background_worker.feature` — AC-12.1/12.2/12.3 all covered |
 
 Evidence produced per run (see DD-07): the human-facing
 `docs/test-report/ExtentReport.html`, the machine-readable
@@ -547,12 +599,21 @@ and next steps for production hardening."
   `processedTransactionIds` grow forever in memory. Production needs a
   retention window (e.g. ≥ the longest client retry window) and a backing
   store, not an unbounded in-memory set.
-- **AC-11.2 (mutation-style regression test) is not automated — open,
-  named gap.** AC-11.2 asks that a regression introduced in the idempotency
-  check cause at least one test to fail. Surfaced by the traceability audit
-  behind the new "Requirement → AC → Test Case Matrix" above: all other 27
-  ACs trace to a real, currently-passing Cucumber scenario; AC-11.2 traces
-  to none. The reason it's harder than the other 27: every existing
+- **AC-11.2 (mutation-style regression test) is a self-imposed stretch AC
+  beyond literal L2-FR-12 scope — still not automated.** L2-FR-12's literal
+  text only asks the service to "include tests for duplicate, out-of-order,
+  invalid, and retry scenarios" — satisfied in full by AC-11.1 plus the
+  US-04/US-05/US-02/US-06 scenarios it packages (all passing). AC-11.2 was
+  an *additional* acceptance criterion this design layered on top of that
+  literal requirement, asking that a regression introduced in the
+  idempotency check cause at least one test to fail — a mutation-testing-style
+  check that §9.4/§9.7 never actually asks for. So it is not a shortfall
+  against L2-FR-12; L2-FR-12 itself is fully covered. AC-11.2 nonetheless
+  remains honestly unautomated: it traces to no scenario. Surfaced by the
+  traceability audit behind the "Requirement → AC → Test Case Matrix"
+  above: all other 27 ACs (including US-11's literal-scope AC, AC-11.1)
+  trace to a real, currently-passing Cucumber scenario; AC-11.2 traces to
+  none. The reason it's harder than the other 27: every existing
   scenario is written to pass against the *correct* implementation, but
   AC-11.2 is really asking us to demonstrate the suite's mutation-catching
   power — i.e. that a *broken* idempotency check makes some scenario fail —
@@ -560,7 +621,7 @@ and next steps for production hardening."
   either a mutation-testing tool (e.g. PIT) run as a separate step, or a
   second, deliberately-broken build variant asserted against, neither of
   which fits this repo's one-feature-file-per-AC pattern. Reviewed with the
-  user, who chose to leave this as a named, undemonstrated gap for now
+  user, who chose to leave this as a named, undemonstrated stretch item for now
   rather than force-fit an automated test — not fixed, not silently
   dropped, consistent with how the other items in this section are
   recorded.
@@ -580,6 +641,24 @@ and next steps for production hardening."
   No AC specifies a minimum-balance or overdraft rule. Found during the
   same DD-11 review and raised with the user, who explicitly chose to
   leave it untouched for now.
+- **Background worker queue is in-memory and unbounded (see DD-12).** The
+  `BlockingQueue<TransactionRequest>` backing US-12's worker has no bound,
+  no persistence, and no backpressure — a producer that outruns the single
+  consumer simply grows the queue in memory forever, and a crash loses
+  whatever is still queued. A real deployment needs a durable broker
+  (Kafka/SQS) and a bounded queue with backpressure and dead-letter
+  handling for poison messages.
+- **Scaling the worker beyond one consumer thread is a named, undone
+  follow-on to DD-12.** AC-12.3 deliberately pins a single sequential
+  consumer because DD-02's single global cursor and the idempotency
+  check-then-set (the concurrent-duplicate Known Gap above) both assume
+  one thread. Scaling to a worker pool safely requires two changes
+  together, not one: (1) moving the idempotency check from a
+  check-then-set to an atomic store-level claim (already named above), and
+  (2) partitioning the queue — e.g. by `accountId` — so that each worker
+  owns a disjoint slice of the ordering problem instead of racing on
+  DD-02's single cursor. Neither is implemented; both would be required
+  before adding a second consumer thread.
 
 ## AI-Assisted Development Usage
 

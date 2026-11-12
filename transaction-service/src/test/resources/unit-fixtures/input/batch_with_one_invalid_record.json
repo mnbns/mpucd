@@ -1,0 +1,20 @@
+[
+  {
+    "transactionId": "TXN-U010",
+    "requestId": "REQ-U010",
+    "accountId": "ACC-U10",
+    "transactionType": "CREDIT",
+    "amount": 15,
+    "currency": "USD",
+    "sequenceNumber": 1
+  },
+  {
+    "transactionId": "TXN-U011",
+    "requestId": "",
+    "accountId": "ACC-U11",
+    "transactionType": "CREDIT",
+    "amount": 15,
+    "currency": "USD",
+    "sequenceNumber": 2
+  }
+]

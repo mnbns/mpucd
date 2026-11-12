@@ -1,0 +1,1703 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24455 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------< com.mphasis.assessment:transaction-service >-------------
+[INFO] Building transaction-service 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] Loaded 64 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ transaction-service ---
+[INFO] argLine set to -javaagent:C:\\Users\\BY\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Bhavani\\Applications\\DEMO_PROJECT\\mpucd\\transaction-service\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ transaction-service ---
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ transaction-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ transaction-service ---
+[INFO] argLine set to -javaagent:C:\\Users\\BY\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Bhavani\\Applications\\DEMO_PROJECT\\mpucd\\transaction-service\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ transaction-service ---
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ transaction-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ transaction-service ---
+[INFO] Copying 31 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ transaction-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ transaction-service ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.mphasis.assessment.txservice.unit.input.InMemoryTransactionSourceTest
+03:24:27.808 [main] WARN  c.m.a.t.i.InMemoryTransactionSource -- rejected malformed JSON record from unit-fixtures/input/batch_with_one_invalid_record.json (schema validation failed): requestId must not be null or blank
+03:24:27.820 [main] INFO  c.m.a.t.i.InMemoryTransactionSource -- loaded 1 transaction request(s) from unit-fixtures/input/batch_with_one_invalid_record.json (1 rejected at schema validation)
+03:24:27.890 [main] INFO  c.m.a.t.i.InMemoryTransactionSource -- loaded 2 transaction request(s) from unit-fixtures/input/valid_batch.json (0 rejected at schema validation)
+03:24:27.909 [main] INFO  c.m.a.t.i.InMemoryTransactionSource -- loaded 6 transaction request(s) from sample-transactions.json (0 rejected at schema validation)
+03:24:27.919 [main] ERROR c.m.a.t.i.InMemoryTransactionSource -- failed to read transaction batch from unit-fixtures/input/duplicate_json_key.json
+com.fasterxml.jackson.core.JsonParseException: Duplicate field 'amount'
+ at [Source: (BufferedInputStream); line: 8, column: 13]
+	at com.fasterxml.jackson.core.json.JsonReadContext._checkDup(JsonReadContext.java:243)
+	at com.fasterxml.jackson.core.json.JsonReadContext.setCurrentName(JsonReadContext.java:237)
+	at com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextFieldName(UTF8StreamJsonParser.java:1082)
+	at com.fasterxml.jackson.databind.deser.std.BaseNodeDeserializer._deserializeContainerNoRecursion(JsonNodeDeserializer.java:539)
+	at com.fasterxml.jackson.databind.deser.std.JsonNodeDeserializer.deserialize(JsonNodeDeserializer.java:104)
+	at com.fasterxml.jackson.databind.deser.std.JsonNodeDeserializer.deserialize(JsonNodeDeserializer.java:25)
+	at com.fasterxml.jackson.databind.deser.DefaultDeserializationContext.readRootValue(DefaultDeserializationContext.java:323)
+	at com.fasterxml.jackson.databind.ObjectReader._bindAsTree(ObjectReader.java:2149)
+	at com.fasterxml.jackson.databind.ObjectReader._bindAndCloseAsTree(ObjectReader.java:2117)
+	at com.fasterxml.jackson.databind.ObjectReader.readTree(ObjectReader.java:1794)
+	at com.mphasis.assessment.txservice.input.InMemoryTransactionSource.fetchBatch(InMemoryTransactionSource.java:55)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3115)
+	at com.mphasis.assessment.txservice.unit.input.InMemoryTransactionSourceTest.duplicateJsonKeyInARecordFailsTheWholeBatchRead(InMemoryTransactionSourceTest.java:79)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.463 s -- in com.mphasis.assessment.txservice.unit.input.InMemoryTransactionSourceTest
+[INFO] Running com.mphasis.assessment.txservice.unit.model.TransactionRequestTest
+03:24:27.958 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: RECEIVED -> PROCESSED
+03:24:27.963 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: PENDING_ORDER -> FAILED
+03:24:27.964 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: PENDING_ORDER -> PROCESSED
+03:24:27.978 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: RETRY_PENDING -> FAILED
+03:24:27.980 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: RETRY_PENDING -> PROCESSED
+03:24:28.004 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: PROCESSED -> RECEIVED
+03:24:28.005 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: PROCESSED -> FAILED
+03:24:28.005 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: DUPLICATE -> PROCESSING
+03:24:28.006 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-1: FAILED -> PROCESSED
+[INFO] Tests run: 14, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s -- in com.mphasis.assessment.txservice.unit.model.TransactionRequestTest
+[INFO] Running com.mphasis.assessment.txservice.unit.ordering.SequenceBufferTest
+03:24:28.032 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=R2 at sequence=2 (lastResolved=0)
+03:24:28.034 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=R3 at sequence=3 (lastResolved=0)
+03:24:28.048 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=R2 at sequence=2 (lastResolved=0)
+03:24:28.050 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=R1); cursor now at 1
+03:24:28.050 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=R2 now that sequence=2 is ready
+03:24:28.056 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=5 (requestId=R5); cursor now at 5
+03:24:28.057 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=R2); cursor now at 5
+03:24:28.061 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=R1); cursor now at 1
+03:24:28.066 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=R3); cursor now at 3
+[INFO] Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 s -- in com.mphasis.assessment.txservice.unit.ordering.SequenceBufferTest
+[INFO] Running com.mphasis.assessment.txservice.unit.retry.RetryPolicyTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.020 s -- in com.mphasis.assessment.txservice.unit.retry.RetryPolicyTest
+[INFO] Running com.mphasis.assessment.txservice.unit.schema.RequestSchemaValidatorTest
+[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.138 s -- in com.mphasis.assessment.txservice.unit.schema.RequestSchemaValidatorTest
+[INFO] Running com.mphasis.assessment.txservice.unit.schema.SchemaValidationResultTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in com.mphasis.assessment.txservice.unit.schema.SchemaValidationResultTest
+[INFO] Running com.mphasis.assessment.txservice.unit.service.ProcessingSummaryTest
+03:24:28.260 [main] INFO  c.m.a.t.service.ProcessingSummary -- SUMMARY: RECEIVED=0  PROCESSING=0  PENDING_ORDER=0  RETRY_PENDING=0  PROCESSED=1  DUPLICATE=0  FAILED=0
+03:24:28.263 [main] INFO  c.m.a.t.service.ProcessingSummary -- SUMMARY: RECEIVED=0  PROCESSING=0  PENDING_ORDER=0  RETRY_PENDING=0  PROCESSED=0  DUPLICATE=0  FAILED=0
+03:24:28.267 [main] INFO  c.m.a.t.service.ProcessingSummary -- SUMMARY: RECEIVED=0  PROCESSING=0  PENDING_ORDER=0  RETRY_PENDING=0  PROCESSED=2  DUPLICATE=1  FAILED=1
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.mphasis.assessment.txservice.unit.service.ProcessingSummaryTest
+[INFO] Running com.mphasis.assessment.txservice.unit.service.TransactionProcessorTest
+03:24:28.292 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.293 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.294 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.294 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 2)
+03:24:28.294 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.295 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 3)
+03:24:28.295 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.295 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 4)
+03:24:28.296 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.297 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.298 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.298 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.298 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+03:24:28.301 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.301 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-1 requestId=REQ-OTHER accountId=***C-1 seq=1 -> DUPLICATE (transactionId already processed under a different requestId)
+03:24:28.303 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> RECEIVED (received)
+03:24:28.304 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=REQ-2 at sequence=2 (lastResolved=0)
+03:24:28.304 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+03:24:28.311 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> RECEIVED (received)
+03:24:28.311 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=REQ-2 at sequence=2 (lastResolved=0)
+03:24:28.312 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+03:24:28.312 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.313 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.313 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.313 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.313 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.313 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.313 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+03:24:28.314 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=REQ-2 now that sequence=2 is ready
+03:24:28.314 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:28.314 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-2 type=CREDIT
+03:24:28.314 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=REQ-2); cursor now at 2
+03:24:28.314 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-2 marked processed (2 total)
+03:24:28.314 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2 marked processed (2 total)
+03:24:28.314 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PROCESSED (processed)
+03:24:28.317 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.318 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.319 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.319 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 2)
+03:24:28.320 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.320 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.320 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.320 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.321 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+03:24:28.324 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-3 requestId=REQ-3 accountId=***C-3 seq=3 -> RECEIVED (received)
+03:24:28.324 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=REQ-3 at sequence=3 (lastResolved=0)
+03:24:28.324 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=TXN-3 requestId=REQ-3 accountId=***C-3 seq=3 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+03:24:28.325 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> RECEIVED (received)
+03:24:28.326 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=REQ-2 at sequence=2 (lastResolved=0)
+03:24:28.326 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+03:24:28.326 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.326 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.327 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.327 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.327 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.328 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.328 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+03:24:28.328 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=REQ-2 now that sequence=2 is ready
+03:24:28.328 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:28.329 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-2 type=CREDIT
+03:24:28.329 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=REQ-2); cursor now at 2
+03:24:28.329 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-2 marked processed (2 total)
+03:24:28.329 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2 marked processed (2 total)
+03:24:28.330 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PROCESSED (processed)
+03:24:28.330 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=REQ-3 now that sequence=3 is ready
+03:24:28.330 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-3 requestId=REQ-3 accountId=***C-3 seq=3 -> PROCESSING (processing, attempt 1)
+03:24:28.331 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-3 type=CREDIT
+03:24:28.331 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=REQ-3); cursor now at 3
+03:24:28.331 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-3 marked processed (3 total)
+03:24:28.331 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-3 marked processed (3 total)
+03:24:28.332 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-3 requestId=REQ-3 accountId=***C-3 seq=3 -> PROCESSED (processed)
+03:24:28.334 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.335 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.335 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.335 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.335 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.335 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.336 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+03:24:28.339 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-5 requestId=REQ-5 accountId=*** seq=5 -> FAILED (rejected: accountId is required)
+03:24:28.347 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.348 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.348 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.348 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.349 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.349 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.349 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+03:24:28.350 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-99 requestId=REQ-99 accountId=***-99 seq=1 -> DUPLICATE (sequence already resolved for this batch - treating as a stale replay)
+03:24:28.356 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.357 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.360 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.361 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 2)
+03:24:28.361 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.362 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 3)
+03:24:28.362 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.363 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 4)
+03:24:28.364 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.374 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> FAILED (retries exhausted after 3 attempt(s): simulated transient failure)
+03:24:28.378 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-1 requestId=REQ-1 accountId=*** seq=1 -> FAILED (rejected: accountId is required)
+03:24:28.379 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.379 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> RECEIVED (received)
+03:24:28.380 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:28.380 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-2 type=CREDIT
+03:24:28.380 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=REQ-2); cursor now at 2
+03:24:28.381 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-2 marked processed (1 total)
+03:24:28.381 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2 marked processed (1 total)
+03:24:28.381 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2 requestId=REQ-2 accountId=***C-2 seq=2 -> PROCESSED (processed)
+03:24:28.386 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.387 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> DUPLICATE (requestId already processed)
+03:24:28.390 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-1 requestId=REQ-1 accountId=*** seq=1 -> FAILED (rejected: accountId is required)
+03:24:28.390 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.393 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.393 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.394 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.394 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 2)
+03:24:28.394 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:28.395 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 3)
+03:24:28.395 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.395 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.396 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.396 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.396 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+03:24:28.396 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> DUPLICATE (requestId already processed)
+03:24:28.401 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> RECEIVED (received)
+03:24:28.401 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:28.401 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.401 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:28.402 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.402 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.402 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-1 requestId=REQ-1 accountId=***C-1 seq=1 -> PROCESSED (processed)
+[INFO] Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.126 s -- in com.mphasis.assessment.txservice.unit.service.TransactionProcessorTest
+[INFO] Running com.mphasis.assessment.txservice.unit.service.ValidationResultTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in com.mphasis.assessment.txservice.unit.service.ValidationResultTest
+[INFO] Running com.mphasis.assessment.txservice.unit.service.ValidatorTest
+[INFO] Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.020 s -- in com.mphasis.assessment.txservice.unit.service.ValidatorTest
+[INFO] Running com.mphasis.assessment.txservice.unit.store.AccountLedgerTest
+03:24:28.438 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.439 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.439 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.445 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.448 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.448 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=REVERSAL
+03:24:28.450 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.458 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.459 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-2 type=CREDIT
+03:24:28.461 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=CREDIT
+03:24:28.461 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***C-1 type=DEBIT
+[INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 s -- in com.mphasis.assessment.txservice.unit.store.AccountLedgerTest
+[INFO] Running com.mphasis.assessment.txservice.unit.store.InMemoryIdempotencyStoreTest
+03:24:28.480 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:28.488 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=SAME-ID marked processed (1 total)
+03:24:28.495 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-1 marked processed (1 total)
+03:24:28.497 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.021 s -- in com.mphasis.assessment.txservice.unit.store.InMemoryIdempotencyStoreTest
+[INFO] Running com.mphasis.assessment.txservice.unit.util.AccountIdMaskingTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 s -- in com.mphasis.assessment.txservice.unit.util.AccountIdMaskingTest
+[INFO] Running com.mphasis.assessment.txservice.RunCucumberTest
+
+@US-01 @AC-01.1
+Scenario: Requests load through a single input source abstraction         # features/US-01_configurable_ingestion.feature:10
+  Given an in-memory list of transaction requests                         # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.an_in_memory_list_of_transaction_requests()
+03:24:31.422 [main] INFO  c.m.a.t.i.InMemoryTransactionSource -- loaded 6 transaction request(s) from sample-transactions.json (0 rejected at schema validation)
+  When the service starts                                                 # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_service_starts()
+  Then it loads all requests through a single TransactionSource interface # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_loads_all_requests_through_a_single_transaction_source_interface()
+
+@US-01 @AC-01.2
+Scenario: Swapping the input source does not affect business logic               # features/US-01_configurable_ingestion.feature:16
+  Given the input source implementation is swapped for a file reader             # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_input_source_implementation_is_swapped_for_a_file_reader()
+03:24:31.505 [main] INFO  c.m.a.t.i.InMemoryTransactionSource -- loaded 6 transaction request(s) from sample-transactions.json (0 rejected at schema validation)
+03:24:31.505 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> RECEIVED (received)
+03:24:31.506 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:31.506 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***201 type=CREDIT
+03:24:31.506 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:31.506 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:31.507 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2001 marked processed (1 total)
+03:24:31.507 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> PROCESSED (processed)
+  When the service runs                                                          # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_service_runs()
+
+    Embedding Step Snapshot [text/html 599 bytes]
+
+  Then no change is required in the validator, processor, or state-store classes # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.no_change_is_required_in_the_validator_processor_or_state_store_classes()
+
+    Embedding Step Snapshot [text/html 599 bytes]
+
+
+@US-02 @AC-02.1
+Scenario Outline: Missing mandatory field is rejected                                                                                                                                # features/US-02_input_validation.feature:18
+03:24:31.658 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/missing_mandatory_field.json]:
+{
+  "transactionId" : "a3f891c67d2e4b05",
+  "requestId" : "4821093",
+  "accountId" : "",
+  "transactionType" : "CREDIT",
+  "amount" : 10.25,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}
+  Given a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type, loaded from "testdata/US-02_input_validation/missing_mandatory_field.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_missing_a_mandatory_field(java.lang.String)
+
+    Embedding Step Snapshot [text/html 607 bytes]
+
+03:24:31.686 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=a3f891c67d2e4b05 requestId=4821093 accountId=*** seq=1 -> FAILED (rejected: accountId is required)
+03:24:31.686 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=4821093); cursor now at 1
+  When it is ingested                                                                                                                                                                # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_ingested()
+
+    Embedding Step Snapshot [text/html 625 bytes]
+
+03:24:31.693 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedStatus) [testdata/US-02_input_validation/missing_mandatory_field.json]:
+"FAILED"
+03:24:31.695 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedFailureReasonPresent) [testdata/US-02_input_validation/missing_mandatory_field.json]:
+true
+  Then it is marked FAILED with a validation reason                                                                                                                                  # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_marked_failed_with_a_validation_reason()
+
+    Embedding Step Snapshot [text/html 625 bytes]
+
+  And it is excluded from business processing                                                                                                                                        # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_excluded_from_business_processing()
+
+    Embedding Step Snapshot [text/html 625 bytes]
+
+
+@US-02 @AC-02.1
+Scenario Outline: Missing mandatory field is rejected                                                                                                                              # features/US-02_input_validation.feature:19
+03:24:31.736 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/missing_transactionId.json]:
+{
+  "transactionId" : "",
+  "requestId" : "7392810",
+  "accountId" : "7734021958",
+  "transactionType" : "CREDIT",
+  "amount" : 15.75,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}
+  Given a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type, loaded from "testdata/US-02_input_validation/missing_transactionId.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_missing_a_mandatory_field(java.lang.String)
+
+    Embedding Step Snapshot [text/html 594 bytes]
+
+03:24:31.741 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId= requestId=7392810 accountId=***958 seq=1 -> FAILED (rejected: transactionId is required)
+03:24:31.741 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=7392810); cursor now at 1
+  When it is ingested                                                                                                                                                              # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_ingested()
+
+    Embedding Step Snapshot [text/html 616 bytes]
+
+03:24:31.746 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedStatus) [testdata/US-02_input_validation/missing_transactionId.json]:
+"FAILED"
+03:24:31.747 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedFailureReasonPresent) [testdata/US-02_input_validation/missing_transactionId.json]:
+true
+  Then it is marked FAILED with a validation reason                                                                                                                                # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_marked_failed_with_a_validation_reason()
+
+    Embedding Step Snapshot [text/html 616 bytes]
+
+  And it is excluded from business processing                                                                                                                                      # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_excluded_from_business_processing()
+
+    Embedding Step Snapshot [text/html 616 bytes]
+
+
+@US-02 @AC-02.1
+Scenario Outline: Missing mandatory field is rejected                                                                                                                          # features/US-02_input_validation.feature:20
+03:24:31.783 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/missing_requestId.json]:
+{
+  "transactionId" : "7c2d9e4f1a8b3c60",
+  "requestId" : "",
+  "accountId" : "2951683407",
+  "transactionType" : "CREDIT",
+  "amount" : 22.4,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}
+  Given a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type, loaded from "testdata/US-02_input_validation/missing_requestId.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_missing_a_mandatory_field(java.lang.String)
+
+    Embedding Step Snapshot [text/html 602 bytes]
+
+03:24:31.788 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=7c2d9e4f1a8b3c60 requestId= accountId=***407 seq=1 -> FAILED (rejected: requestId is required)
+03:24:31.789 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=); cursor now at 1
+  When it is ingested                                                                                                                                                          # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_ingested()
+
+    Embedding Step Snapshot [text/html 620 bytes]
+
+03:24:31.794 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedStatus) [testdata/US-02_input_validation/missing_requestId.json]:
+"FAILED"
+03:24:31.796 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedFailureReasonPresent) [testdata/US-02_input_validation/missing_requestId.json]:
+true
+  Then it is marked FAILED with a validation reason                                                                                                                            # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_marked_failed_with_a_validation_reason()
+
+    Embedding Step Snapshot [text/html 620 bytes]
+
+  And it is excluded from business processing                                                                                                                                  # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_excluded_from_business_processing()
+
+    Embedding Step Snapshot [text/html 620 bytes]
+
+
+@US-02 @AC-02.1
+Scenario Outline: Missing mandatory field is rejected                                                                                                                         # features/US-02_input_validation.feature:21
+03:24:31.828 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/missing_currency.json]:
+{
+  "transactionId" : "e5b17a9c3d6f2081",
+  "requestId" : "1048573",
+  "accountId" : "8463072915",
+  "transactionType" : "CREDIT",
+  "amount" : 18.6,
+  "currency" : "",
+  "sequenceNumber" : 1
+}
+  Given a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type, loaded from "testdata/US-02_input_validation/missing_currency.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_missing_a_mandatory_field(java.lang.String)
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+03:24:31.831 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=e5b17a9c3d6f2081 requestId=1048573 accountId=***915 seq=1 -> FAILED (rejected: currency is required)
+03:24:31.832 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=1048573); cursor now at 1
+  When it is ingested                                                                                                                                                         # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_ingested()
+
+    Embedding Step Snapshot [text/html 626 bytes]
+
+03:24:31.836 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedStatus) [testdata/US-02_input_validation/missing_currency.json]:
+"FAILED"
+03:24:31.838 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedFailureReasonPresent) [testdata/US-02_input_validation/missing_currency.json]:
+true
+  Then it is marked FAILED with a validation reason                                                                                                                           # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_marked_failed_with_a_validation_reason()
+
+    Embedding Step Snapshot [text/html 626 bytes]
+
+  And it is excluded from business processing                                                                                                                                 # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_excluded_from_business_processing()
+
+    Embedding Step Snapshot [text/html 626 bytes]
+
+
+@US-02 @AC-02.1
+Scenario Outline: Missing mandatory field is rejected                                                                                                                                # features/US-02_input_validation.feature:22
+03:24:31.868 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/missing_transactionType.json]:
+{
+  "transactionId" : "4f0a8c2e9b7d3516",
+  "requestId" : "6274091",
+  "accountId" : "1587349206",
+  "amount" : 12.9,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}
+  Given a request missing a mandatory field such as transactionId, requestId, accountId, amount, or type, loaded from "testdata/US-02_input_validation/missing_transactionType.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_missing_a_mandatory_field(java.lang.String)
+
+    Embedding Step Snapshot [text/html 607 bytes]
+
+03:24:31.871 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=4f0a8c2e9b7d3516 requestId=6274091 accountId=***206 seq=1 -> FAILED (rejected: transactionType is required)
+03:24:31.872 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=6274091); cursor now at 1
+  When it is ingested                                                                                                                                                                # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_ingested()
+
+    Embedding Step Snapshot [text/html 631 bytes]
+
+03:24:31.877 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedStatus) [testdata/US-02_input_validation/missing_transactionType.json]:
+"FAILED"
+03:24:31.878 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedFailureReasonPresent) [testdata/US-02_input_validation/missing_transactionType.json]:
+true
+  Then it is marked FAILED with a validation reason                                                                                                                                  # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_marked_failed_with_a_validation_reason()
+
+    Embedding Step Snapshot [text/html 631 bytes]
+
+  And it is excluded from business processing                                                                                                                                        # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_excluded_from_business_processing()
+
+    Embedding Step Snapshot [text/html 631 bytes]
+
+
+@US-02 @AC-02.2
+Scenario Outline: Invalid amount is rejected with a clear reason                                                                           # features/US-02_input_validation.feature:33
+03:24:31.927 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/negative_amount.json]:
+{
+  "transactionId" : "9d3c7b1e5a2f4608",
+  "requestId" : "3918264",
+  "accountId" : "6042918375",
+  "transactionType" : "DEBIT",
+  "amount" : -10.5,
+  "currency" : "USD",
+  "sequenceNumber" : 4
+}
+  Given a request with a negative amount that violates the field rules, loaded from "testdata/US-02_input_validation/negative_amount.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_with_a_negative_amount(java.lang.String)
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  When it is validated                                                                                                                     # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_validated()
+
+    Embedding Step Snapshot [text/html 834 bytes]
+
+03:24:31.937 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedValidation) [testdata/US-02_input_validation/negative_amount.json]:
+{
+  "valid" : false,
+  "reasonPresent" : true
+}
+  Then it is rejected as FAILED with a clear reason                                                                                        # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_rejected_as_failed_with_a_clear_reason()
+
+    Embedding Step Snapshot [text/html 834 bytes]
+
+03:24:31.941 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=9d3c7b1e5a2f4608 requestId=3918264 accountId=***375 seq=4 -> FAILED (rejected: amount must be a positive number)
+03:24:31.941 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> RECEIVED (received)
+03:24:31.941 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> PROCESSING (processing, attempt 1)
+03:24:31.941 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***-OK type=CREDIT
+03:24:31.941 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-OK); cursor now at 1
+03:24:31.942 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-OK marked processed (1 total)
+03:24:31.942 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-OK marked processed (1 total)
+03:24:31.942 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> PROCESSED (processed)
+  And the rest of the batch still processes                                                                                                # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_rest_of_the_batch_still_processes()
+
+    Embedding Step Snapshot [text/html 1159 bytes]
+
+
+@US-02 @AC-02.2
+Scenario Outline: Invalid amount is rejected with a clear reason                                                                       # features/US-02_input_validation.feature:34
+03:24:31.974 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/zero_amount.json]:
+{
+  "transactionId" : "b816f3a92c5d0e74",
+  "requestId" : "8452017",
+  "accountId" : "9261748035",
+  "transactionType" : "CREDIT",
+  "amount" : 0.0,
+  "currency" : "USD",
+  "sequenceNumber" : 6
+}
+  Given a request with a negative amount that violates the field rules, loaded from "testdata/US-02_input_validation/zero_amount.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_with_a_negative_amount(java.lang.String)
+
+    Embedding Step Snapshot [text/html 608 bytes]
+
+  When it is validated                                                                                                                 # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_validated()
+
+    Embedding Step Snapshot [text/html 833 bytes]
+
+03:24:31.983 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedValidation) [testdata/US-02_input_validation/zero_amount.json]:
+{
+  "valid" : false,
+  "reasonPresent" : true
+}
+  Then it is rejected as FAILED with a clear reason                                                                                    # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_rejected_as_failed_with_a_clear_reason()
+
+    Embedding Step Snapshot [text/html 833 bytes]
+
+03:24:31.986 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=b816f3a92c5d0e74 requestId=8452017 accountId=***035 seq=6 -> FAILED (rejected: amount must be a positive number)
+03:24:31.987 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> RECEIVED (received)
+03:24:31.987 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> PROCESSING (processing, attempt 1)
+03:24:31.987 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***-OK type=CREDIT
+03:24:31.988 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-OK); cursor now at 1
+03:24:31.988 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-OK marked processed (1 total)
+03:24:31.988 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-OK marked processed (1 total)
+03:24:31.988 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> PROCESSED (processed)
+  And the rest of the batch still processes                                                                                            # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_rest_of_the_batch_still_processes()
+
+    Embedding Step Snapshot [text/html 1159 bytes]
+
+
+@US-02 @AC-02.3
+Scenario: One invalid record does not stop the batch                                                                            # features/US-02_input_validation.feature:37
+03:24:32.020 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODIES [testdata/US-02_input_validation/one_invalid_in_batch.json]:
+[ {
+  "transactionId" : "68c1f2e9a4b7d305",
+  "requestId" : "9183726",
+  "accountId" : "5602981347",
+  "transactionType" : "CREDIT",
+  "amount" : 10.75,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}, {
+  "transactionId" : "15a9d4c2f8e3b760",
+  "requestId" : "5039481",
+  "accountId" : "3149807562",
+  "transactionType" : "CREDIT",
+  "amount" : 20.3,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "c3f6a1e8b5d29704",
+  "requestId" : "7261840",
+  "accountId" : "8027461935",
+  "transactionType" : "DEBIT",
+  "amount" : -5.6,
+  "currency" : "USD",
+  "sequenceNumber" : 3
+} ]
+  Given one invalid record inside a batch of N records, loaded from "testdata/US-02_input_validation/one_invalid_in_batch.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.one_invalid_record_inside_a_batch_of_n_records(java.lang.String)
+
+    Embedding Step Snapshot [text/html 608 bytes]
+
+03:24:32.036 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=68c1f2e9a4b7d305 requestId=9183726 accountId=***347 seq=1 -> RECEIVED (received)
+03:24:32.036 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=68c1f2e9a4b7d305 requestId=9183726 accountId=***347 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.037 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***347 type=CREDIT
+03:24:32.037 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=9183726); cursor now at 1
+03:24:32.037 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=9183726 marked processed (1 total)
+03:24:32.037 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=68c1f2e9a4b7d305 marked processed (1 total)
+03:24:32.037 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=68c1f2e9a4b7d305 requestId=9183726 accountId=***347 seq=1 -> PROCESSED (processed)
+03:24:32.038 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=15a9d4c2f8e3b760 requestId=5039481 accountId=***562 seq=2 -> RECEIVED (received)
+03:24:32.038 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=15a9d4c2f8e3b760 requestId=5039481 accountId=***562 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:32.038 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***562 type=CREDIT
+03:24:32.039 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=5039481); cursor now at 2
+03:24:32.039 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=5039481 marked processed (2 total)
+03:24:32.039 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=15a9d4c2f8e3b760 marked processed (2 total)
+03:24:32.040 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=15a9d4c2f8e3b760 requestId=5039481 accountId=***562 seq=2 -> PROCESSED (processed)
+03:24:32.040 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=c3f6a1e8b5d29704 requestId=7261840 accountId=***935 seq=3 -> FAILED (rejected: amount must be a positive number)
+03:24:32.040 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=7261840); cursor now at 3
+  When the batch runs                                                                                                           # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_batch_runs()
+
+    Embedding Step Snapshot [text/html 1063 bytes]
+
+03:24:32.046 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedCounts) [testdata/US-02_input_validation/one_invalid_in_batch.json]:
+{
+  "PROCESSED" : 2,
+  "FAILED" : 1
+}
+  Then the remaining N-1 valid records are still processed normally                                                             # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_remaining_valid_records_are_still_processed_normally()
+
+    Embedding Step Snapshot [text/html 1063 bytes]
+
+
+@US-02 @AC-02.4
+Scenario: Non-positive sequence number is rejected                                                                                                              # features/US-02_input_validation.feature:43
+03:24:32.073 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-02_input_validation/invalid_sequence_number.json]:
+{
+  "transactionId" : "2e7c4a8f1d9b3650",
+  "requestId" : "2607384",
+  "accountId" : "4718605293",
+  "transactionType" : "CREDIT",
+  "amount" : 14.2,
+  "currency" : "USD",
+  "sequenceNumber" : 0
+}
+  Given a request with a non-positive sequence number that violates the field rules, loaded from "testdata/US-02_input_validation/invalid_sequence_number.json" # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.a_request_with_a_non_positive_sequence_number(java.lang.String)
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  When it is validated                                                                                                                                          # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_validated()
+
+    Embedding Step Snapshot [text/html 833 bytes]
+
+03:24:32.081 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- EXPECTED (expectedValidation) [testdata/US-02_input_validation/invalid_sequence_number.json]:
+{
+  "valid" : false,
+  "reasonPresent" : true
+}
+  Then it is rejected as FAILED with a clear reason                                                                                                             # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.it_is_rejected_as_failed_with_a_clear_reason()
+
+    Embedding Step Snapshot [text/html 833 bytes]
+
+03:24:32.083 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=2e7c4a8f1d9b3650 requestId=2607384 accountId=***293 seq=0 -> FAILED (rejected: sequenceNumber must be positive)
+03:24:32.084 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> RECEIVED (received)
+03:24:32.084 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.084 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***-OK type=CREDIT
+03:24:32.084 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-OK); cursor now at 1
+03:24:32.084 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-OK marked processed (1 total)
+03:24:32.085 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-OK marked processed (1 total)
+03:24:32.085 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-OK requestId=REQ-OK accountId=***-OK seq=1 -> PROCESSED (processed)
+  And the rest of the batch still processes                                                                                                                     # com.mphasis.assessment.txservice.steps.IngestionAndValidationSteps.the_rest_of_the_batch_still_processes()
+
+    Embedding Step Snapshot [text/html 1158 bytes]
+
+
+@US-03 @AC-03.1
+Scenario: New request starts as RECEIVED                          # features/US-03_transaction_state_lifecycle.feature:10
+  Given a new request                                             # com.mphasis.assessment.txservice.steps.LifecycleSteps.a_new_request()
+
+    Embedding Step Snapshot [text/html 600 bytes]
+
+  When it is constructed, before entering the processing pipeline # com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_constructed_before_entering_the_processing_pipeline()
+
+    Embedding Step Snapshot [text/html 600 bytes]
+
+  Then its initial status is RECEIVED                             # com.mphasis.assessment.txservice.steps.LifecycleSteps.its_initial_status_is_received()
+
+    Embedding Step Snapshot [text/html 600 bytes]
+
+
+@US-03 @AC-03.2
+Scenario: Processing transitions status to PROCESSING # features/US-03_transaction_state_lifecycle.feature:16
+  Given a RECEIVED request picked up for work         # com.mphasis.assessment.txservice.steps.LifecycleSteps.a_received_request_picked_up_for_work()
+
+    Embedding Step Snapshot [text/html 600 bytes]
+
+  When processing starts                              # com.mphasis.assessment.txservice.steps.LifecycleSteps.processing_starts()
+
+    Embedding Step Snapshot [text/html 602 bytes]
+
+  Then status transitions to PROCESSING               # com.mphasis.assessment.txservice.steps.LifecycleSteps.status_transitions_to_processing()
+
+    Embedding Step Snapshot [text/html 602 bytes]
+
+
+@US-03 @AC-03.3
+Scenario: Status is always one of the defined lifecycle values                                                  # features/US-03_transaction_state_lifecycle.feature:22
+03:24:32.163 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-LC-3 requestId=REQ-LC-3 accountId=***LC3 seq=1 -> RECEIVED (received)
+03:24:32.163 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-LC-3 requestId=REQ-LC-3 accountId=***LC3 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.163 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***LC3 type=CREDIT
+03:24:32.163 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-LC-3); cursor now at 1
+03:24:32.164 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-LC-3 marked processed (1 total)
+03:24:32.164 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-LC-3 marked processed (1 total)
+03:24:32.164 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-LC-3 requestId=REQ-LC-3 accountId=***LC3 seq=1 -> PROCESSED (processed)
+  Given any transaction at any point in time                                                                    # com.mphasis.assessment.txservice.steps.LifecycleSteps.any_transaction_at_any_point_in_time()
+
+    Embedding Step Snapshot [text/html 601 bytes]
+
+  When its status is inspected                                                                                  # com.mphasis.assessment.txservice.steps.LifecycleSteps.its_status_is_inspected()
+
+    Embedding Step Snapshot [text/html 601 bytes]
+
+  Then it is exactly one of RECEIVED, PROCESSING, PENDING_ORDER, RETRY_PENDING, PROCESSED, DUPLICATE, or FAILED # com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_exactly_one_of_the_defined_statuses()
+
+    Embedding Step Snapshot [text/html 601 bytes]
+
+
+@US-03 @AC-03.4
+Scenario: Illegal transitions are rejected                                  # features/US-03_transaction_state_lifecycle.feature:28
+  Given an illegal transition is attempted, such as DUPLICATE to PROCESSING # com.mphasis.assessment.txservice.steps.LifecycleSteps.an_illegal_transition_is_attempted()
+
+    Embedding Step Snapshot [text/html 601 bytes]
+
+03:24:32.189 [main] WARN  c.m.a.t.model.TransactionRequest -- Rejected illegal status transition for requestId=REQ-LC-4: DUPLICATE -> PROCESSING
+  When it is attempted                                                      # com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_attempted()
+
+    Embedding Step Snapshot [text/html 601 bytes]
+
+  Then it is rejected and logged as an invalid transition                   # com.mphasis.assessment.txservice.steps.LifecycleSteps.it_is_rejected_and_logged_as_an_invalid_transition()
+
+    Embedding Step Snapshot [text/html 601 bytes]
+
+
+@US-04 @AC-04.1
+Scenario: Already-processed requestId is marked DUPLICATE # features/US-04_idempotent_processing.feature:10
+03:24:32.225 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-DUP-1 requestId=REQ-DUP-1 accountId=***DUP seq=1 -> RECEIVED (received)
+03:24:32.226 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-DUP-1 requestId=REQ-DUP-1 accountId=***DUP seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.226 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***DUP type=CREDIT
+03:24:32.226 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-DUP-1); cursor now at 1
+03:24:32.227 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-DUP-1 marked processed (1 total)
+03:24:32.227 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-DUP-1 marked processed (1 total)
+03:24:32.227 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-DUP-1 requestId=REQ-DUP-1 accountId=***DUP seq=1 -> PROCESSED (processed)
+  Given a requestId already marked PROCESSED              # com.mphasis.assessment.txservice.steps.IdempotencySteps.a_requestId_already_marked_processed()
+
+    Embedding Step Snapshot [text/html 603 bytes]
+
+03:24:32.230 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-DUP-1 requestId=REQ-DUP-1 accountId=***DUP seq=1 -> DUPLICATE (requestId already processed)
+  When the same requestId is submitted again              # com.mphasis.assessment.txservice.steps.IdempotencySteps.the_same_requestId_is_submitted_again()
+
+    Embedding Step Snapshot [text/html 944 bytes]
+
+  Then it is marked DUPLICATE                             # com.mphasis.assessment.txservice.steps.IdempotencySteps.it_is_marked_duplicate()
+
+    Embedding Step Snapshot [text/html 944 bytes]
+
+  And no balance or ledger side effect occurs             # com.mphasis.assessment.txservice.steps.IdempotencySteps.no_balance_or_ledger_side_effect_occurs()
+
+    Embedding Step Snapshot [text/html 944 bytes]
+
+
+@US-04 @AC-04.2
+Scenario: A duplicate arriving later in the batch is still detected                                                                                                          # features/US-04_idempotent_processing.feature:17
+03:24:32.258 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODIES [testdata/US-04_idempotent_processing/req2_dup_section_9_8.json]:
+[ {
+  "transactionId" : "7b2e9f4c1a8d6053",
+  "requestId" : "4193857",
+  "accountId" : "6714829350",
+  "transactionType" : "CREDIT",
+  "amount" : 100.75,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}, {
+  "transactionId" : "94d1b7f3e6a2c850",
+  "requestId" : "6820394",
+  "accountId" : "6714829350",
+  "transactionType" : "DEBIT",
+  "amount" : 40.25,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "94d1b7f3e6a2c850",
+  "requestId" : "9304857",
+  "accountId" : "6714829350",
+  "transactionType" : "DEBIT",
+  "amount" : 40.25,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "c84f27e9b1a6d350",
+  "requestId" : "3157924",
+  "accountId" : "5917264083",
+  "transactionType" : "CREDIT",
+  "amount" : 75.6,
+  "currency" : "USD",
+  "sequenceNumber" : 3
+}, {
+  "transactionId" : "c84f27e9b1a6d350",
+  "requestId" : "8642079",
+  "accountId" : "5917264083",
+  "transactionType" : "CREDIT",
+  "amount" : 75.6,
+  "currency" : "USD",
+  "sequenceNumber" : 3
+} ]
+  Given two requests referencing the same business transaction, as in section 9.8 rows 1 and 3, loaded from "testdata/US-04_idempotent_processing/req2_dup_section_9_8.json" # com.mphasis.assessment.txservice.steps.IdempotencySteps.two_requests_referencing_the_same_business_transaction(java.lang.String)
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+03:24:32.262 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> RECEIVED (received)
+03:24:32.262 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=6820394 at sequence=2 (lastResolved=0)
+03:24:32.262 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+03:24:32.262 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=7b2e9f4c1a8d6053 requestId=4193857 accountId=***350 seq=1 -> RECEIVED (received)
+03:24:32.262 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=7b2e9f4c1a8d6053 requestId=4193857 accountId=***350 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.263 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***350 type=CREDIT
+03:24:32.263 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=4193857); cursor now at 1
+03:24:32.263 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=4193857 marked processed (1 total)
+03:24:32.263 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=7b2e9f4c1a8d6053 marked processed (1 total)
+03:24:32.263 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=7b2e9f4c1a8d6053 requestId=4193857 accountId=***350 seq=1 -> PROCESSED (processed)
+03:24:32.263 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=6820394 now that sequence=2 is ready
+03:24:32.264 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:32.264 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***350 type=DEBIT
+03:24:32.264 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=6820394); cursor now at 2
+03:24:32.264 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=6820394 marked processed (2 total)
+03:24:32.264 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=94d1b7f3e6a2c850 marked processed (2 total)
+03:24:32.265 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> PROCESSED (processed)
+03:24:32.265 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=c84f27e9b1a6d350 requestId=3157924 accountId=***083 seq=3 -> RECEIVED (received)
+03:24:32.265 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=c84f27e9b1a6d350 requestId=3157924 accountId=***083 seq=3 -> PROCESSING (processing, attempt 1)
+03:24:32.265 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***083 type=CREDIT
+03:24:32.265 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=3157924); cursor now at 3
+03:24:32.265 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=3157924 marked processed (3 total)
+03:24:32.265 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=c84f27e9b1a6d350 marked processed (3 total)
+03:24:32.265 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=c84f27e9b1a6d350 requestId=3157924 accountId=***083 seq=3 -> PROCESSED (processed)
+  When the first request is processed first                                                                                                                                  # com.mphasis.assessment.txservice.steps.IdempotencySteps.the_first_request_is_processed_first()
+
+    Embedding Step Snapshot [text/html 1039 bytes]
+
+03:24:32.267 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=94d1b7f3e6a2c850 requestId=9304857 accountId=***350 seq=2 -> DUPLICATE (transactionId already processed under a different requestId)
+03:24:32.267 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=c84f27e9b1a6d350 requestId=8642079 accountId=***083 seq=3 -> DUPLICATE (transactionId already processed under a different requestId)
+  Then the duplicate request is detected as DUPLICATE even though it arrives later in the batch                                                                              # com.mphasis.assessment.txservice.steps.IdempotencySteps.the_duplicate_is_detected_as_duplicate()
+
+    Embedding Step Snapshot [text/html 1195 bytes]
+
+
+@US-04 @AC-04.3
+Scenario: Repeated submissions yield exactly one effect                   # features/US-04_idempotent_processing.feature:23
+  Given the idempotency store keyed by requestId                          # com.mphasis.assessment.txservice.steps.IdempotencySteps.the_idempotency_store_keyed_by_requestId()
+03:24:32.288 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-REPEAT requestId=REQ-REPEAT accountId=***EAT seq=1 -> RECEIVED (received)
+03:24:32.289 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-REPEAT requestId=REQ-REPEAT accountId=***EAT seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.289 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***EAT type=CREDIT
+03:24:32.289 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-REPEAT); cursor now at 1
+03:24:32.289 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-REPEAT marked processed (1 total)
+03:24:32.289 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-REPEAT marked processed (1 total)
+03:24:32.290 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-REPEAT requestId=REQ-REPEAT accountId=***EAT seq=1 -> PROCESSED (processed)
+03:24:32.290 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-REPEAT requestId=REQ-REPEAT accountId=***EAT seq=1 -> DUPLICATE (requestId already processed)
+03:24:32.290 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-REPEAT requestId=REQ-REPEAT accountId=***EAT seq=1 -> DUPLICATE (requestId already processed)
+  When the same request is submitted multiple times                       # com.mphasis.assessment.txservice.steps.IdempotencySteps.the_same_request_is_submitted_multiple_times()
+
+    Embedding Step Snapshot [text/html 1025 bytes]
+
+  Then the final ledger effect is identical to processing it exactly once # com.mphasis.assessment.txservice.steps.IdempotencySteps.the_final_ledger_effect_is_identical_to_processing_it_once()
+
+    Embedding Step Snapshot [text/html 1025 bytes]
+
+
+@US-04 @AC-04.4
+Scenario: A stale sequence number is treated as a duplicate even with brand-new identifiers                                                     # features/US-04_idempotent_processing.feature:29
+03:24:32.318 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODIES [testdata/US-04_idempotent_processing/stale_sequence_replay.json]:
+[ {
+  "transactionId" : "3a7f1c9e4b8d0265",
+  "requestId" : "1750283",
+  "accountId" : "2890376145",
+  "transactionType" : "CREDIT",
+  "amount" : 100.5,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}, {
+  "transactionId" : "f1c8a3e7b9d04526",
+  "requestId" : "3461928",
+  "accountId" : "2890376145",
+  "transactionType" : "CREDIT",
+  "amount" : 50.3,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "6d4b9f2a1e8c3075",
+  "requestId" : "5820671",
+  "accountId" : "2890376145",
+  "transactionType" : "CREDIT",
+  "amount" : 25.15,
+  "currency" : "USD",
+  "sequenceNumber" : 3
+}, {
+  "transactionId" : "a9e3c7f1b4d82056",
+  "requestId" : "9047235",
+  "accountId" : "2890376145",
+  "transactionType" : "CREDIT",
+  "amount" : 999.99,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+} ]
+03:24:32.319 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=3a7f1c9e4b8d0265 requestId=1750283 accountId=***145 seq=1 -> RECEIVED (received)
+03:24:32.320 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=3a7f1c9e4b8d0265 requestId=1750283 accountId=***145 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.320 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***145 type=CREDIT
+03:24:32.320 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=1750283); cursor now at 1
+03:24:32.320 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=1750283 marked processed (1 total)
+03:24:32.320 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=3a7f1c9e4b8d0265 marked processed (1 total)
+03:24:32.320 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=3a7f1c9e4b8d0265 requestId=1750283 accountId=***145 seq=1 -> PROCESSED (processed)
+03:24:32.321 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=f1c8a3e7b9d04526 requestId=3461928 accountId=***145 seq=2 -> RECEIVED (received)
+03:24:32.321 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=f1c8a3e7b9d04526 requestId=3461928 accountId=***145 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:32.321 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***145 type=CREDIT
+03:24:32.321 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=3461928); cursor now at 2
+03:24:32.321 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=3461928 marked processed (2 total)
+03:24:32.322 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=f1c8a3e7b9d04526 marked processed (2 total)
+03:24:32.322 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=f1c8a3e7b9d04526 requestId=3461928 accountId=***145 seq=2 -> PROCESSED (processed)
+03:24:32.322 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=6d4b9f2a1e8c3075 requestId=5820671 accountId=***145 seq=3 -> RECEIVED (received)
+03:24:32.323 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=6d4b9f2a1e8c3075 requestId=5820671 accountId=***145 seq=3 -> PROCESSING (processing, attempt 1)
+03:24:32.323 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***145 type=CREDIT
+03:24:32.323 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=5820671); cursor now at 3
+03:24:32.323 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=5820671 marked processed (3 total)
+03:24:32.323 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=6d4b9f2a1e8c3075 marked processed (3 total)
+03:24:32.324 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=6d4b9f2a1e8c3075 requestId=5820671 accountId=***145 seq=3 -> PROCESSED (processed)
+  Given a batch where sequence 1 through 3 have already resolved, loaded from "testdata/US-04_idempotent_processing/stale_sequence_replay.json" # com.mphasis.assessment.txservice.steps.IdempotencySteps.a_batch_where_sequence_1_through_3_have_already_resolved(java.lang.String)
+
+    Embedding Step Snapshot [text/html 1040 bytes]
+
+03:24:32.329 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=a9e3c7f1b4d82056 requestId=9047235 accountId=***145 seq=2 -> DUPLICATE (sequence already resolved for this batch - treating as a stale replay)
+  When a brand-new request reuses an already-resolved sequence number                                                                           # com.mphasis.assessment.txservice.steps.IdempotencySteps.a_brand_new_request_reuses_an_already_resolved_sequence_number()
+
+    Embedding Step Snapshot [text/html 1119 bytes]
+
+  Then it is marked DUPLICATE                                                                                                                   # com.mphasis.assessment.txservice.steps.IdempotencySteps.it_is_marked_duplicate()
+
+    Embedding Step Snapshot [text/html 1119 bytes]
+
+  And no balance or ledger side effect occurs                                                                                                   # com.mphasis.assessment.txservice.steps.IdempotencySteps.no_balance_or_ledger_side_effect_occurs()
+
+    Embedding Step Snapshot [text/html 1119 bytes]
+
+
+@US-05 @AC-05.1 @AC-05.2
+Scenario: A future sequence is buffered, then released once its predecessor arrives                                                                                                                                           # features/US-05_out_of_order_handling.feature:10
+03:24:32.375 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODIES [testdata/US-05_out_of_order_handling/txn2002_before_txn2001_section_9_8.json]:
+[ {
+  "transactionId" : "94d1b7f3e6a2c850",
+  "requestId" : "6820394",
+  "accountId" : "6714829350",
+  "transactionType" : "DEBIT",
+  "amount" : 40.25,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "7b2e9f4c1a8d6053",
+  "requestId" : "4193857",
+  "accountId" : "6714829350",
+  "transactionType" : "CREDIT",
+  "amount" : 100.75,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+} ]
+  Given a request with sequence 2 arrives before the request with sequence 1 for the same account, as in section 9.8 rows 1 and 2, loaded from "testdata/US-05_out_of_order_handling/txn2002_before_txn2001_section_9_8.json" # com.mphasis.assessment.txservice.steps.OrderingSteps.seq2_arrives_before_seq1(java.lang.String)
+
+    Embedding Step Snapshot [text/html 611 bytes]
+
+03:24:32.378 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> RECEIVED (received)
+03:24:32.379 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=6820394 at sequence=2 (lastResolved=0)
+03:24:32.379 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+  When sequence 2 is received                                                                                                                                                                                                 # com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_2_is_received()
+
+    Embedding Step Snapshot [text/html 614 bytes]
+
+  Then it is held as PENDING_ORDER                                                                                                                                                                                            # com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_held_as_pending_order()
+
+    Embedding Step Snapshot [text/html 614 bytes]
+
+  And it is not processed                                                                                                                                                                                                     # com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_not_processed()
+
+    Embedding Step Snapshot [text/html 614 bytes]
+
+03:24:32.386 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=7b2e9f4c1a8d6053 requestId=4193857 accountId=***350 seq=1 -> RECEIVED (received)
+03:24:32.386 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=7b2e9f4c1a8d6053 requestId=4193857 accountId=***350 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.386 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***350 type=CREDIT
+03:24:32.386 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=4193857); cursor now at 1
+03:24:32.386 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=4193857 marked processed (1 total)
+03:24:32.387 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=7b2e9f4c1a8d6053 marked processed (1 total)
+03:24:32.387 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=7b2e9f4c1a8d6053 requestId=4193857 accountId=***350 seq=1 -> PROCESSED (processed)
+03:24:32.387 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=6820394 now that sequence=2 is ready
+03:24:32.387 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:32.387 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***350 type=DEBIT
+03:24:32.387 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=6820394); cursor now at 2
+03:24:32.388 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=6820394 marked processed (2 total)
+03:24:32.388 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=94d1b7f3e6a2c850 marked processed (2 total)
+03:24:32.388 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=94d1b7f3e6a2c850 requestId=6820394 accountId=***350 seq=2 -> PROCESSED (processed)
+  When sequence 1 later arrives and is processed                                                                                                                                                                              # com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_1_later_arrives_and_is_processed()
+
+    Embedding Step Snapshot [text/html 963 bytes]
+
+  Then the buffered sequence 2 request is automatically released                                                                                                                                                              # com.mphasis.assessment.txservice.steps.OrderingSteps.the_buffered_sequence_2_request_is_automatically_released()
+
+    Embedding Step Snapshot [text/html 963 bytes]
+
+  And it is processed next, in order                                                                                                                                                                                          # com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_processed_next_in_order()
+
+    Embedding Step Snapshot [text/html 963 bytes]
+
+
+@US-05 @AC-05.3
+Scenario: A missing sequence is reported, not dropped             # features/US-05_out_of_order_handling.feature:20
+03:24:32.415 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-ORPHAN requestId=REQ-ORPHAN accountId=***HAN seq=9 -> RECEIVED (received)
+03:24:32.415 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=REQ-ORPHAN at sequence=9 (lastResolved=0)
+03:24:32.415 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=TXN-ORPHAN requestId=REQ-ORPHAN accountId=***HAN seq=9 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+  Given a sequence number that never arrives within the batch     # com.mphasis.assessment.txservice.steps.OrderingSteps.a_sequence_number_that_never_arrives_within_the_batch()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  When end-of-batch is reached                                    # com.mphasis.assessment.txservice.steps.OrderingSteps.end_of_batch_is_reached()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  Then the missing sequence is reported in the processing summary # com.mphasis.assessment.txservice.steps.OrderingSteps.the_missing_sequence_is_reported_in_the_processing_summary()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  And it is not silently dropped                                  # com.mphasis.assessment.txservice.steps.OrderingSteps.it_is_not_silently_dropped()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+
+@US-05 @AC-05.1 @AC-05.2
+Scenario: Multiple buffered sequences cascade-release once their predecessor arrives                                            # features/US-05_out_of_order_handling.feature:27
+03:24:32.447 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODIES [testdata/US-05_out_of_order_handling/cascade_release.json]:
+[ {
+  "transactionId" : "581d3f9a7c2e4b06",
+  "requestId" : "2093847",
+  "accountId" : "7403918256",
+  "transactionType" : "CREDIT",
+  "amount" : 10.1,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}, {
+  "transactionId" : "d04a8e1c6f3b9752",
+  "requestId" : "4758291",
+  "accountId" : "7403918256",
+  "transactionType" : "CREDIT",
+  "amount" : 20.2,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "2f9b4d7a1c8e0563",
+  "requestId" : "6381047",
+  "accountId" : "7403918256",
+  "transactionType" : "CREDIT",
+  "amount" : 30.3,
+  "currency" : "USD",
+  "sequenceNumber" : 3
+} ]
+  Given sequence 2 and sequence 3 for the same account, loaded from "testdata/US-05_out_of_order_handling/cascade_release.json" # com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_2_and_sequence_3_for_the_same_account(java.lang.String)
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+03:24:32.451 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=2f9b4d7a1c8e0563 requestId=6381047 accountId=***256 seq=3 -> RECEIVED (received)
+03:24:32.452 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=6381047 at sequence=3 (lastResolved=0)
+03:24:32.452 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=2f9b4d7a1c8e0563 requestId=6381047 accountId=***256 seq=3 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+  When sequence 3 is received                                                                                                   # com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_3_is_received()
+
+    Embedding Step Snapshot [text/html 614 bytes]
+
+03:24:32.455 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=d04a8e1c6f3b9752 requestId=4758291 accountId=***256 seq=2 -> RECEIVED (received)
+03:24:32.455 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=4758291 at sequence=2 (lastResolved=0)
+03:24:32.455 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=d04a8e1c6f3b9752 requestId=4758291 accountId=***256 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+  And sequence 2 is received                                                                                                    # com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_2_is_received()
+
+    Embedding Step Snapshot [text/html 973 bytes]
+
+  Then both are held as PENDING_ORDER                                                                                           # com.mphasis.assessment.txservice.steps.OrderingSteps.both_are_held_as_pending_order()
+
+    Embedding Step Snapshot [text/html 973 bytes]
+
+03:24:32.460 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=581d3f9a7c2e4b06 requestId=2093847 accountId=***256 seq=1 -> RECEIVED (received)
+03:24:32.460 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=581d3f9a7c2e4b06 requestId=2093847 accountId=***256 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.460 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***256 type=CREDIT
+03:24:32.460 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=2093847); cursor now at 1
+03:24:32.461 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=2093847 marked processed (1 total)
+03:24:32.461 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=581d3f9a7c2e4b06 marked processed (1 total)
+03:24:32.461 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=581d3f9a7c2e4b06 requestId=2093847 accountId=***256 seq=1 -> PROCESSED (processed)
+03:24:32.461 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=4758291 now that sequence=2 is ready
+03:24:32.461 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=d04a8e1c6f3b9752 requestId=4758291 accountId=***256 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:32.461 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***256 type=CREDIT
+03:24:32.462 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=4758291); cursor now at 2
+03:24:32.462 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=4758291 marked processed (2 total)
+03:24:32.462 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=d04a8e1c6f3b9752 marked processed (2 total)
+03:24:32.462 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=d04a8e1c6f3b9752 requestId=4758291 accountId=***256 seq=2 -> PROCESSED (processed)
+03:24:32.462 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=6381047 now that sequence=3 is ready
+03:24:32.462 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=2f9b4d7a1c8e0563 requestId=6381047 accountId=***256 seq=3 -> PROCESSING (processing, attempt 1)
+03:24:32.463 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***256 type=CREDIT
+03:24:32.463 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=6381047); cursor now at 3
+03:24:32.463 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=6381047 marked processed (3 total)
+03:24:32.463 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=2f9b4d7a1c8e0563 marked processed (3 total)
+03:24:32.463 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=2f9b4d7a1c8e0563 requestId=6381047 accountId=***256 seq=3 -> PROCESSED (processed)
+  When sequence 1 later arrives and is processed                                                                                # com.mphasis.assessment.txservice.steps.OrderingSteps.sequence_1_later_arrives_and_is_processed()
+
+    Embedding Step Snapshot [text/html 1039 bytes]
+
+  Then both buffered sequences are released and processed in order                                                              # com.mphasis.assessment.txservice.steps.OrderingSteps.both_buffered_sequences_are_released_and_processed_in_order()
+
+    Embedding Step Snapshot [text/html 1039 bytes]
+
+
+@US-06 @AC-06.1
+Scenario: Transient failure moves a transaction to RETRY_PENDING                                                                                          # features/US-06_retry_resilience.feature:10
+03:24:32.510 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODY [testdata/US-06_retry_resilience/txn2005_section_9_8_row6.json]:
+{
+  "transactionId" : "b7e1a4f9c2d6805a",
+  "requestId" : "8906213",
+  "accountId" : "1926385074",
+  "transactionType" : "CREDIT",
+  "amount" : 500.45,
+  "currency" : "USD",
+  "sequenceNumber" : 1,
+  "simulatedFailures" : 1
+}
+  Given a transaction simulated to fail transiently, as in section 9.8 row 6, loaded from "testdata/US-06_retry_resilience/txn2005_section_9_8_row6.json" # com.mphasis.assessment.txservice.steps.RetrySteps.a_transaction_simulated_to_fail_transiently(java.lang.String)
+
+    Embedding Step Snapshot [text/html 611 bytes]
+
+03:24:32.514 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=b7e1a4f9c2d6805a requestId=8906213 accountId=***074 seq=1 -> RECEIVED (received)
+03:24:32.515 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=b7e1a4f9c2d6805a requestId=8906213 accountId=***074 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.515 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=b7e1a4f9c2d6805a requestId=8906213 accountId=***074 seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.515 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=b7e1a4f9c2d6805a requestId=8906213 accountId=***074 seq=1 -> PROCESSING (processing, attempt 2)
+03:24:32.516 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***074 type=CREDIT
+03:24:32.516 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=8906213); cursor now at 1
+03:24:32.516 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=8906213 marked processed (1 total)
+03:24:32.517 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=b7e1a4f9c2d6805a marked processed (1 total)
+03:24:32.517 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=b7e1a4f9c2d6805a requestId=8906213 accountId=***074 seq=1 -> PROCESSED (processed)
+  When processing fails                                                                                                                                   # com.mphasis.assessment.txservice.steps.RetrySteps.processing_fails()
+
+    Embedding Step Snapshot [text/html 612 bytes]
+
+  Then status becomes RETRY_PENDING                                                                                                                       # com.mphasis.assessment.txservice.steps.RetrySteps.status_becomes_retry_pending()
+
+    Embedding Step Snapshot [text/html 612 bytes]
+
+  And retryCount is incremented                                                                                                                           # com.mphasis.assessment.txservice.steps.RetrySteps.retryCount_is_incremented()
+
+    Embedding Step Snapshot [text/html 612 bytes]
+
+
+@US-06 @AC-06.2
+Scenario: Exhausted retries result in FAILED with no partial effect                  # features/US-06_retry_resilience.feature:17
+  Given a transaction retried up to the configured max retry count and still failing # com.mphasis.assessment.txservice.steps.RetrySteps.a_transaction_retried_up_to_max_and_still_failing()
+
+    Embedding Step Snapshot [text/html 602 bytes]
+
+03:24:32.552 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> RECEIVED (received)
+03:24:32.554 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.554 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.556 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> PROCESSING (processing, attempt 2)
+03:24:32.557 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.557 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> PROCESSING (processing, attempt 3)
+03:24:32.557 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.557 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> PROCESSING (processing, attempt 4)
+03:24:32.557 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-NEVER); cursor now at 1
+03:24:32.557 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-NEVER requestId=REQ-NEVER accountId=***VER seq=1 -> FAILED (retries exhausted after 3 attempt(s): simulated transient failure)
+  When the last retry fails                                                          # com.mphasis.assessment.txservice.steps.RetrySteps.the_last_retry_fails()
+
+    Embedding Step Snapshot [text/html 664 bytes]
+
+  Then status becomes FAILED with a recorded reason                                  # com.mphasis.assessment.txservice.steps.RetrySteps.status_becomes_failed_with_a_recorded_reason()
+
+    Embedding Step Snapshot [text/html 664 bytes]
+
+  And no partial effect remains                                                      # com.mphasis.assessment.txservice.steps.RetrySteps.no_partial_effect_remains()
+
+    Embedding Step Snapshot [text/html 664 bytes]
+
+
+@US-06 @AC-06.3
+Scenario: Eventual success after retry is recorded exactly once                          # features/US-06_retry_resilience.feature:24
+  Given a transaction that succeeds on a later retry attempt                             # com.mphasis.assessment.txservice.steps.RetrySteps.a_transaction_that_succeeds_on_a_later_retry_attempt()
+
+    Embedding Step Snapshot [text/html 608 bytes]
+
+03:24:32.600 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> RECEIVED (received)
+03:24:32.601 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.602 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.602 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> PROCESSING (processing, attempt 2)
+03:24:32.602 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.603 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> PROCESSING (processing, attempt 3)
+03:24:32.606 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***UAL type=CREDIT
+03:24:32.609 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-EVENTUAL); cursor now at 1
+03:24:32.610 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-EVENTUAL marked processed (1 total)
+03:24:32.612 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-EVENTUAL marked processed (1 total)
+03:24:32.612 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> PROCESSED (processed)
+  When it succeeds                                                                       # com.mphasis.assessment.txservice.steps.RetrySteps.it_succeeds()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  Then it is marked PROCESSED exactly once                                               # com.mphasis.assessment.txservice.steps.RetrySteps.it_is_marked_processed_exactly_once()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+03:24:32.623 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-EVENTUAL requestId=REQ-EVENTUAL accountId=***UAL seq=1 -> DUPLICATE (requestId already processed)
+  And the idempotency store prevents any earlier partial attempt from also taking effect # com.mphasis.assessment.txservice.steps.RetrySteps.the_idempotency_store_prevents_any_earlier_partial_attempt()
+
+    Embedding Step Snapshot [text/html 962 bytes]
+
+
+@US-06 @AC-06.3
+Scenario: Eventual success exactly on the last allowed retry attempt        # features/US-06_retry_resilience.feature:31
+  Given a transaction that succeeds only on the final allowed retry attempt # com.mphasis.assessment.txservice.steps.RetrySteps.a_transaction_that_succeeds_only_on_the_final_allowed_retry_attempt()
+
+    Embedding Step Snapshot [text/html 608 bytes]
+
+03:24:32.665 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> RECEIVED (received)
+03:24:32.665 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.665 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.666 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> PROCESSING (processing, attempt 2)
+03:24:32.666 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.666 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> PROCESSING (processing, attempt 3)
+03:24:32.667 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.667 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> PROCESSING (processing, attempt 4)
+03:24:32.667 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***ARY type=CREDIT
+03:24:32.667 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-BOUNDARY); cursor now at 1
+03:24:32.668 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-BOUNDARY marked processed (1 total)
+03:24:32.668 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-BOUNDARY marked processed (1 total)
+03:24:32.668 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-BOUNDARY requestId=REQ-BOUNDARY accountId=***ARY seq=1 -> PROCESSED (processed)
+  When it succeeds                                                          # com.mphasis.assessment.txservice.steps.RetrySteps.it_succeeds()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  Then it is marked PROCESSED exactly once                                  # com.mphasis.assessment.txservice.steps.RetrySteps.it_is_marked_processed_exactly_once()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+  And retryCount stopped at the configured maximum                          # com.mphasis.assessment.txservice.steps.RetrySteps.retryCount_stopped_at_the_configured_maximum()
+
+    Embedding Step Snapshot [text/html 609 bytes]
+
+
+@US-07 @AC-07.1
+Scenario: A failure mid-step never leaves a mixed state                             # features/US-07_data_consistency.feature:10
+  Given a transaction being processed                                               # com.mphasis.assessment.txservice.steps.ConsistencySteps.a_transaction_being_processed()
+
+    Embedding Step Snapshot [text/html 606 bytes]
+
+03:24:32.827 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> RECEIVED (received)
+03:24:32.828 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.828 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.828 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> PROCESSING (processing, attempt 2)
+03:24:32.828 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.828 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> PROCESSING (processing, attempt 3)
+03:24:32.828 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:32.829 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> PROCESSING (processing, attempt 4)
+03:24:32.829 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-CONSIST); cursor now at 1
+03:24:32.829 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-CONSIST requestId=REQ-CONSIST accountId=***IST seq=1 -> FAILED (retries exhausted after 3 attempt(s): simulated transient failure)
+  When a failure occurs mid-step                                                    # com.mphasis.assessment.txservice.steps.ConsistencySteps.a_failure_occurs_mid_step()
+
+    Embedding Step Snapshot [text/html 668 bytes]
+
+  Then the visible state is either fully PROCESSED or fully FAILED or RETRY_PENDING # com.mphasis.assessment.txservice.steps.ConsistencySteps.the_visible_state_is_a_defined_terminal_status()
+
+    Embedding Step Snapshot [text/html 668 bytes]
+
+  And it is never a mix of updated-but-unmarked state                               # com.mphasis.assessment.txservice.steps.ConsistencySteps.it_is_never_a_mix_of_updated_but_unmarked_state()
+
+    Embedding Step Snapshot [text/html 668 bytes]
+
+
+@US-07 @AC-07.2
+Scenario: Concurrent requests for the same account are serialized # features/US-07_data_consistency.feature:17
+  Given concurrent requests for the same accountId                # com.mphasis.assessment.txservice.steps.ConsistencySteps.concurrent_requests_for_the_same_accountId()
+03:24:32.936 [Thread-2] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***ENT type=CREDIT
+03:24:32.939 [Thread-3] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***ENT type=CREDIT
+  When both are processed                                         # com.mphasis.assessment.txservice.steps.ConsistencySteps.both_are_processed()
+  Then updates are serialized per account to avoid lost updates   # com.mphasis.assessment.txservice.steps.ConsistencySteps.updates_are_serialized_per_account_to_avoid_lost_updates()
+
+@US-08 @AC-08.1
+Scenario: Summary reports counts by status                                                                      # features/US-08_observability_summary.feature:10
+03:24:32.969 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-OBS-1 requestId=REQ-OBS-1 accountId=***S-1 seq=1 -> RECEIVED (received)
+03:24:32.969 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-OBS-1 requestId=REQ-OBS-1 accountId=***S-1 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:32.970 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***S-1 type=CREDIT
+03:24:32.972 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-OBS-1); cursor now at 1
+03:24:32.972 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-OBS-1 marked processed (1 total)
+03:24:32.973 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-OBS-1 marked processed (1 total)
+03:24:32.973 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-OBS-1 requestId=REQ-OBS-1 accountId=***S-1 seq=1 -> PROCESSED (processed)
+03:24:32.973 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-OBS-2 requestId=REQ-OBS-2 accountId=***S-2 seq=1 -> FAILED (rejected: amount must be a positive number)
+03:24:32.973 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-OBS-1 requestId=REQ-OBS-1 accountId=***S-1 seq=1 -> DUPLICATE (requestId already processed)
+  Given a batch run has completed                                                                               # com.mphasis.assessment.txservice.steps.ObservabilitySteps.a_batch_run_has_completed()
+
+    Embedding Step Snapshot [text/html 1014 bytes]
+
+03:24:32.982 [main] INFO  c.m.a.t.service.ProcessingSummary -- SUMMARY: RECEIVED=0  PROCESSING=0  PENDING_ORDER=0  RETRY_PENDING=0  PROCESSED=1  DUPLICATE=1  FAILED=1
+  When the summary is generated                                                                                 # com.mphasis.assessment.txservice.steps.ObservabilitySteps.the_summary_is_generated()
+
+    Embedding Step Snapshot [text/html 1426 bytes]
+
+  Then it reports counts by status for RECEIVED, PROCESSED, DUPLICATE, FAILED, RETRY_PENDING, and PENDING_ORDER # com.mphasis.assessment.txservice.steps.ObservabilitySteps.it_reports_counts_by_status()
+
+    Embedding Step Snapshot [text/html 1426 bytes]
+
+
+@US-08 @AC-08.2
+Scenario: Every event is logged without sensitive fields                                     # features/US-08_observability_summary.feature:16
+  Given any transaction event such as received, duplicate, retried, or failed                # com.mphasis.assessment.txservice.steps.ObservabilitySteps.any_transaction_event()
+03:24:33.018 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-LOG requestId=REQ-LOG accountId=***ULL seq=1 -> RECEIVED (received)
+03:24:33.018 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-LOG requestId=REQ-LOG accountId=***ULL seq=1 -> PROCESSING (processing, attempt 1)
+03:24:33.019 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***ULL type=CREDIT
+03:24:33.019 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-LOG); cursor now at 1
+03:24:33.019 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-LOG marked processed (1 total)
+03:24:33.019 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-LOG marked processed (1 total)
+03:24:33.019 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-LOG requestId=REQ-LOG accountId=***ULL seq=1 -> PROCESSED (processed)
+  When it occurs                                                                             # com.mphasis.assessment.txservice.steps.ObservabilitySteps.it_occurs()
+
+    Embedding Step Snapshot [text/html 599 bytes]
+
+  Then a structured log line is emitted with transactionId, requestId, status, and timestamp # com.mphasis.assessment.txservice.steps.ObservabilitySteps.a_structured_log_line_is_emitted()
+
+    Embedding Step Snapshot [text/html 599 bytes]
+
+  And it contains no sensitive fields                                                        # com.mphasis.assessment.txservice.steps.ObservabilitySteps.it_contains_no_sensitive_fields()
+
+    Embedding Step Snapshot [text/html 599 bytes]
+
+
+@US-09 @AC-09.1
+Scenario: Logs never contain full account numbers or PII                                          # features/US-09_security_data_handling.feature:10
+  Given any log statement for a transaction                                                       # com.mphasis.assessment.txservice.steps.SecuritySteps.any_log_statement_for_a_transaction()
+03:24:33.050 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-PII requestId=REQ-PII accountId=***RET seq=1 -> RECEIVED (received)
+03:24:33.050 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-PII requestId=REQ-PII accountId=***RET seq=1 -> PROCESSING (processing, attempt 1)
+03:24:33.051 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***RET type=CREDIT
+03:24:33.051 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-PII); cursor now at 1
+03:24:33.051 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-PII marked processed (1 total)
+03:24:33.051 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-PII marked processed (1 total)
+03:24:33.051 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-PII requestId=REQ-PII accountId=***RET seq=1 -> PROCESSED (processed)
+  When it is emitted                                                                              # com.mphasis.assessment.txservice.steps.SecuritySteps.it_is_emitted()
+
+    Embedding Step Snapshot [text/html 599 bytes]
+
+  Then it never includes full account numbers or PII beyond a masked or short accountId reference # com.mphasis.assessment.txservice.steps.SecuritySteps.it_never_includes_full_account_numbers_or_pii()
+
+    Embedding Step Snapshot [text/html 599 bytes]
+
+
+@US-09 @AC-09.2
+Scenario: No hardcoded secrets in configuration          # features/US-09_security_data_handling.feature:16
+  Given the service configuration                        # com.mphasis.assessment.txservice.steps.SecuritySteps.the_service_configuration()
+  When it is reviewed                                    # com.mphasis.assessment.txservice.steps.SecuritySteps.it_is_reviewed()
+  Then no secrets or credentials are hardcoded in source # com.mphasis.assessment.txservice.steps.SecuritySteps.no_secrets_or_credentials_are_hardcoded_in_source()
+  And all are externalized                               # com.mphasis.assessment.txservice.steps.SecuritySteps.all_are_externalized()
+
+@US-10 @AC-10.1
+Scenario: Processor has no dependency on input source details # features/US-10_maintainable_design.feature:10
+  Given the TransactionProcessor business logic               # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.the_transaction_processor_business_logic()
+  When it is inspected                                        # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_is_inspected()
+  Then it has no direct dependency on how input is sourced    # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_has_no_direct_dependency_on_how_input_is_sourced()
+  And it depends only on a TransactionSource interface        # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_depends_only_on_a_transaction_source_interface()
+
+@US-10 @AC-10.2
+Scenario: Idempotency store is swappable behind an interface                                        # features/US-10_maintainable_design.feature:17
+  Given the idempotency store                                                                       # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.the_idempotency_store()
+  When it is inspected                                                                              # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_is_inspected()
+  Then it sits behind an IdempotencyStore interface                                                 # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.it_sits_behind_an_idempotency_store_interface()
+  And an in-memory map can later be swapped for Redis or a database without touching business logic # com.mphasis.assessment.txservice.steps.MaintainabilitySteps.an_in_memory_map_can_later_be_swapped()
+
+@US-11 @AC-11.1
+Scenario: The full section 9.8 sample batch processes to the documented outcomes     # features/end_to_end_batch.feature:10
+03:24:33.200 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODIES [sample-transactions.json]:
+[ {
+  "transactionId" : "TXN-2002",
+  "requestId" : "REQ-2",
+  "accountId" : "ACC-201",
+  "transactionType" : "DEBIT",
+  "amount" : 40,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "TXN-2001",
+  "requestId" : "REQ-1",
+  "accountId" : "ACC-201",
+  "transactionType" : "CREDIT",
+  "amount" : 100,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}, {
+  "transactionId" : "TXN-2002",
+  "requestId" : "REQ-2-DUP",
+  "accountId" : "ACC-201",
+  "transactionType" : "DEBIT",
+  "amount" : 40,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "TXN-2003",
+  "requestId" : "REQ-3",
+  "accountId" : "ACC-201",
+  "transactionType" : "CREDIT",
+  "amount" : 25,
+  "currency" : "USD",
+  "sequenceNumber" : 3
+}, {
+  "transactionId" : "TXN-2004",
+  "requestId" : "REQ-4",
+  "accountId" : "ACC-202",
+  "transactionType" : "DEBIT",
+  "amount" : -10,
+  "currency" : "USD",
+  "sequenceNumber" : 4
+}, {
+  "transactionId" : "TXN-2005",
+  "requestId" : "REQ-5",
+  "accountId" : "ACC-203",
+  "transactionType" : "CREDIT",
+  "amount" : 500,
+  "currency" : "USD",
+  "sequenceNumber" : 5,
+  "simulatedFailures" : 1
+} ]
+  Given the full section 9.8 sample batch is submitted in its documented input order # com.mphasis.assessment.txservice.steps.EndToEndSteps.the_full_section_9_8_sample_batch_is_submitted()
+
+    Embedding Step Snapshot [text/html 1199 bytes]
+
+03:24:33.203 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> RECEIVED (received)
+03:24:33.203 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=REQ-2 at sequence=2 (lastResolved=0)
+03:24:33.203 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+03:24:33.203 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> RECEIVED (received)
+03:24:33.203 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:33.203 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***201 type=CREDIT
+03:24:33.203 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:33.203 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:33.203 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2001 marked processed (1 total)
+03:24:33.203 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> PROCESSED (processed)
+03:24:33.203 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=REQ-2 now that sequence=2 is ready
+03:24:33.203 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:33.203 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***201 type=DEBIT
+03:24:33.203 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=REQ-2); cursor now at 2
+03:24:33.203 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-2 marked processed (2 total)
+03:24:33.204 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2002 marked processed (2 total)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> PROCESSED (processed)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-2002 requestId=REQ-2-DUP accountId=***201 seq=2 -> DUPLICATE (transactionId already processed under a different requestId)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2003 requestId=REQ-3 accountId=***201 seq=3 -> RECEIVED (received)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2003 requestId=REQ-3 accountId=***201 seq=3 -> PROCESSING (processing, attempt 1)
+03:24:33.204 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***201 type=CREDIT
+03:24:33.204 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=REQ-3); cursor now at 3
+03:24:33.204 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-3 marked processed (3 total)
+03:24:33.204 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2003 marked processed (3 total)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2003 requestId=REQ-3 accountId=***201 seq=3 -> PROCESSED (processed)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-2004 requestId=REQ-4 accountId=***202 seq=4 -> FAILED (rejected: amount must be a positive number)
+03:24:33.204 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=4 (requestId=REQ-4); cursor now at 4
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> RECEIVED (received)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> PROCESSING (processing, attempt 1)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:33.204 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> PROCESSING (processing, attempt 2)
+03:24:33.205 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***203 type=CREDIT
+03:24:33.205 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=5 (requestId=REQ-5); cursor now at 5
+03:24:33.205 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-5 marked processed (4 total)
+03:24:33.205 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2005 marked processed (4 total)
+03:24:33.205 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> PROCESSED (processed)
+  When the batch finishes processing, including any retries                          # com.mphasis.assessment.txservice.steps.EndToEndSteps.the_batch_finishes_processing_including_any_retries()
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+  Then requestId "REQ-1" has final status "PROCESSED"                                # com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+  And requestId "REQ-2" has final status "PROCESSED"                                 # com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+  And requestId "REQ-2-DUP" has final status "DUPLICATE"                             # com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+  And requestId "REQ-3" has final status "PROCESSED"                                 # com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+  And requestId "REQ-4" has final status "FAILED"                                    # com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+  And requestId "REQ-5" has final status "PROCESSED"                                 # com.mphasis.assessment.txservice.steps.EndToEndSteps.requestId_has_final_status(java.lang.String,java.lang.String)
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+
+@US-11 @AC-11.1
+Scenario: The processing summary reconciles with the batch outcome                   # features/end_to_end_batch.feature:23
+03:24:33.233 [main] INFO  c.m.a.txservice.steps.TestDataLoader -- REQUEST BODIES [sample-transactions.json]:
+[ {
+  "transactionId" : "TXN-2002",
+  "requestId" : "REQ-2",
+  "accountId" : "ACC-201",
+  "transactionType" : "DEBIT",
+  "amount" : 40,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "TXN-2001",
+  "requestId" : "REQ-1",
+  "accountId" : "ACC-201",
+  "transactionType" : "CREDIT",
+  "amount" : 100,
+  "currency" : "USD",
+  "sequenceNumber" : 1
+}, {
+  "transactionId" : "TXN-2002",
+  "requestId" : "REQ-2-DUP",
+  "accountId" : "ACC-201",
+  "transactionType" : "DEBIT",
+  "amount" : 40,
+  "currency" : "USD",
+  "sequenceNumber" : 2
+}, {
+  "transactionId" : "TXN-2003",
+  "requestId" : "REQ-3",
+  "accountId" : "ACC-201",
+  "transactionType" : "CREDIT",
+  "amount" : 25,
+  "currency" : "USD",
+  "sequenceNumber" : 3
+}, {
+  "transactionId" : "TXN-2004",
+  "requestId" : "REQ-4",
+  "accountId" : "ACC-202",
+  "transactionType" : "DEBIT",
+  "amount" : -10,
+  "currency" : "USD",
+  "sequenceNumber" : 4
+}, {
+  "transactionId" : "TXN-2005",
+  "requestId" : "REQ-5",
+  "accountId" : "ACC-203",
+  "transactionType" : "CREDIT",
+  "amount" : 500,
+  "currency" : "USD",
+  "sequenceNumber" : 5,
+  "simulatedFailures" : 1
+} ]
+  Given the full section 9.8 sample batch is submitted in its documented input order # com.mphasis.assessment.txservice.steps.EndToEndSteps.the_full_section_9_8_sample_batch_is_submitted()
+
+    Embedding Step Snapshot [text/html 1199 bytes]
+
+03:24:33.237 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> RECEIVED (received)
+03:24:33.237 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- buffered requestId=REQ-2 at sequence=2 (lastResolved=0)
+03:24:33.237 [main] INFO  c.m.a.t.service.TransactionProcessor -- PENDING_ORDER transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> PENDING_ORDER (waiting for an earlier sequence in the batch)
+03:24:33.237 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> RECEIVED (received)
+03:24:33.237 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> PROCESSING (processing, attempt 1)
+03:24:33.237 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***201 type=CREDIT
+03:24:33.237 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=1 (requestId=REQ-1); cursor now at 1
+03:24:33.237 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-1 marked processed (1 total)
+03:24:33.237 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2001 marked processed (1 total)
+03:24:33.237 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2001 requestId=REQ-1 accountId=***201 seq=1 -> PROCESSED (processed)
+03:24:33.237 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- released buffered requestId=REQ-2 now that sequence=2 is ready
+03:24:33.238 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> PROCESSING (processing, attempt 1)
+03:24:33.238 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***201 type=DEBIT
+03:24:33.238 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=2 (requestId=REQ-2); cursor now at 2
+03:24:33.238 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-2 marked processed (2 total)
+03:24:33.238 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2002 marked processed (2 total)
+03:24:33.238 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2002 requestId=REQ-2 accountId=***201 seq=2 -> PROCESSED (processed)
+03:24:33.238 [main] INFO  c.m.a.t.service.TransactionProcessor -- DUPLICATE transactionId=TXN-2002 requestId=REQ-2-DUP accountId=***201 seq=2 -> DUPLICATE (transactionId already processed under a different requestId)
+03:24:33.238 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2003 requestId=REQ-3 accountId=***201 seq=3 -> RECEIVED (received)
+03:24:33.238 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2003 requestId=REQ-3 accountId=***201 seq=3 -> PROCESSING (processing, attempt 1)
+03:24:33.238 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***201 type=CREDIT
+03:24:33.238 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=3 (requestId=REQ-3); cursor now at 3
+03:24:33.238 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-3 marked processed (3 total)
+03:24:33.238 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2003 marked processed (3 total)
+03:24:33.238 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2003 requestId=REQ-3 accountId=***201 seq=3 -> PROCESSED (processed)
+03:24:33.239 [main] INFO  c.m.a.t.service.TransactionProcessor -- FAILED transactionId=TXN-2004 requestId=REQ-4 accountId=***202 seq=4 -> FAILED (rejected: amount must be a positive number)
+03:24:33.239 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=4 (requestId=REQ-4); cursor now at 4
+03:24:33.239 [main] INFO  c.m.a.t.service.TransactionProcessor -- RECEIVED transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> RECEIVED (received)
+03:24:33.239 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> PROCESSING (processing, attempt 1)
+03:24:33.239 [main] INFO  c.m.a.t.service.TransactionProcessor -- RETRY_PENDING transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> RETRY_PENDING (transient failure, will retry: simulated transient failure)
+03:24:33.239 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSING transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> PROCESSING (processing, attempt 2)
+03:24:33.240 [main] DEBUG c.m.a.txservice.store.AccountLedger -- ledger update accountId=***203 type=CREDIT
+03:24:33.240 [main] DEBUG c.m.a.t.ordering.SequenceBuffer -- resolved sequence=5 (requestId=REQ-5); cursor now at 5
+03:24:33.240 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: requestId=REQ-5 marked processed (4 total)
+03:24:33.240 [main] DEBUG c.m.a.t.s.InMemoryIdempotencyStore -- idempotency store: transactionId=TXN-2005 marked processed (4 total)
+03:24:33.240 [main] INFO  c.m.a.t.service.TransactionProcessor -- PROCESSED transactionId=TXN-2005 requestId=REQ-5 accountId=***203 seq=5 -> PROCESSED (processed)
+  When the batch finishes processing, including any retries                          # com.mphasis.assessment.txservice.steps.EndToEndSteps.the_batch_finishes_processing_including_any_retries()
+
+    Embedding Step Snapshot [text/html 1203 bytes]
+
+03:24:33.241 [main] INFO  c.m.a.t.service.ProcessingSummary -- SUMMARY: RECEIVED=0  PROCESSING=0  PENDING_ORDER=0  RETRY_PENDING=0  PROCESSED=4  DUPLICATE=1  FAILED=1
+  And the processing summary is generated                                            # com.mphasis.assessment.txservice.steps.EndToEndSteps.the_processing_summary_is_generated()
+
+    Embedding Step Snapshot [text/html 1615 bytes]
+
+  Then the summary counts exactly 4 PROCESSED, 1 DUPLICATE, and 1 FAILED             # com.mphasis.assessment.txservice.steps.EndToEndSteps.the_summary_counts_exactly(int,int,int)
+
+    Embedding Step Snapshot [text/html 1615 bytes]
+
+  And no count is missing or double-counted                                          # com.mphasis.assessment.txservice.steps.EndToEndSteps.no_count_is_missing_or_double_counted()
+
+    Embedding Step Snapshot [text/html 1615 bytes]
+
+
+36 Scenarios (36 passed)
+142 Steps (142 passed)
+0m3.357s
+
+
+[INFO] Tests run: 36, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.406 s -- in com.mphasis.assessment.txservice.RunCucumberTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 139, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ transaction-service ---
+[INFO] Loading execution data file C:\Bhavani\Applications\DEMO_PROJECT\mpucd\transaction-service\target\jacoco.exec
+[INFO] Analyzed bundle 'transaction-service' with 21 classes
+[INFO] 
+[INFO] --- jar:3.3.0:jar (default-jar) @ transaction-service ---
+[INFO] Building jar: C:\Bhavani\Applications\DEMO_PROJECT\mpucd\transaction-service\target\transaction-service-1.0.0.jar
+[INFO] 
+[INFO] --- spring-boot:3.2.5:repackage (repackage) @ transaction-service ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Replacing main artifact C:\Bhavani\Applications\DEMO_PROJECT\mpucd\transaction-service\target\transaction-service-1.0.0.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Bhavani\Applications\DEMO_PROJECT\mpucd\transaction-service\target\transaction-service-1.0.0.jar.original
+[INFO] 
+[INFO] --- install:3.1.1:install (default-install) @ transaction-service ---
+[INFO] Installing C:\Bhavani\Applications\DEMO_PROJECT\mpucd\transaction-service\pom.xml to C:\Users\BY\.m2\repository\com\mphasis\assessment\transaction-service\1.0.0\transaction-service-1.0.0.pom
+[INFO] Installing C:\Bhavani\Applications\DEMO_PROJECT\mpucd\transaction-service\target\transaction-service-1.0.0.jar to C:\Users\BY\.m2\repository\com\mphasis\assessment\transaction-service\1.0.0\transaction-service-1.0.0.jar
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ transaction-service ---
+[INFO] argLine set to -javaagent:C:\\Users\\BY\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Bhavani\\Applications\\DEMO_PROJECT\\mpucd\\transaction-service\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ transaction-service ---
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] Copying 2 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ transaction-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ transaction-service ---
+[INFO] Copying 31 resources from src\test\resources to target\test-classes
+[INFO] 
+[INFO] --- compiler:3.11.0:testCompile (default-testCompile) @ transaction-service ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- surefire:3.1.2:test (default-test) @ transaction-service ---
+[INFO] Skipping execution of surefire because it has already been run for this configuration
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ transaction-service ---
+[INFO] Loading execution data file C:\Bhavani\Applications\DEMO_PROJECT\mpucd\transaction-service\target\jacoco.exec
+[INFO] Analyzed bundle 'transaction-service' with 21 classes
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  25.169 s
+[INFO] Finished at: 2026-11-12T03:24:39+05:30
+[INFO] ------------------------------------------------------------------------

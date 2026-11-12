@@ -1,0 +1,9 @@
+{
+  "transactionId": "TXN-U099",
+  "requestId": "REQ-U099",
+  "accountId": "ACC-U99",
+  "transactionType": "CREDIT",
+  "amount": 5,
+  "currency": "USD",
+  "sequenceNumber": 1
+}
